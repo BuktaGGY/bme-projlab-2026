@@ -1,0 +1,30 @@
+public class Soszoro extends KotroFej {
+
+    // Konstruktor a Szkeleton névvel
+    public Soszoro(String name) {
+        super(150);
+        Skeleton.ctor(this, name); // Regisztráció
+    }
+
+
+	/**
+     * Sót szór az aktuális sávra a hókotró saját sókészletéből, ami megolvasztja 
+     * a jeget és megakadályozza a további fagyást. A működéshez sóra van szükség.
+     * * @param sav           Az a sáv, amelyre a sót szórja.
+     * @param szomszedosSav Az ősosztály miatt átvett paraméter, de ez a fej nem használja.
+     * @param kotro         A műveletet végző hókotró referenciája, ahonnan a sót fogyasztja.
+     */
+    @Override
+    public void takarit(Sav sav, Sav szomszedosSav, Hokotro kotro) {
+        Skeleton.call(this, "takarit"); // Hívás jelzése
+
+        // Ellenőrizzük, hogy van-e só a tartályban
+        if (kotro.getSo() > 0) {
+            sav.sotSzor();
+            // Fogyasztjuk a sót
+            kotro.setSo(kotro.getSo() - 1);
+        }
+
+        Skeleton.ret(); // Visszatérés jelzése
+    }
+}
