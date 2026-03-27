@@ -24,6 +24,15 @@ public class Main {
             public void run() { testSarkanyFej(); }
         });
 
+        tests.add(new TestCase(){
+            public String getName() {
+                return "Kornyezeti Havazas";
+            }
+            public void run(){
+                testKornyezetiHavazas();
+            }
+        });
+
         // Ide johet majd a tobbi (m. TEST) ...
 
         // --- MENU CIKLUS ---
@@ -108,6 +117,23 @@ public class Main {
             Skeleton.ret("void");
         }
         
+        Skeleton.ret("void");
+    }
+
+    // Ezt csak en random probalgattam, nem hiszem hogy jo 
+    private static void testKornyezetiHavazas(){
+        Object ik = new Object();
+        Skeleton.ctor(ik, "ik");
+        Sav s = new Sav("s");
+        int answer = Skeleton.askQuestion("Van so a savon?", "Igen", "Nem");
+        if (answer == 2){
+            s.getAllapot();
+            Skeleton.ret("HAVAS");
+            s.hoNovel(10);
+        } else {
+            s.getAllapot();
+            Skeleton.ret("SOZOTT");
+        }
         Skeleton.ret("void");
     }
 }

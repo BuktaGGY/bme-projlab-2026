@@ -21,7 +21,7 @@ public class SoproFej extends KotroFej {
 
         int eltuntetettHo = sav.hoEltuntet();
         if (szomszedosSav != null && eltuntetettHo > 0) {
-            szomszedosSav.addHo(eltuntetettHo);
+            szomszedosSav.hoNovel(eltuntetettHo);
         }
         
         // 3. Lépés: Jelezzük a visszatérést!

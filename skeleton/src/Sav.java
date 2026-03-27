@@ -1,32 +1,188 @@
+/** 
+ * A sáv egy példányosítható osztály, amelynek elsődleges felelőssége egy sáv állapotának
+ * nyilvántartása, illetve az állapotokat módosító események kezelése.
+ * Felelős továbbá a sajáat járhatóságának megállapításáért, valamint ismeri a mellette lévő sávokat is.
+*/
 public class Sav {
-    
-    public Sav(String name) {
+
+    /**
+     * A sávon található hó mennyiségét tárolja egész számként.
+     */
+    private int hoVastagsag;
+
+    /**
+     * Logikai érték, amely jelzi, hogy a sáv le van-e sózva.
+     */
+    private boolean isSozott;
+
+    /**
+     * Egész szám, amely tárolja, hogy még hány másodpercig marad sózott állapotban a sáv.
+     */
+    private int sozottIdo;
+
+    /**
+     * Egész szám, amelyet ha a hóVastagság elér, akkor már nem lesz járható a sáv.
+     */
+    private int kuszobErtek;
+
+    /**
+     * Egész szám, amely tárolja, hogy hányszor haladtak át rajta járművek, amely a jó letaposását befolyásolja.
+     */
+    private int letaposottDb;
+
+    /**
+     * Tárolja a sáv állapotát.
+     */
+    private SavAllapot savAllapot;
+
+    /**
+     * A sáv mellett közvetlen jobbra található sáv.
+     */
+    private Sav savJobbra;
+
+    /**
+     * A sáv mellett közvetlen balra található sáv.
+     */
+    private Sav savBalra;
+
+    /**
+     * Konstruktor
+     */
+    public Sav(String name){
         Skeleton.ctor(this, name);
+        this.savJobbra = null;
+        this.savBalra = null;
     }
 
-    public int hoEltuntet() {
-        Skeleton.call(this, "hoEltuntet");
-        Skeleton.ret("10"); // Visszaterunk valami teszt adattal
-        return 10;
-    }
-
-    public void addHo(int mennyiseg) {
-        Skeleton.call(this, "addHo", String.valueOf(mennyiseg));
+    /**
+     * Megnöveli a hóvastagságot a paraméterként kapott mennyiséggel.
+     * Ha a sáv állapota TISZTA volt, akkor ezt megváltoztatja HAVAS állapotra.
+     * @param mennyiseg Mennyivel kell a hó vastagságát növelni
+     */
+    public void hoNovel(int mennyiseg){
+        Skeleton.call(this, "hoNovel", String.valueOf(mennyiseg));
         Skeleton.ret("void");
     }
 
-    public void sotSzor() {
+    /**
+     * Eltünteti a sávon található hómennyiséget.
+     * A hóVastagság változót kinullázza és visszaadja a hóVastagság nullázása előtti értékét.
+     * @return A hó vastagsága kinullázás előtt
+     */
+    public int hoEltuntet(){
+        Skeleton.call(this, "hoEltuntet");
+        Skeleton.ret("10");
+        return 10;
+    }
+
+    /**
+     * Függvény, amely megnöveli a sózottIdő változót és a sáv állapotát SÓZOTT-ra állítja.
+     */
+    public void sotSzor(){
         Skeleton.call(this, "sotSzor");
         Skeleton.ret("void");
     }
 
-    public void jegTores() {
+    /**
+     * Mindent eltüntet a sávról és a sáv állapotát TISZTA állapotra állítja.
+     */
+    public void mindentEltuntet(){
+        Skeleton.call(this, "mindentEltuntet");
+        Skeleton.ret("void");
+    }
+
+    /**
+     * A sávon található hómennyiséget a közvetlen jobbra található sávra rakja át.
+     * A közvetlen jobbra található sáv hóNövel függvényét meghívja és paraméterül átadja a saját hóVastagság változójának értékét.
+     * Végül a saját hóVastagság változóját kinullázza.
+     */
+    public void hoOldalra(){
+        Skeleton.call(this, "hoOldalra");
+        savJobbra.hoNovel(hoVastagsag);
+        Skeleton.ret("void");
+    }
+
+    /**
+     * Ha a sáv állapota JÉGPÁNCÉL, akkor ezt átállítja HAVAS állapotúra.
+     * Továbbá növeli a sáv hóVastagság változóját.
+     */
+    public void jegTores(){
         Skeleton.call(this, "jegTores");
         Skeleton.ret("void");
     }
 
-    public void mindentEltuntet() {
-        Skeleton.call(this, "mindentEltuntet");
+    /**
+     * Növeli a letaposottDb változót eggyel.
+     * @param j A sávon áthaladó jármű
+     */
+    public void letapos(Jarmu j){
+        Skeleton.call(this, "letapos", String.valueOf(j));
+        Skeleton.ret("void");
+    }
+
+    /**
+     * Visszaadja a neki közvetlen jobbra található sáv állapotát.
+     * @return A jobbra található sáv állapota
+     */
+    public SavAllapot getJobbSavAllapot(){
+        Skeleton.call(this, "getJobbSavAllapot");
+        Skeleton.ret("SavAllapot");
+        return SavAllapot.TISZTA;
+    }
+
+    /**
+     * Visszaadja a neki közvetlen balra található sáv állapotát.
+     * @return A balra található sáv állapota
+     */
+    public SavAllapot getBalSavAllapot(){
+        Skeleton.call(this, "getBalSavAllapot");
+        Skeleton.ret("SavAllapot");
+        return SavAllapot.TISZTA;
+    }
+
+    /**
+     * Visszaadja a hóVastagság változó értékét.
+     */
+    public int getHoVastagsag(){
+        Skeleton.call(this, "getHoVastagsag");
+        Skeleton.ret("int");
+        return 0;
+    }
+
+    /**
+     * Beállítja a sáv állapotát a paraméterben kapott állapotra.
+     * @param allapot A sáv új állapota
+     */
+    public void setSavAllapot(SavAllapot allapot){
+        Skeleton.call(this, "setSavAllapot", String.valueOf(allapot));
+        Skeleton.ret("void");
+    }
+
+    /**
+     * Visszaadja a sáv állapotát.
+     * @return A saját állapota
+     */
+    public SavAllapot getAllapot(){
+        Skeleton.call(this, "getAllapot");
+        //Skeleton.ret("SavAllapot");
+        return SavAllapot.TISZTA;
+    }
+
+    /**
+     * Beállítja a savJobbra változó értékét a paraméterben kapott sávra.
+     * @param s A jobbra található sáv referenciája
+     */
+    public void setJobbSav(Sav s){
+        Skeleton.call(this, "setJobbSav", String.valueOf(s));
+        Skeleton.ret("void");
+    }
+
+    /**
+     * Beállítja a savBalra változó értékét a paraméterben kapott sávra.
+     * @param s A balra található sáv referenciája
+     */
+    public void setBalSav(Sav s){
+        Skeleton.call(this, "setBalSav", String.valueOf(s));
         Skeleton.ret("void");
     }
 }
