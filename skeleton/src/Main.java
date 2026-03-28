@@ -33,6 +33,11 @@ public class Main {
             }
         });
 
+        tests.add(new TestCase() {
+            public String getName() { return "Auto iranyt valt"; }
+            public void run() { testAutoIranytValt(); }
+        });
+
         // Ide johet majd a tobbi (m. TEST) ...
 
         // --- MENU CIKLUS ---
@@ -135,5 +140,16 @@ public class Main {
             Skeleton.ret("SOZOTT");
         }
         Skeleton.ret("void");
+    }
+
+    public static void testAutoIranytValt() {
+    UtvonalTervezo ut = new UtvonalTervezo("ut");
+    ForgalomIranyito fi = new ForgalomIranyito("fi");
+    Auto a1 = new Auto("a1");
+
+    ut.setForgalomIranyito(fi);
+    fi.addJarmu(a1);
+
+    ut.utzarDetektal();
     }
 }
