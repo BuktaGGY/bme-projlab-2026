@@ -13,7 +13,7 @@ public class Main {
         List<TestCase> tests = new ArrayList<>();
         
         // --- TESZTESETEK REGISZTRALASA ---
-        
+        /*
         tests.add(new TestCase() {
             public String getName() { return "Auto tiszta uton halad"; }
             public void run() { testAutoTisztaUton(); }
@@ -22,7 +22,7 @@ public class Main {
         tests.add(new TestCase() {
             public String getName() { return "Hokotro Sarkanyfejjel takarit"; }
             public void run() { testSarkanyFej(); }
-        });
+        });*/
 
         tests.add(new TestCase(){
             public String getName() {
@@ -31,6 +31,36 @@ public class Main {
             public void run(){
                 testKornyezetiHavazas();
             }
+        });
+		
+		tests.add(new TestCase() {
+            public String getName() { return "Hokotro Soprofejjel takarit"; }
+            public void run() { testSoproFej(); }
+        });
+        
+        tests.add(new TestCase() {
+            public String getName() { return "Hokotro Hanyofejjel takarit"; }
+            public void run() { testHanyoFej(); }
+        });
+
+        tests.add(new TestCase() {
+            public String getName() { return "Hokotro Jegtorovel jegpancelt takarit"; }
+            public void run() { testJegToro(); }
+        });
+
+        tests.add(new TestCase() {
+            public String getName() { return "Hokotro Sarkanyfejjel havat/jeget olvaszt"; }
+            public void run() { testSarkanyFej(); }
+        });
+
+        tests.add(new TestCase() {
+            public String getName() { return "Hokotro Soszoroval besozza az aktualis savot"; }
+            public void run() { testSoszoro(); }
+        });
+
+        tests.add(new TestCase() {
+            public String getName() { return "Jarmu letapossa a savot"; }
+            public void run() { testLetapos(); }
         });
 
         // Ide johet majd a tobbi (m. TEST) ...
@@ -97,6 +127,7 @@ public class Main {
         Skeleton.ret("void");
     }
 
+/*
     private static void testSarkanyFej() {
         // 1. Inicializalas
         Object h = new Object(); Skeleton.ctor(h, "h");
@@ -119,6 +150,7 @@ public class Main {
         
         Skeleton.ret("void");
     }
+	*/
 
     // Ezt csak en random probalgattam, nem hiszem hogy jo 
     private static void testKornyezetiHavazas(){
@@ -135,5 +167,96 @@ public class Main {
             Skeleton.ret("SOZOTT");
         }
         Skeleton.ret("void");
+    }
+	
+	private static void testSoproFej() {
+        // 1. Inicializalas (Palyakep felépitese)
+        Sav s1 = new Sav("s1");
+        Sav s2 = new Sav("s2");
+        Hokotro h = new Hokotro("h");
+        SoproFej sf = new SoproFej("sf");
+
+        System.out.println("\n--- Szinpad felepitese ---");
+        s1.setJobbSav(s2);
+        s1.hoNovel(20);
+
+        System.out.println("\n--- Teszt futasa ---");
+        // Itt mar a valodi fuggvenyt hivjuk!
+        sf.takarit(s1, h);
+    }
+
+    private static void testHanyoFej() {
+        Sav s1 = new Sav("s1");
+        Hokotro h = new Hokotro("h");
+        HanyoFej hf = new HanyoFej("hf");
+
+        System.out.println("\n--- Szinpad felepitese ---");
+        s1.hoNovel(30);
+
+        System.out.println("\n--- Teszt futasa ---");
+        hf.takarit(s1, h);
+    }
+
+    private static void testJegToro() {
+        Sav s1 = new Sav("s1");
+        Hokotro h = new Hokotro("h");
+        JegToro jt = new JegToro("jt");
+
+        System.out.println("\n--- Szinpad felepitese ---");
+        s1.setSavAllapot(SavAllapot.JEGPANCEL);
+
+        System.out.println("\n--- Teszt futasa ---");
+        jt.takarit(s1, h);
+    }
+
+    private static void testSarkanyFej() {
+        Sav s1 = new Sav("s1");
+        Hokotro h = new Hokotro("h");
+        SarkanyFej sf = new SarkanyFej("sf");
+
+        System.out.println("\n--- Szinpad felepitese ---");
+        s1.hoNovel(50);
+        
+        // Interaktiv resz
+        int answer = Skeleton.askQuestion("Van elegendo biokerozin a hokotroban?", "Igen", "Nem");
+        if (answer == 1) {
+            h.setBiokerozin(100);
+        } else {
+            h.setBiokerozin(0);
+        }
+
+        System.out.println("\n--- Teszt futasa ---");
+        sf.takarit(s1, h);
+    }
+
+    private static void testSoszoro() {
+        Sav s1 = new Sav("s1");
+        Hokotro h = new Hokotro("h");
+        Soszoro sz = new Soszoro("sz");
+
+        System.out.println("\n--- Szinpad felepitese ---");
+        s1.setSavAllapot(SavAllapot.JEGPANCEL);
+
+        // Interaktiv resz
+        int answer = Skeleton.askQuestion("Van elegendo so a hokotroban?", "Igen", "Nem");
+        if (answer == 1) {
+            h.setSo(50);
+        } else {
+            h.setSo(0); // Elfogyott a so
+        }
+
+        System.out.println("\n--- Teszt futasa ---");
+        sz.takarit(s1, h);
+    }
+
+    private static void testLetapos() {
+        Sav s1 = new Sav("s1");
+        Jarmu j = new Jarmu("j");
+
+        System.out.println("\n--- Szinpad felepitese ---");
+        s1.hoNovel(10);
+
+        System.out.println("\n--- Teszt futasa ---");
+        s1.letapos(j);
     }
 }

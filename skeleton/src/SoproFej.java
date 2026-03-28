@@ -15,11 +15,14 @@ public class SoproFej extends KotroFej {
      * @param kotro         A műveletet végző hókotró referenciája.
      */
     @Override
-    public void takarit(Sav sav, Sav szomszedosSav, Hokotro kotro) {
+    public void takarit(Sav sav, Hokotro kotro) {
         // 2. Lépés: Jelezzük a hívást!
-        Skeleton.call(this, "takarit"); 
+        Skeleton.call(this, "takarit", Skeleton.getName(sav), Skeleton.getName(kotro)); 
 
         int eltuntetettHo = sav.hoEltuntet();
+		
+		Sav szomszedosSav = sav.getSzomszedosSav();
+		
         if (szomszedosSav != null && eltuntetettHo > 0) {
             szomszedosSav.hoNovel(eltuntetettHo);
         }

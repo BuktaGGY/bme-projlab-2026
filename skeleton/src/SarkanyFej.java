@@ -15,8 +15,8 @@ public class SarkanyFej extends KotroFej {
      * @param kotro         A műveletet végző hókotró referenciája, ahonnan a kerozint fogyasztja.
      */
     @Override
-    public void takarit(Sav sav, Sav szomszedosSav, Hokotro kotro) {
-        Skeleton.call(this, "takarit"); // Hívás jelzése
+    public void takarit(Sav sav, Hokotro kotro) {
+        Skeleton.call(this, "takarit", Skeleton.getName(sav), Skeleton.getName(kotro)); // Hívás jelzése
 
         // Ellenőrizzük, hogy van-e elég üzemanyag
         if (kotro.getBiokerozin() > 0) {

@@ -22,5 +22,5 @@ public abstract class KotroFej {
 	a csatlakoztatott fej típusától függ (pl. a sószóró sót
 	szór, a jégtörő jeget tör, a söprőfej pedig a szomszédos
 	sávra tolja a havat).*/
-    public abstract void takarit(Sav sav, Sav szomszedosSav, Hokotro kotro);
+    public abstract void takarit(Sav sav, Hokotro kotro);
 }

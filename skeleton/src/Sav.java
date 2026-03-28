@@ -116,7 +116,7 @@ public class Sav {
      * @param j A sávon áthaladó jármű
      */
     public void letapos(Jarmu j){
-        Skeleton.call(this, "letapos", String.valueOf(j));
+        Skeleton.call(this, "letapos", Skeleton.getName(j));
         Skeleton.ret("void");
     }
 
@@ -173,7 +173,7 @@ public class Sav {
      * @param s A jobbra található sáv referenciája
      */
     public void setJobbSav(Sav s){
-        Skeleton.call(this, "setJobbSav", String.valueOf(s));
+        Skeleton.call(this, "setJobbSav", Skeleton.getName(s));
         Skeleton.ret("void");
     }
 
@@ -184,5 +184,11 @@ public class Sav {
     public void setBalSav(Sav s){
         Skeleton.call(this, "setBalSav", String.valueOf(s));
         Skeleton.ret("void");
+    }
+	
+	public Sav getSzomszedosSav() {
+        Skeleton.call(this, "getSzomszedosSav");
+        Skeleton.ret(Skeleton.getName(this.savJobbra)); // A jobb oldalit adja vissza
+        return this.savJobbra;
     }
 }
