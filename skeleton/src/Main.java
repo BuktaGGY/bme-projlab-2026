@@ -108,8 +108,7 @@ public class Main {
     // ==========================================
     // TESZTESETEK
     // ==========================================
-	
-    /*
+
     private static void testAutoTisztaUton() {
         // 1. Inicializalas
         Object f = new Object(); Skeleton.ctor(f, "f");
@@ -133,7 +132,7 @@ public class Main {
         Skeleton.ret("void");
     }
 
-
+/*
     private static void testSarkanyFej() {
         // 1. Inicializalas
         Object h = new Object(); Skeleton.ctor(h, "h");
