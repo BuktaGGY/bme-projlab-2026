@@ -13,11 +13,17 @@ public class JatekKezelo {
 
     public void start(){
         Skeleton.call(this, "start");
+
+        isRunning = true;
+
         Skeleton.ret();
     }
 
     public void stop(){
         Skeleton.call(this, "stop");
+
+        isRunning = false;
+
         Skeleton.ret();
     }
 
@@ -26,6 +32,8 @@ public class JatekKezelo {
 
         idojaraskezelo.Havaz();
         idojaraskezelo.olvasztasKezeles();
+
+        //TODO forgalomiranyito, utvonaltervezo léptetése
 
         Skeleton.ret();
     }

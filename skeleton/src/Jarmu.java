@@ -20,8 +20,8 @@ public abstract class Jarmu {
         Skeleton.ret();
     }
 
-    public void setAllapot(String allapot) {
-        Skeleton.call(this, "setAllapot", allapot);
+    public void setAllapot(JarmuAllapot allapot) {
+        Skeleton.call(this, "setAllapot", String.valueOf(allapot));
         Skeleton.ret();
     }
 }
