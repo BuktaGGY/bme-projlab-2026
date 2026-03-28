@@ -1,36 +1,47 @@
 /**
- * A Busz járműtípust megvalósító osztály
+ * A Busz járműtípust megvalósító osztály.
+ * A járművek közül ez az, amelyik kötött útvonalon, menetrendszerűen 
+ * közlekedik a két végállomása között, és menet közben pontokat szerez.
  */
 public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
 
     /**
-     * A busz által bejárt útvonal egyik végállomása.
+     * A busz által bejárt útvonal indulási állomása.
      */
-    private Csomopont kezdoAllomas;
+    private Vegallomas kezdoAllomas;
 
     /**
-     * A busz által bejárt útvonal egyik végállomása.
+     * A busz által bejárt útvonal célállomása.
      */
-    private Csomopont vegAllomas;
-
+    private Vegallomas vegAllomas;
 
     /**
-     * A busz balesete utan nem tud mozogni egy meghatarozott ideig,
-     * ennek nyilvantartasara használatos.
+     * A busz balesete után nem tud mozogni egy meghatározott ideig,
+     * ennek nyilvántartására használatos számláló.
      */
     private int blokkoltSzamlalo;
 
     /**
-     * Konstruktor
-     * @param name Név
+     * Konstruktor a Szkeleton teszteléshez.
+     * @param name A példány azonosító neve a naplózáshoz.
      */
     public Busz(String name) {
+        super();
         Skeleton.ctor(this, name);
     }
 
+    /**
+     * Beállítja a busz kezdő- és végállomását a szimulációban.
+     * @param kezdo A kiindulási állomás.
+     * @param veg A célállomás.
+     */
+    public void setAllomasok(Vegallomas kezdo, Vegallomas veg) {
+        this.kezdoAllomas = kezdo;
+        this.vegAllomas = veg;
+    }
 
     /**
-     * Baleset esetén ideiglenes mozgaskeptelenne teszi a buszt
+     * Baleset esetén ideiglenes mozgásképtelenné teszi a buszt.
      */
     @Override
     public void balesetezik() {
@@ -38,11 +49,13 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
 
         setAllapot(JarmuAllapot.MOZGÁSKÉPTELEN);
         setBlokk(5);
+        
         Skeleton.ret();
     }
 
     /**
-     * Lépteti a blokkolt számlálót és frissíti a jarmu allapotat.
+     * Lépteti a blokkolt számlálót és frissíti a jármű állapotát.
+     * Ha a büntetési idő lejárt, a busz újra haladó állapotba kerül.
      */
     @Override
     public void frissitAllapot() {
@@ -55,25 +68,29 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
         if(blokkoltSzamlalo > 0 ){
             blokkoltSzamlalo--;
         }
+        
         Skeleton.ret();
     }
 
     /**
-     * Beállítja a mozgásképtelenség időtartamát
-     * @param b mozgásképtelenség időtartama
+     * Beállítja a mozgásképtelenség időtartamát.
+     * @param b A mozgásképtelenség időtartama (tickekben).
      */
-    public void setBlokk(int b){
-        blokkoltSzamlalo=b;
+    public void setBlokk(int b) {
+        Skeleton.call(this, "setBlokk", String.valueOf(b));
+        blokkoltSzamlalo = b;
+        Skeleton.ret();
     }
 
     /**
      * Felcseréli a kezdő- és végállomást, amikor a busz eléri a célját,
      * biztosítva a folyamatos oda-vissza ingázást.
      */
-    public void megfordul(){
+    public void megfordul() {
         Skeleton.call(this, "megfordul");
 
-        Csomopont temp = kezdoAllomas;
+        // Figyelem: Itt a temp változó is Vegallomas típusú lett!
+        Vegallomas temp = kezdoAllomas;
         kezdoAllomas = vegAllomas;
         vegAllomas = temp;
 
@@ -87,10 +104,26 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     @Override
     public void UtvonalatKijelol(Utszakasz[] ujUtvonal) {
-        Skeleton.call(this, "utvonalatKijelol");
+        Skeleton.call(this, "UtvonalatKijelol", Skeleton.getName(ujUtvonal));
 
         this.Utvonal = ujUtvonal;
 
+        Skeleton.ret();
+    }
+
+    /**
+     * A jármű mozgatása (a Jármű ősosztályból felülírva). 
+     * A szkeleton tesztben ez szimulálja a végállomásra való érkezést és az érintést.
+     * * @param utszakasz Az aktuális útszakasz, amin halad (az ősosztály paraméterezése miatt).
+     */
+    @Override
+    public void mozog(Object utszakasz) {
+        Skeleton.call(this, "mozog", Skeleton.getName(utszakasz));
+
+        if (vegAllomas != null) {
+            vegAllomas.addErintes();
+        }
+        
         Skeleton.ret();
     }
 }

@@ -68,6 +68,16 @@ public class Main {
             public void run() { testAutoIranytValt(); }
         });
 
+        tests.add(new TestCase() {
+            public String getName() { return "Busz iranyitasa"; }
+            public void run() { testBuszIranyitasa(); }
+        });
+
+        tests.add(new TestCase() {
+            public String getName() { return "Busz kort teljesit"; }
+            public void run() { testBuszKortTeljesit(); }
+        });
+
         // Ide johet majd a tobbi (m. TEST) ...
 
         // --- MENU CIKLUS ---
@@ -175,14 +185,14 @@ public class Main {
     }
 
     public static void testAutoIranytValt() {
-    UtvonalTervezo ut = new UtvonalTervezo("ut");
-    ForgalomIranyito fi = new ForgalomIranyito("fi");
-    Auto a1 = new Auto("a1");
+        UtvonalTervezo ut = new UtvonalTervezo("ut");
+        ForgalomIranyito fi = new ForgalomIranyito("fi");
+        Auto a1 = new Auto("a1");
 
-    ut.setForgalomIranyito(fi);
-    fi.addJarmu(a1);
+        ut.setForgalomIranyito(fi);
+        fi.addJarmu(a1);
 
-    ut.utzarDetektal();
+        ut.utzarDetektal();
     }
 	
 	private static void testSoproFej() {
@@ -274,5 +284,32 @@ public class Main {
 
         System.out.println("\n--- Teszt futasa ---");
         s1.letapos(a);
+    }
+
+    public static void testBuszIranyitasa() {
+        UtvonalTervezo ut = new UtvonalTervezo("út");
+        ForgalomIranyito fi = new ForgalomIranyito("fi");
+        Busz b = new Busz("b");
+        Csomopont cs1 = new Csomopont("cs1");
+        Csomopont cs2 = new Csomopont("cs2");
+        Csomopont[] kijeloltCsomopontok = {cs1, cs2};
+
+        ut.setForgalomIranyito(fi); 
+
+        ut.utKijelol(b, kijeloltCsomopontok);
+    }
+
+ public static void testBuszKortTeljesit() {
+        JatekKezelo jk = new JatekKezelo("jk");
+        ForgalomIranyito fi = new ForgalomIranyito("fi");
+        Busz b = new Busz("b");
+        Vegallomas v = new Vegallomas("v");
+
+        fi.addJarmu(b);
+        v.setJatekKezelo(jk);       
+
+        b.setAllomasok(null, v); 
+
+        fi.mozgatJarmuvek();
     }
 }
