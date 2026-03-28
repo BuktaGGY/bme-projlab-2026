@@ -76,4 +76,9 @@ public class Skeleton {
         }
         return sb.toString();
     }
+	
+	public static String getName(Object obj) {
+        if (obj == null) return "null";
+        return objects.getOrDefault(obj, obj.toString());
+    }
 }

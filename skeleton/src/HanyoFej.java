@@ -13,8 +13,8 @@ public class HanyoFej extends KotroFej {
      * @param kotro         A műveletet végző hókotró referenciája.
      */
     @Override
-    public void takarit(Sav sav, Sav szomszedosSav, Hokotro kotro) {
-		Skeleton.call(this, "takarit");
+    public void takarit(Sav sav, Hokotro kotro) {
+		Skeleton.call(this, "takarit", Skeleton.getName(sav), Skeleton.getName(kotro));
 		
         // Csak az aktuális sávról tünteti el a havat, véglegesen
         sav.hoEltuntet();

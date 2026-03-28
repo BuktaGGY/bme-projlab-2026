@@ -14,8 +14,8 @@ public class JegToro extends KotroFej {
      * @param kotro         A műveletet végző hókotró referenciája.
      */
     @Override
-    public void takarit(Sav sav, Sav szomszedosSav, Hokotro kotro) {
-        Skeleton.call(this, "takarit"); // Hívás jelzése
+    public void takarit(Sav sav, Hokotro kotro) {
+        Skeleton.call(this, "takarit", Skeleton.getName(sav), Skeleton.getName(kotro)); // Hívás jelzése
 
         // Utasítja a sávot a jég feltörésére
         sav.jegTores();

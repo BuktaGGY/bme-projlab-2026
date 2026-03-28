@@ -15,8 +15,8 @@ public class Soszoro extends KotroFej {
      * @param kotro         A műveletet végző hókotró referenciája, ahonnan a sót fogyasztja.
      */
     @Override
-    public void takarit(Sav sav, Sav szomszedosSav, Hokotro kotro) {
-        Skeleton.call(this, "takarit"); // Hívás jelzése
+    public void takarit(Sav sav, Hokotro kotro) {
+        Skeleton.call(this, "takarit", Skeleton.getName(sav), Skeleton.getName(kotro)); // Hívás jelzése
 
         // Ellenőrizzük, hogy van-e só a tartályban
         if (kotro.getSo() > 0) {
