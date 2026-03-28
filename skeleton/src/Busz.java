@@ -4,6 +4,10 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
     private Csomopont vegAllomas;
     private int blokkoltSzamlalo;
 
+    public Busz(String name) {
+        Skeleton.ctor(this, name);
+    }
+
 
     /**
      *
