@@ -1,8 +1,10 @@
-public class SarkanyFej extends KotroFej {
+public class SarkanyFej {
+	//a kotrofej ara
+	int ar;
 
     // Konstruktor a Szkeleton névvel
     public SarkanyFej(String name) {
-        super(800);
+        ar = 800;
         Skeleton.ctor(this, name); // Regisztráció
     }
 
@@ -14,7 +16,7 @@ public class SarkanyFej extends KotroFej {
      * @param szomszedosSav Az ősosztály miatt átvett paraméter, de ez a fej nem használja.
      * @param kotro         A műveletet végző hókotró referenciája, ahonnan a kerozint fogyasztja.
      */
-    @Override
+    
     public void takarit(Sav sav, Hokotro kotro) {
         Skeleton.call(this, "takarit", Skeleton.getName(sav), Skeleton.getName(kotro)); // Hívás jelzése
 
@@ -26,5 +28,14 @@ public class SarkanyFej extends KotroFej {
         }
 
         Skeleton.ret(); // Visszatérés jelzése
+    }
+	
+	//getter, setter
+	public int getAr() {
+        return ar;
+    }
+
+    public void setAr(int ar) {
+        this.ar = ar;
     }
 }

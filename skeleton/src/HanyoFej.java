@@ -1,7 +1,9 @@
-public class HanyoFej extends KotroFej {
-
+public class HanyoFej {
+	//a kotrofej ara
+	int ar;
+	
     public HanyoFej(String name) {
-        super(200); 
+        ar = 200; 
 		Skeleton.ctor(this, name);
     }
 
@@ -12,7 +14,7 @@ public class HanyoFej extends KotroFej {
      * @param szomszedosSav Az ősosztály miatt átvett paraméter, de ez a fej nem használja.
      * @param kotro         A műveletet végző hókotró referenciája.
      */
-    @Override
+    
     public void takarit(Sav sav, Hokotro kotro) {
 		Skeleton.call(this, "takarit", Skeleton.getName(sav), Skeleton.getName(kotro));
 		
@@ -20,5 +22,14 @@ public class HanyoFej extends KotroFej {
         sav.hoEltuntet();
 		
 		Skeleton.ret();
+    }
+	
+	//getter, setter
+	public int getAr() {
+        return ar;
+    }
+
+    public void setAr(int ar) {
+        this.ar = ar;
     }
 }

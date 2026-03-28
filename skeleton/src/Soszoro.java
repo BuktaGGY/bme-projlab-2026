@@ -1,8 +1,10 @@
-public class Soszoro extends KotroFej {
+public class Soszoro {
+	//a kotrofej ara
+	int ar;
 
     // Konstruktor a Szkeleton névvel
     public Soszoro(String name) {
-        super(150);
+        ar = 150;
         Skeleton.ctor(this, name); // Regisztráció
     }
 
@@ -14,7 +16,7 @@ public class Soszoro extends KotroFej {
      * @param szomszedosSav Az ősosztály miatt átvett paraméter, de ez a fej nem használja.
      * @param kotro         A műveletet végző hókotró referenciája, ahonnan a sót fogyasztja.
      */
-    @Override
+    
     public void takarit(Sav sav, Hokotro kotro) {
         Skeleton.call(this, "takarit", Skeleton.getName(sav), Skeleton.getName(kotro)); // Hívás jelzése
 
@@ -26,5 +28,14 @@ public class Soszoro extends KotroFej {
         }
 
         Skeleton.ret(); // Visszatérés jelzése
+    }
+	
+	//getter, setter
+	public int getAr() {
+        return ar;
+    }
+
+    public void setAr(int ar) {
+        this.ar = ar;
     }
 }
