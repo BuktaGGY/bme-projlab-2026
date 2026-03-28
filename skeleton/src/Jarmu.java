@@ -2,6 +2,8 @@ public abstract class Jarmu {
     protected int id;
     protected int pozicioASavon;
     protected int sebesseg;
+    protected Sav aktualisSav;
+    protected Utszakasz[] Utvonal;
 
     public Jarmu() {
     }
