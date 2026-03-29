@@ -21,7 +21,7 @@ public class SoproFej extends KotroFej {
 
         int eltuntetettHo = sav.hoEltuntet();
 		
-		Sav szomszedosSav = sav.getSzomszedosSav();
+		Sav szomszedosSav = sav.getJobbSav();
 		
         if (szomszedosSav != null && eltuntetettHo > 0) {
             szomszedosSav.hoNovel(eltuntetettHo);

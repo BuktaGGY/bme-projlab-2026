@@ -5,6 +5,7 @@
  */
 public abstract class SerulekenyJarmu extends Jarmu {
 
+
     /**
      * Alapértelmezett konstruktor.
      */

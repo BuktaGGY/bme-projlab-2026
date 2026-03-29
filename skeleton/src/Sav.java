@@ -51,6 +51,8 @@ public class Sav {
     public Sav(String name){
         Skeleton.ctor(this, name);
         savAllapot = SavAllapot.TISZTA;
+        hoVastagsag = 0;
+        letaposottDb = 0;
         this.savJobbra = null;
         this.savBalra = null;
     }
@@ -123,11 +125,17 @@ public class Sav {
     }
 
     /**
-     * Növeli a letaposottDb változót eggyel.
+     * Növeli a letaposottDb változót eggyel, ha elérte a határt a letaposások száma,
+     * akkor jégpánéllá válik az sáv állapota.
      * @param a A sávon áthaladó autó
      */
-    public void letapos(Auto a){
+    public void letapos(Jarmu a){
         Skeleton.call(this, "letapos", Skeleton.getName(a));
+
+        letaposottDb++;
+        if(letaposottDb >= 5 && savAllapot != SavAllapot.BLOKKOLT){
+            setSavAllapot(SavAllapot.JEGPANCEL);
+        }
         Skeleton.ret("void");
     }
 
@@ -138,7 +146,7 @@ public class Sav {
     public SavAllapot getJobbSavAllapot(){
         Skeleton.call(this, "getJobbSavAllapot");
         Skeleton.ret("SavAllapot");
-        return SavAllapot.TISZTA;
+        return savJobbra.getAllapot();
     }
 
     /**
@@ -148,7 +156,7 @@ public class Sav {
     public SavAllapot getBalSavAllapot(){
         Skeleton.call(this, "getBalSavAllapot");
         Skeleton.ret("SavAllapot");
-        return SavAllapot.TISZTA;
+        return savBalra.getAllapot();
     }
 
     /**
@@ -157,7 +165,7 @@ public class Sav {
     public int getHoVastagsag(){
         Skeleton.call(this, "getHoVastagsag");
         Skeleton.ret("int");
-        return 0;
+        return hoVastagsag;
     }
 
     /**
@@ -206,13 +214,21 @@ public class Sav {
         Skeleton.ret("void");
     }
 
+    /**
+     * Visszaadja a balra talalhato szomszedos sávot
+     * @return bal szomszedos sav
+     */
     public Sav getBalSav(){
         Skeleton.call(this, "getBalSav");
         Skeleton.ret(Skeleton.getName(this.savBalra));
         return this.savBalra;
     }
 
-	public Sav getSzomszedosSav() {
+    /**
+     * Visszaadja a jobb szomszedos sávot
+     * @return jobb szomszédos sáv
+     */
+	public Sav getJobbSav() {
         Skeleton.call(this, "getSzomszedosSav");
         Skeleton.ret(Skeleton.getName(this.savJobbra)); // A jobb oldalit adja vissza
         return this.savJobbra;

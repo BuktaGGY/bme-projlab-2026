@@ -93,6 +93,11 @@ public class Main {
             public void run() { testAutoKiszabadul(); }
         });
 
+        tests.add(new TestCase() {
+            public String getName() { return "Autó tiszta úton halad"; }
+            public void run() { testAutoTisztaUtonHalad(); }
+        });
+
         // Ide johet majd a tobbi (m. TEST) ...
 
         // --- MENU CIKLUS ---
@@ -363,6 +368,18 @@ public class Main {
         a1.setStartSav(s1);
         s1.setBalSav(s2);
         s1.setJobbSav(s3);
+        s1.setSavAllapot(SavAllapot.BLOKKOLT);
+
+        f.addJarmu(a1);
+        f.mozgatJarmuvek();
+    }
+
+    private static void testAutoTisztaUtonHalad(){
+        Auto a1 = new Auto("a1");
+        ForgalomIranyito f =  new ForgalomIranyito("f");
+        Sav s1 = new Sav("s1");
+        a1.setStartSav(s1);
+
 
         f.addJarmu(a1);
         f.mozgatJarmuvek();

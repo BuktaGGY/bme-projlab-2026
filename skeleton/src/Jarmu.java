@@ -4,7 +4,11 @@
  * és metódusokat.
  */
 public abstract class Jarmu {
-    
+    /**
+     * Jarmu jelenlegi állapota
+     */
+    protected JarmuAllapot allapot;
+
     /** A jármű egyedi azonosítója. */
     protected int id;
     
@@ -42,28 +46,36 @@ public abstract class Jarmu {
     }
 
     /**
-     * Lépteti a járművet a megadott útszakaszon.
+     * Lépteti a járművet a megadott útszakaszon, ellenőrzi, hogy ki tud-e szabadulni
+     * az elakadt auto.
      * @param utszakasz Az útszakasz (vagy annak egy része), amin a jármű mozog.
      */
     public void mozog(Object utszakasz) {
         Skeleton.call(this, "mozog", "utszakasz");
 
-        if(this.getClass() == Auto.class) {
+        if(this.allapot == JarmuAllapot.ELAKADT) {
+            if(this.getClass() == Auto.class ) {
 
-            Sav s =this.aktualisSav;
-            if(s.getJobbSavAllapot() != SavAllapot.BLOKKOLT) {
-                savValtas(s.getSzomszedosSav());
-                setAllapot(JarmuAllapot.HALAD);
-                Skeleton.ret();
-                return;
-            }
-            if(s.getBalSavAllapot() != SavAllapot.BLOKKOLT){
-                savValtas(s.getBalSav());
-                setAllapot(JarmuAllapot.HALAD);
-                Skeleton.ret();
-                return;
+                Sav s =this.aktualisSav;
+                if(s.getJobbSavAllapot() != SavAllapot.BLOKKOLT) {
+                    savValtas(s.getJobbSav());
+                    setAllapot(JarmuAllapot.HALAD);
+                    Skeleton.ret();
+                    return;
+                }
+                if(s.getBalSavAllapot() != SavAllapot.BLOKKOLT){
+                    savValtas(s.getBalSav());
+                    setAllapot(JarmuAllapot.HALAD);
+                    Skeleton.ret();
+                    return;
+                }
             }
         }
+        else{
+            aktualisSav.letapos(this);
+        }
+
+        Skeleton.ret("void");
     }
 
     /**
@@ -84,6 +96,9 @@ public abstract class Jarmu {
     public void setAllapot(JarmuAllapot allapot) {
         // Itt a Skeleton.getName()-et használjuk a kérésednek megfelelően!
         Skeleton.call(this, "setAllapot", Skeleton.getName(allapot));
+
+        this.allapot = allapot;
+
         Skeleton.ret();
     }
 
