@@ -87,4 +87,10 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
         this.biokerozin = biokerozin;
         Skeleton.ret();
     }
+
+    public void setKotrofej(KotroFej kotrofej) {
+        Skeleton.call(this, "setKotrofej", "kotrofej");
+        this.aktualisKotrofej = kotrofej;
+        Skeleton.ret();
+    }
 }

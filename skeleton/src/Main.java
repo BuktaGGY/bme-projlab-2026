@@ -117,6 +117,16 @@ public class Main {
             public void run() {testSozottSavonHoOlvad();}
         });
 
+        tests.add(new TestCase() {
+            public String getName() { return "Tankolás"; }
+            public void run() { testTankolas(); }
+        });
+
+        tests.add(new TestCase() {
+            public String getName() { return "Kotrófej cseréje"; }
+            public void run() { testFejcsere(); }
+        });
+
         // Ide johet majd a tobbi (m. TEST) ...
 
         // --- MENU CIKLUS ---
@@ -482,5 +492,36 @@ public class Main {
             jk.idojaraskezelo = ik;
             jk.tick();
         }
+    }
+
+    private static void testFejcsere() {
+        Garazs g = new Garazs("g");
+        Hokotro h = new Hokotro("h");
+        KotroFej kf = new SoproFej("kf");
+        GazdasagKezelo gk = new GazdasagKezelo("gk");
+
+        h.setKotrofej(kf);
+        
+        int csereFej = Skeleton.askQuestion("Milyen fejre szeretned cserelni a mostanit?", 
+            "Soprofej" , "HanyoFej", "JegToro", "SarkanyFej", "Soszoro");
+
+        switch (csereFej) {
+            case 1: g.fejCsere(new SoproFej("soprofej")); break;
+            case 2: g.fejCsere(new HanyoFej("hanyofej")); break;
+            case 3: g.fejCsere(new JegToro("jegtoro")); break;
+            case 4: g.fejCsere(new SarkanyFej("sarkanyfej")); break;
+            case 5: g.fejCsere(new Soszoro("soszoro")); break;
+            default: System.out.println("Ervenytelen valasztas! Nem tortent fejcsere."); break;
+        }
+    }
+
+    private static void testTankolas() {
+        Garazs g = new Garazs("g");
+        KotroFej kf = new SarkanyFej("kf");
+        Hokotro h = new Hokotro("h");
+        GazdasagKezelo gk = new GazdasagKezelo("gk");
+
+        h.setKotrofej(kf);
+        g.tankol(kf);
     }
 }
