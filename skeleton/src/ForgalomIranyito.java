@@ -25,7 +25,11 @@ public class ForgalomIranyito {
         this.gazdasagKezelo = g;
     }
 
-    // A diagramon szereplo fuggvenyek
+
+    /**
+     * ELtakarítja a roncsot a pályáról, a takarításért járó összeg jováíródik a közös számlán.
+     * @param jarmu Roncs jármű
+     */
     public void roncsEltakarit(Jarmu jarmu) {
         Skeleton.call(this, "roncsEltakarit");
         
@@ -112,6 +116,9 @@ public class ForgalomIranyito {
         Skeleton.ret();
     }
 
+    /**
+     * Ellenőrzi az esetleges ütközéseket
+     */
     public void utkozesVizsgalat() {
         Skeleton.call(this, "utkozesVizsgalat");
 

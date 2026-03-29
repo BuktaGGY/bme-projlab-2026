@@ -1,3 +1,6 @@
+/**
+ * Hókotró garázst megvalósító osztály
+ */
 public class Garazs extends PointOfInterest {
     private boolean isOccupied;
 
@@ -7,7 +10,7 @@ public class Garazs extends PointOfInterest {
     }
     
     /**
-     * 
+     * Takarító fej lecserélése a hókotrón
      * @param fej
      * @return
      */
@@ -25,8 +28,8 @@ public class Garazs extends PointOfInterest {
     }
 
     /**
-     * 
-     * @param fej
+     * Kotrofej megtankolása
+     * @param fej Tankolandó fej
      * @return
      */
     public boolean tankol(KotroFej fej) {
