@@ -78,6 +78,11 @@ public class Main {
             public void run() { testBuszKortTeljesit(); }
         });
 
+        tests.add(new TestCase() {
+            public String getName() { return "Autó elakad"; }
+            public void run() { testAutoElakad(); }
+        });
+
         // Ide johet majd a tobbi (m. TEST) ...
 
         // --- MENU CIKLUS ---
@@ -299,7 +304,7 @@ public class Main {
         ut.utKijelol(b, kijeloltCsomopontok);
     }
 
- public static void testBuszKortTeljesit() {
+    public static void testBuszKortTeljesit() {
         JatekKezelo jk = new JatekKezelo("jk");
         ForgalomIranyito fi = new ForgalomIranyito("fi");
         Busz b = new Busz("b");
@@ -311,5 +316,17 @@ public class Main {
         b.setAllomasok(null, v); 
 
         fi.mozgatJarmuvek();
+    }
+
+    private static void testAutoElakad(){
+        Jarmu a1 = new Auto("a1");
+        ForgalomIranyito f =  new ForgalomIranyito("f");
+        Sav s1 = new Sav("s1");
+
+        a1.setStartSav(s1);
+        a1.aktualisSav.hoNovel(50);
+        f.addJarmu(a1);
+
+        a1.frissitAllapot();
     }
 }

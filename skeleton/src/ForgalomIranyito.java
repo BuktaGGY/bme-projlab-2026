@@ -72,6 +72,7 @@ public class ForgalomIranyito {
         Object aktualisUtszakasz = new Object(); Skeleton.ctor(aktualisUtszakasz, "utszakasz");
 
         for (Jarmu j : jarmuvek) {
+            j.frissitAllapot();
             j.mozog(aktualisUtszakasz);
         }
         

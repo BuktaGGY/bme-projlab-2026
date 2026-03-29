@@ -59,4 +59,16 @@ public abstract class Jarmu {
         Skeleton.call(this, "setAllapot", Skeleton.getName(allapot));
         Skeleton.ret();
     }
+
+    /**
+     * Beállítja melyik sávon tartózkodik jelenleg a jármű
+     * @param sav Aktuális sáv
+     */
+    public void setStartSav(Sav sav) {
+        Skeleton.call(this, "setStartSav", Skeleton.getName(sav));
+
+        aktualisSav = sav;
+
+        Skeleton.ret();
+    }
 }

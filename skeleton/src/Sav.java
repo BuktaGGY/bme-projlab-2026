@@ -50,6 +50,7 @@ public class Sav {
      */
     public Sav(String name){
         Skeleton.ctor(this, name);
+        savAllapot = SavAllapot.TISZTA;
         this.savJobbra = null;
         this.savBalra = null;
     }
@@ -61,6 +62,12 @@ public class Sav {
      */
     public void hoNovel(int mennyiseg){
         Skeleton.call(this, "hoNovel", String.valueOf(mennyiseg));
+
+        hoVastagsag +=mennyiseg;
+        if(hoVastagsag >= 40 && savAllapot == SavAllapot.TISZTA){
+            setSavAllapot(SavAllapot.HAVAS);
+        }
+
         Skeleton.ret("void");
     }
 
@@ -71,6 +78,7 @@ public class Sav {
      */
     public int hoEltuntet(){
         Skeleton.call(this, "hoEltuntet");
+
         Skeleton.ret("10");
         return 10;
     }
@@ -155,6 +163,9 @@ public class Sav {
      */
     public void setSavAllapot(SavAllapot allapot){
         Skeleton.call(this, "setSavAllapot", String.valueOf(allapot));
+
+        savAllapot = allapot;
+
         Skeleton.ret("void");
     }
 
@@ -165,7 +176,7 @@ public class Sav {
     public SavAllapot getAllapot(){
         Skeleton.call(this, "getAllapot");
         //Skeleton.ret("SavAllapot");
-        return SavAllapot.TISZTA;
+        return savAllapot;
     }
 
     /**
@@ -191,4 +202,5 @@ public class Sav {
         Skeleton.ret(Skeleton.getName(this.savJobbra)); // A jobb oldalit adja vissza
         return this.savJobbra;
     }
+
 }
