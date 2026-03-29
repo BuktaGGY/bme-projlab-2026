@@ -19,6 +19,10 @@ public class Auto extends SerulekenyJarmu {
     @Override
     public void balesetezik() {
         Skeleton.call(this, "balesetezik");
+
+        setAllapot(JarmuAllapot.RONCS);
+        aktualisSav.setSavAllapot(SavAllapot.BLOKKOLT);
+
         Skeleton.ret();
     }
 
@@ -35,5 +39,4 @@ public class Auto extends SerulekenyJarmu {
         Skeleton.call(this, "megsemmisites");
         Skeleton.ret();
     }
-
 }

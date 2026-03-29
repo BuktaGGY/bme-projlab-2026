@@ -83,6 +83,16 @@ public class Main {
             public void run() { testAutoElakad(); }
         });
 
+        tests.add(new TestCase() {
+            public String getName() { return "Busz mozgásképtelenné válik"; }
+            public void run() { testBuszMozgKeptelen(); }
+        });
+
+        tests.add(new TestCase() {
+            public String getName() { return "Autó sávváltása(kiszabadulás)"; }
+            public void run() { testAutoKiszabadul(); }
+        });
+
         // Ide johet majd a tobbi (m. TEST) ...
 
         // --- MENU CIKLUS ---
@@ -328,5 +338,33 @@ public class Main {
         f.addJarmu(a1);
 
         a1.frissitAllapot();
+    }
+
+    private static void testBuszMozgKeptelen(){
+        Jarmu b1 = new Busz("b1");
+        Jarmu b2 = new Busz("b2");
+
+        ForgalomIranyito f =  new ForgalomIranyito("f");
+        //Sav s1 = new Sav("s1");
+        //b.setStartSav(s1);
+
+        f.addJarmu(b1);
+        f.addJarmu(b2);
+        f.balesetKezel(b1,b2);
+    }
+
+    private static void testAutoKiszabadul(){
+        Auto a1 = new Auto("a1");
+        ForgalomIranyito f =  new ForgalomIranyito("f");
+        Sav s1 = new Sav("s1");
+        Sav s2 = new Sav("s2");
+        Sav s3 = new Sav("s3");
+
+        a1.setStartSav(s1);
+        s1.setBalSav(s2);
+        s1.setJobbSav(s3);
+
+        f.addJarmu(a1);
+        f.mozgatJarmuvek();
     }
 }

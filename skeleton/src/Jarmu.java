@@ -47,7 +47,34 @@ public abstract class Jarmu {
      */
     public void mozog(Object utszakasz) {
         Skeleton.call(this, "mozog", "utszakasz");
-        Skeleton.ret();
+
+        if(this.getClass() == Auto.class) {
+
+            Sav s =this.aktualisSav;
+            if(s.getJobbSavAllapot() != SavAllapot.BLOKKOLT) {
+                savValtas(s.getSzomszedosSav());
+                setAllapot(JarmuAllapot.HALAD);
+                Skeleton.ret();
+                return;
+            }
+            if(s.getBalSavAllapot() != SavAllapot.BLOKKOLT){
+                savValtas(s.getBalSav());
+                setAllapot(JarmuAllapot.HALAD);
+                Skeleton.ret();
+                return;
+            }
+        }
+    }
+
+    /**
+     * Áthelyezi a járművet egy megadott szomszédos sávba.
+     * @param szomszedosSav Szomszéd sáv
+     */
+    public void savValtas(Sav szomszedosSav) {
+        Skeleton.call(this, "savValtas", "szomszedosSav");
+
+        aktualisSav = szomszedosSav;
+        Skeleton.ret("void");
     }
 
     /**

@@ -78,4 +78,25 @@ public class ForgalomIranyito {
         
         Skeleton.ret();
     }
+
+    /**
+     * Ronccsá minősíti a résztvevő autókat, busz esetén mozgásképtelenné minősíti és beállítja az időzítőt,
+     * ami megadja mikor tud újra mozogni a busz.
+     * @param j1 Jármű1
+     * @param j2 Jármű2
+     */
+    public void balesetKezel(Jarmu j1, Jarmu j2) {
+        Skeleton.call(this, "balesetKezel");
+
+        if(j1.getClass() == Busz.class && j2.getClass() == Busz.class){
+            ((Busz) j1).balesetezik();
+            ((Busz) j2).balesetezik();
+        }
+        if(j1.getClass() == Auto.class && j2.getClass() == Auto.class){
+            ((Auto) j1).balesetezik();
+            ((Auto) j2).balesetezik();
+        }
+
+        Skeleton.ret();
+    }
 }
