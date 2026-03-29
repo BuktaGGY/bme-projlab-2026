@@ -1,3 +1,6 @@
+/**
+ * Hókotró garázst megvalósító osztály
+ */
 public class Garazs extends PointOfInterest {
     private boolean isOccupied;
 
@@ -65,6 +68,6 @@ public class Garazs extends PointOfInterest {
 
 
 
-    
+
 
 }

@@ -1,3 +1,6 @@
+/**
+ * Lakás osztály, az autó úticéljaként funkcionál.
+ */
 public class Lakas extends PointOfInterest {
     private Munkahely par;
 
