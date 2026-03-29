@@ -136,6 +136,11 @@ public class Sav {
         if(letaposottDb >= 5 && savAllapot != SavAllapot.BLOKKOLT){
             setSavAllapot(SavAllapot.JEGPANCEL);
         }
+
+        if (savAllapot == SavAllapot.JEGPANCEL && a instanceof SerulekenyJarmu) {
+            ((SerulekenyJarmu) a).megcsuszik();
+        }
+        
         Skeleton.ret("void");
     }
 

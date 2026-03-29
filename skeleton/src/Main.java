@@ -98,6 +98,16 @@ public class Main {
             public void run() { testAutoTisztaUtonHalad(); }
         });
 
+        tests.add(new TestCase() {
+            public String getName() { return "Megcsúszás"; }
+            public void run() { testMegcsuszas(); }
+        });
+
+        tests.add(new TestCase() {
+            public String getName() { return "Baleset"; }
+            public void run() { testBaleset(); }
+        });
+
         // Ide johet majd a tobbi (m. TEST) ...
 
         // --- MENU CIKLUS ---
@@ -382,6 +392,35 @@ public class Main {
 
 
         f.addJarmu(a1);
+        f.mozgatJarmuvek();
+    }
+
+    private static void testMegcsuszas() {
+        ForgalomIranyito f = new ForgalomIranyito("f");
+        Auto a1 = new Auto("a1");
+        Sav s2 = new Sav("s2");
+
+        s2.setSavAllapot(SavAllapot.JEGPANCEL);
+        a1.setStartSav(s2);
+
+        f.addJarmu(a1);
+        
+        f.mozgatJarmuvek();
+    }
+
+    private static void testBaleset() {
+        ForgalomIranyito f = new ForgalomIranyito("f");
+        Auto a1 = new Auto("a1");
+        Auto a2 = new Auto("a2");
+        Sav s2 = new Sav("s2");
+
+        s2.setSavAllapot(SavAllapot.JEGPANCEL);
+        a1.setStartSav(s2);
+        a2.setStartSav(s2);
+
+        f.addJarmu(a1);
+        f.addJarmu(a2);
+        
         f.mozgatJarmuvek();
     }
 }

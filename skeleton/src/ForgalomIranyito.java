@@ -75,6 +75,26 @@ public class ForgalomIranyito {
             j.frissitAllapot();
             j.mozog(aktualisUtszakasz);
         }
+
+        this.utkozesVizsgalat();
+        
+        Skeleton.ret();
+    }
+
+    public void utkozesVizsgalat() {
+        Skeleton.call(this, "utkozesVizsgalat");
+
+        List<Auto> autok = new ArrayList<>();
+        for (Jarmu j : jarmuvek) {
+            if (j instanceof Auto) {
+                autok.add((Auto) j);
+            }
+        }
+
+        if (autok.size() >= 2) {
+            autok.get(0).balesetezik();
+            autok.get(1).balesetezik();
+        }
         
         Skeleton.ret();
     }

@@ -104,7 +104,7 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     @Override
     public void UtvonalatKijelol(Utszakasz[] ujUtvonal) {
-        Skeleton.call(this, "UtvonalatKijelol", Skeleton.getName(ujUtvonal));
+        Skeleton.call(this, "UtvonalatKijelol", "ujUtvonal");
 
         this.Utvonal = ujUtvonal;
 
