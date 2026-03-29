@@ -19,6 +19,12 @@ public class GazdasagKezelo {
      * Pénz hozzáadását végzi a közös kasszához
      * @param bevetel bevétel
      */
+	 
+	 //konstruktor
+	 public GazdasagKezelo(String name) {
+        Skeleton.ctor(this, name);
+    }
+	 
     public void bevetelHozzaad(int bevetel){
         Skeleton.call(this, "bevetelHozzaad");
 

@@ -37,6 +37,12 @@ public class Auto extends SerulekenyJarmu {
 
     public void megsemmisites() {
         Skeleton.call(this, "megsemmisites");
+        
+        if (aktualisSav != null) {
+            // A roncs eltakarítása után a sáv újra járható lesz
+            aktualisSav.setSavAllapot(SavAllapot.TISZTA); 
+        }
+        
         Skeleton.ret();
     }
 }

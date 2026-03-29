@@ -15,6 +15,13 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
     /** A hókotró rendelkezésre álló biokerozin készlete. */
     private int biokerozin = 100;
 
+	//ismeri cd alapjan
+	private ForgalomIranyito fi;
+
+    public void setForgalomIranyito(ForgalomIranyito fi) {
+        this.fi = fi;
+    }
+
     /**
      * Konstruktor a Szkeleton teszteléshez.
      * @param name A példány azonosító neve a naplózáshoz.
@@ -47,8 +54,13 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
     /**
      * Eltakarítja a balesetet szenvedett (roncs) autókat az aktuális sávról.
      */
-    public void roncsotTakarit() {
+    public void roncsotTakarit(Jarmu jarmu) {
         Skeleton.call(this, "roncsotTakarit");
+        
+        if (fi != null) {
+            fi.roncsEltakarit(jarmu);
+        }
+        
         Skeleton.ret();
     }
 

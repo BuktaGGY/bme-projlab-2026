@@ -13,6 +13,37 @@ public class ForgalomIranyito {
      */
     private List<Jarmu> jarmuvek = new ArrayList<>();
 
+
+	private UtvonalTervezo utvonalTervezo;
+    private GazdasagKezelo gazdasagKezelo;
+
+    public void setUtvonalTervezo(UtvonalTervezo ut) {
+        this.utvonalTervezo = ut;
+    }
+
+    public void setGazdasagKezelo(GazdasagKezelo g) {
+        this.gazdasagKezelo = g;
+    }
+
+    // A diagramon szereplo fuggvenyek
+    public void roncsEltakarit(Jarmu jarmu) {
+        Skeleton.call(this, "roncsEltakarit");
+        
+        if (jarmu instanceof Auto) {
+            ((Auto) jarmu).megsemmisites();
+        }
+        
+        if (utvonalTervezo != null) {
+            utvonalTervezo.utFrissites();
+        }
+        
+        if (gazdasagKezelo != null) {
+            gazdasagKezelo.bevetelHozzaad(100);
+        }
+        
+        Skeleton.ret();
+    }
+	
     /**
      * Konstruktor a Szkeleton teszteléshez.
      * @param name A példány azonosító neve a naplózáshoz.

@@ -107,6 +107,11 @@ public class Main {
             public String getName() { return "Baleset"; }
             public void run() { testBaleset(); }
         });
+		
+		tests.add(new TestCase() {
+            public String getName() { return "Hokotro roncsot takarit"; }
+            public void run() { testHokotroRoncsotTakarit(); }
+        });
 
         // Ide johet majd a tobbi (m. TEST) ...
 
@@ -422,5 +427,30 @@ public class Main {
         f.addJarmu(a2);
         
         f.mozgatJarmuvek();
+    }
+	
+	private static void testHokotroRoncsotTakarit() {
+        System.out.println("\n--- Szinpad felepitese ---");
+        // Objektumok letrehozasa a diagram alapjan
+        Hokotro h = new Hokotro("h");
+        UtvonalTervezo ut = new UtvonalTervezo("ut");
+        ForgalomIranyito f = new ForgalomIranyito("f");
+        Auto a = new Auto("a");
+        Sav s = new Sav("s");
+        GazdasagKezelo g = new GazdasagKezelo("g");
+
+        // Kapcsolatok beallitasa (hogy lassak egymast a fuggvenyekben)
+        h.setForgalomIranyito(f);
+        f.setUtvonalTervezo(ut);
+        f.setGazdasagKezelo(g);
+        
+        // Auto es sav allapotanak beallitasa
+        a.setStartSav(s);
+        a.setAllapot(JarmuAllapot.RONCS);
+        s.setSavAllapot(SavAllapot.BLOKKOLT);
+
+        System.out.println("\n--- Teszt futasa ---");
+        // A diagram elso nyila: h.RoncsTakarit()
+        h.roncsotTakarit(a);
     }
 }
