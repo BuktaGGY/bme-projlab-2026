@@ -107,10 +107,14 @@ public class Main {
             public String getName() { return "Baleset"; }
             public void run() { testBaleset(); }
         });
-		
-		tests.add(new TestCase() {
+        tests.add(new TestCase() {
             public String getName() { return "Hokotro roncsot takarit"; }
             public void run() { testHokotroRoncsotTakarit(); }
+        });
+
+        tests.add(new TestCase(){
+            public String getName() { return "Sózott sávon hó olvad";}
+            public void run() {testSozottSavonHoOlvad();}
         });
 
         // Ide johet majd a tobbi (m. TEST) ...
@@ -202,21 +206,21 @@ public class Main {
     }
 	*/
 
-    // Ezt csak en random probalgattam, nem hiszem hogy jo 
     private static void testKornyezetiHavazas(){
-        Object ik = new Object();
-        Skeleton.ctor(ik, "ik");
         Sav s = new Sav("s");
-        int answer = Skeleton.askQuestion("Van so a savon?", "Igen", "Nem");
+        List<Sav> osszesSav = new ArrayList<>();
+        osszesSav.add(s);
+        int answer = Skeleton.askQuestion("Van só a sávon?", "Igen", "Nem");
         if (answer == 2){
-            s.getAllapot();
-            Skeleton.ret("HAVAS");
-            s.hoNovel(10);
+            s.setSavAllapot(SavAllapot.TISZTA);
+            Idojaraskezelo ik = new Idojaraskezelo("ik", 10, osszesSav);
+            ik.Havaz();
         } else {
-            s.getAllapot();
-            Skeleton.ret("SOZOTT");
+            s.setSavAllapot(SavAllapot.SOZOTT);
+            Idojaraskezelo ik = new Idojaraskezelo("ik", 10, osszesSav);
+            ik.Havaz();
         }
-        Skeleton.ret("void");
+        
     }
 
     public static void testAutoIranytValt() {
@@ -428,8 +432,8 @@ public class Main {
         
         f.mozgatJarmuvek();
     }
-	
-	private static void testHokotroRoncsotTakarit() {
+
+    private static void testHokotroRoncsotTakarit() {
         System.out.println("\n--- Szinpad felepitese ---");
         // Objektumok letrehozasa a diagram alapjan
         Hokotro h = new Hokotro("h");
@@ -452,5 +456,31 @@ public class Main {
         System.out.println("\n--- Teszt futasa ---");
         // A diagram elso nyila: h.RoncsTakarit()
         h.roncsotTakarit(a);
+    }
+
+    private static void testSozottSavonHoOlvad(){
+        int answer = Skeleton.askQuestion("Elfogyott már a só a sávon?", "Igen", "Nem");
+        // Ha mar elfogyott a ho a savon
+        if (answer == 1){
+            Sav vizsgaltSav = new Sav("vizsgaltSav");
+            vizsgaltSav.setSavAllapot(SavAllapot.SOZOTT);
+            vizsgaltSav.setSozottIdo(0);
+            List<Sav> osszesSav = new ArrayList<>();
+            osszesSav.add(vizsgaltSav);
+            JatekKezelo jk = new JatekKezelo("jk");
+            Idojaraskezelo ik = new Idojaraskezelo("ik", 0, osszesSav);
+            jk.idojaraskezelo = ik;
+            jk.tick();
+        } else {
+            Sav vizsgaltSav = new Sav("vizsgaltSav");
+            vizsgaltSav.setSavAllapot(SavAllapot.SOZOTT);
+            vizsgaltSav.setSozottIdo(10);
+            List<Sav> osszesSav = new ArrayList<>();
+            osszesSav.add(vizsgaltSav);
+            JatekKezelo jk = new JatekKezelo("jk");
+            Idojaraskezelo ik = new Idojaraskezelo("ik", 0, osszesSav);
+            jk.idojaraskezelo = ik;
+            jk.tick();
+        }
     }
 }

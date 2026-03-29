@@ -34,7 +34,10 @@ public class Idojaraskezelo {
         Skeleton.call(this, "Havaz");
 
         for(Sav sav : osszesSav){
-            sav.hoNovel(havazasIntenzitas);
+            // Hozzaadtam egy checket a sav allapotara, mert kell az egyik teszthez
+            if (sav.getAllapot() != SavAllapot.SOZOTT){
+                sav.hoNovel(havazasIntenzitas);
+            } 
         }
 
         Skeleton.ret();
@@ -47,7 +50,10 @@ public class Idojaraskezelo {
         Skeleton.call(this, "OvasztasKezeles");
 
         for(Sav sav : osszesSav){
-            sav.sotSzor();
+            // Hozzaadtam egy checket a sav allapotara, mert kell az egyik teszthez
+            if (sav.getAllapot() == SavAllapot.SOZOTT && sav.getSozottIdo() == 0){
+                sav.hoEltuntet();
+            }
         }
 
         Skeleton.ret();

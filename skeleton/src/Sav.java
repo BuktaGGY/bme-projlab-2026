@@ -83,8 +83,8 @@ public class Sav {
      */
     public int hoEltuntet(){
         Skeleton.call(this, "hoEltuntet");
-
-        Skeleton.ret("10");
+        this.savAllapot = SavAllapot.TISZTA;
+        Skeleton.ret(String.valueOf(hoVastagsag));
         return 10;
     }
 
@@ -191,7 +191,7 @@ public class Sav {
      */
     public SavAllapot getAllapot(){
         Skeleton.call(this, "getAllapot");
-        //Skeleton.ret("SavAllapot");
+        Skeleton.ret(String.valueOf(savAllapot));
         return savAllapot;
     }
 
@@ -239,4 +239,20 @@ public class Sav {
         return this.savJobbra;
     }
 
+    /**
+     * Visszaadja a sozott ido erteket
+     * Teszteleshez kell
+     * @return sozottIdo valtozo
+     */
+    public int getSozottIdo(){
+        return sozottIdo;
+    }
+
+    /**
+     * Sozott ido beallitasara szukseges segedfuggveny
+     * Teszteleshez kell
+     */
+    public void setSozottIdo(int mennyiseg){
+        this.sozottIdo = mennyiseg;
+    }
 }
