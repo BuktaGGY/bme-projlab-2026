@@ -11,18 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
         List<TestCase> tests = new ArrayList<>();
-        
-        // --- TESZTESETEK REGISZTRALASA ---
-        /*
-        tests.add(new TestCase() {
-            public String getName() { return "Auto tiszta uton halad"; }
-            public void run() { testAutoTisztaUton(); }
-        });
-        
-        tests.add(new TestCase() {
-            public String getName() { return "Hokotro Sarkanyfejjel takarit"; }
-            public void run() { testSarkanyFej(); }
-        });*/
 
         tests.add(new TestCase(){
             public String getName() {
@@ -56,11 +44,6 @@ public class Main {
         tests.add(new TestCase() {
             public String getName() { return "Hokotro Soszoroval besozza az aktualis savot"; }
             public void run() { testSoszoro(); }
-        });
-
-        tests.add(new TestCase() {
-            public String getName() { return "Jarmu letapossa a savot"; }
-            public void run() { testLetapos(); }
         });
 
         tests.add(new TestCase() {
@@ -127,8 +110,6 @@ public class Main {
             public void run() { testFejcsere(); }
         });
 
-        // Ide johet majd a tobbi (m. TEST) ...
-
         // --- MENU CIKLUS ---
         while (true) {
             System.out.println("\n--- TESZTESETEK LISTAJA ---");
@@ -167,54 +148,6 @@ public class Main {
     // ==========================================
     // TESZTESETEK
     // ==========================================
-
-    private static void testAutoTisztaUton() {
-        // 1. Inicializalas
-        Object f = new Object(); Skeleton.ctor(f, "f");
-        Object a = new Object(); Skeleton.ctor(a, "a");
-        Object s = new Object(); Skeleton.ctor(s, "s");
-
-        // 2. Futas
-        Skeleton.call(f, "mozgatJarmuvek");
-        
-        Skeleton.call(a, "frissitAllapot");
-        
-        Skeleton.call(a, "mozog");
-        
-        Skeleton.call(s, "letapos", "a");
-        Skeleton.ret("void");
-        
-        Skeleton.ret("void");
-        
-        Skeleton.ret("void");
-        
-        Skeleton.ret("void");
-    }
-
-/*
-    private static void testSarkanyFej() {
-        // 1. Inicializalas
-        Object h = new Object(); Skeleton.ctor(h, "h");
-        Object sf = new Object(); Skeleton.ctor(sf, "sf");
-        Object s = new Object(); Skeleton.ctor(s, "s");
-
-        // 2. Futas
-        Skeleton.call(h, "frissitAllapot");
-        
-        int answer = Skeleton.askQuestion("Van elegendo biokerozin a hokotroban?", "Igen", "Nem");
-        
-        if (answer == 1) { 
-            Skeleton.call(sf, "takarit", "aktualisSav", "h");
-            
-            Skeleton.call(s, "mindentEltuntet");
-            Skeleton.ret("void");
-            
-            Skeleton.ret("void");
-        }
-        
-        Skeleton.ret("void");
-    }
-	*/
 
     private static void testKornyezetiHavazas(){
         Sav s = new Sav("s");
@@ -256,7 +189,7 @@ public class Main {
         s1.hoNovel(20);
 
         System.out.println("\n--- Teszt futasa ---");
-        // Itt mar a valodi fuggvenyt hivjuk!
+
         sf.takarit(s1, h);
     }
 
@@ -324,17 +257,6 @@ public class Main {
         sz.takarit(s1, h);
     }
 
-    private static void testLetapos() {
-        Sav s1 = new Sav("s1");
-        Auto a = new Auto("a");
-
-        System.out.println("\n--- Szinpad felepitese ---");
-        s1.hoNovel(10);
-
-        System.out.println("\n--- Teszt futasa ---");
-        s1.letapos(a);
-    }
-
     public static void testBuszIranyitasa() {
         UtvonalTervezo ut = new UtvonalTervezo("út");
         ForgalomIranyito fi = new ForgalomIranyito("fi");
@@ -379,8 +301,6 @@ public class Main {
         Jarmu b2 = new Busz("b2");
 
         ForgalomIranyito f =  new ForgalomIranyito("f");
-        //Sav s1 = new Sav("s1");
-        //b.setStartSav(s1);
 
         f.addJarmu(b1);
         f.addJarmu(b2);
@@ -453,18 +373,15 @@ public class Main {
         Sav s = new Sav("s");
         GazdasagKezelo g = new GazdasagKezelo("g");
 
-        // Kapcsolatok beallitasa (hogy lassak egymast a fuggvenyekben)
         h.setForgalomIranyito(f);
         f.setUtvonalTervezo(ut);
         f.setGazdasagKezelo(g);
-        
-        // Auto es sav allapotanak beallitasa
+
         a.setStartSav(s);
         a.setAllapot(JarmuAllapot.RONCS);
         s.setSavAllapot(SavAllapot.BLOKKOLT);
 
         System.out.println("\n--- Teszt futasa ---");
-        // A diagram elso nyila: h.RoncsTakarit()
         h.roncsotTakarit(a);
     }
 

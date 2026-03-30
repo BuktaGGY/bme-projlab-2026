@@ -16,7 +16,10 @@ public class Auto extends SerulekenyJarmu {
         Skeleton.call(this, "frissitAllapot");
 
         switch (aktualisSav.getAllapot()) {
-            case HAVAS, BLOKKOLT: setAllapot(JarmuAllapot.ELAKADT); break;
+            case HAVAS:
+            case BLOKKOLT:
+                setAllapot(JarmuAllapot.ELAKADT);
+                break;
             default: setAllapot(JarmuAllapot.HALAD); break;
         }
 
