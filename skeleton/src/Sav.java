@@ -46,14 +46,22 @@ public class Sav {
     private Sav savBalra;
 
     /**
+     * Tárolja hogy a sávon található-e zúzalék.
+     */
+    private boolean isZuzalekos;
+
+    /**
      * Konstruktor
      */
     public Sav(String name){
         savAllapot = SavAllapot.TISZTA;
+        isSozott = false;
         hoVastagsag = 0;
         letaposottDb = 0;
-        this.savJobbra = null;
-        this.savBalra = null;
+        kuszobErtek = 40;
+        savJobbra = null;
+        savBalra = null;
+        isZuzalekos = false;
     }
 
     /**
@@ -62,15 +70,13 @@ public class Sav {
      * @param mennyiseg Mennyivel kell a hó vastagságát növelni
      */
     public void hoNovel(int mennyiseg){
-
         hoVastagsag +=mennyiseg;
         if(hoVastagsag > 0 && savAllapot == SavAllapot.TISZTA){
             setSavAllapot(SavAllapot.HAVAS);
         }
-        if(hoVastagsag >= 40){
+        if(hoVastagsag >= kuszobErtek){
             setSavAllapot(SavAllapot.BLOKKOLT);
         }
-
     }
 
     /**
@@ -79,22 +85,43 @@ public class Sav {
      * @return A hó vastagsága kinullázás előtt
      */
     public int hoEltuntet(){
-        this.savAllapot = SavAllapot.TISZTA;
-        return 10;
+        savAllapot = SavAllapot.TISZTA;
+        int temp = hoVastagsag;
+        hoVastagsag = 0;
+        return temp;
     }
 
     /**
      * Függvény, amely megnöveli a sózottIdő változót és a sáv állapotát SÓZOTT-ra állítja.
      */
     public void sotSzor(){
+        savAllapot = SavAllapot.SOZOTT;
+        isSozott = true;
+        sozottIdo = 5; 
+    }
 
+    /**
+     * Függvény, amely beállítja, hogy a sávon található zúzalék
+     */
+    public void zuzalekotSzor(){
+        isZuzalekos = true;
+    }
+
+    public int zuzalekotEltuntet(){
+        isZuzalekos = false;
+        return 1; // Itt nem tudom, hogy hol taroljuk, hogy mennyit ad vissza es minek, lehet en neztem be idk xd
     }
 
     /**
      * Mindent eltüntet a sávról és a sáv állapotát TISZTA állapotra állítja.
      */
     public void mindentEltuntet(){
-
+        savAllapot = SavAllapot.TISZTA;
+        isSozott = false;
+        sozottIdo = 0;
+        isZuzalekos = false;
+        hoVastagsag = 0;
+        letaposottDb = 0;
     }
 
     /**
@@ -111,7 +138,10 @@ public class Sav {
      * Továbbá növeli a sáv hóVastagság változóját.
      */
     public void jegTores(){
-
+        if (savAllapot == SavAllapot.JEGPANCEL){
+            savAllapot = SavAllapot.HAVAS;
+            hoVastagsag += 5;
+        }
     }
 
     /**
@@ -120,16 +150,17 @@ public class Sav {
      * @param a A sávon áthaladó autó
      */
     public void letapos(Jarmu a){
-
         letaposottDb++;
         if(letaposottDb >= 5 && savAllapot != SavAllapot.BLOKKOLT){
             setSavAllapot(SavAllapot.JEGPANCEL);
         }
 
+        // !!! Nem lehet instanceof-ot hasznalni tehat ide majd mast kell
+        // Ha mar a Jarmu az ososztaly akkor nem lenne csak konnyebb siman meghivni a megcsuszik fuggvenyt, es az megoldja sajat maga?
+        // Marmint ha nem serulekeny a jarmu akkor a megcsuszik nem csinal ugye semmit sem, de ha serulekeny akkor igen?
         if (savAllapot == SavAllapot.JEGPANCEL && a instanceof SerulekenyJarmu) {
             ((SerulekenyJarmu) a).megcsuszik();
         }
-        
     }
 
     /**
@@ -137,7 +168,6 @@ public class Sav {
      * @return A jobbra található sáv állapota
      */
     public SavAllapot getJobbSavAllapot(){
-
         return savJobbra.getAllapot();
     }
 
@@ -146,7 +176,6 @@ public class Sav {
      * @return A balra található sáv állapota
      */
     public SavAllapot getBalSavAllapot(){
-
         return savBalra.getAllapot();
     }
 
@@ -154,7 +183,6 @@ public class Sav {
      * Visszaadja a hóVastagság változó értékét.
      */
     public int getHoVastagsag(){
-
         return hoVastagsag;
     }
 
@@ -163,9 +191,7 @@ public class Sav {
      * @param allapot A sáv új állapota
      */
     public void setSavAllapot(SavAllapot allapot){
-
         savAllapot = allapot;
-
     }
 
     /**
@@ -181,9 +207,7 @@ public class Sav {
      * @param s A jobbra található sáv referenciája
      */
     public void setJobbSav(Sav s){
-
         savJobbra = s;
-
     }
 
     /**
@@ -191,9 +215,7 @@ public class Sav {
      * @param s A balra található sáv referenciája
      */
     public void setBalSav(Sav s){
-
         savBalra = s;
-
     }
 
     /**
@@ -201,7 +223,7 @@ public class Sav {
      * @return bal szomszedos sav
      */
     public Sav getBalSav(){
-        return this.savBalra;
+        return savBalra;
     }
 
     /**
@@ -209,7 +231,7 @@ public class Sav {
      * @return jobb szomszédos sáv
      */
 	public Sav getJobbSav() {
-        return this.savJobbra;
+        return savJobbra;
     }
 
     /**
@@ -226,6 +248,6 @@ public class Sav {
      * Teszteleshez kell
      */
     public void setSozottIdo(int mennyiseg){
-        this.sozottIdo = mennyiseg;
+        sozottIdo = mennyiseg;
     }
 }
