@@ -15,6 +15,9 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
     /** A hókotró rendelkezésre álló biokerozin készlete. */
     private int biokerozin = 100;
 
+    /** A hókotró rendelkezésre álló zúzalék készlete. */
+    private int zuzalek = 0;
+
 	//ismeri cd alapjan
 	private ForgalomIranyito fi;
 
@@ -51,11 +54,9 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
      * Eltakarítja a balesetet szenvedett (roncs) autókat az aktuális sávról.
      */
     public void roncsotTakarit(Jarmu jarmu) {
-        
         if (fi != null) {
             fi.roncsEltakarit(jarmu);
         }
-        
     }
 
     public int getSo() {
@@ -76,5 +77,13 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
 
     public void setKotrofej(KotroFej kotrofej) {
         this.aktualisKotrofej = kotrofej;
+    }
+
+    public void setZuzalek(int mennyiseg){
+        this.zuzalek = mennyiseg;
+    }
+
+    public int getZuzalek(){
+        return zuzalek;
     }
 }

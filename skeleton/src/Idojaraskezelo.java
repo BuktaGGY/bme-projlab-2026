@@ -30,27 +30,24 @@ public class Idojaraskezelo {
      * Növeli a hó mennyiségét az összes sávon
      */
     public void Havaz(){
-
         for(Sav sav : osszesSav){
-            // Hozzaadtam egy checket a sav allapotara, mert kell az egyik teszthez
             if (sav.getAllapot() != SavAllapot.SOZOTT){
                 sav.hoNovel(havazasIntenzitas);
             } 
         }
-
     }
 
     /**
      * Kezeli a sávokon az olvadási folyamatokat.
      */
     public void olvasztasKezeles(){
-
         for(Sav sav : osszesSav){
-            // Hozzaadtam egy checket a sav allapotara, mert kell az egyik teszthez
+            if (sav.getSozottIdo() > 0){
+                sav.setSozottIdo(sav.getSozottIdo() - 1);
+            }
             if (sav.getAllapot() == SavAllapot.SOZOTT && sav.getSozottIdo() == 0){
                 sav.hoEltuntet();
             }
         }
-
     }
 }

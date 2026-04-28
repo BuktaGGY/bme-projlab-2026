@@ -32,7 +32,6 @@ public class UtvonalTervezo {
      * és riasztja a forgalomirányítót a kialakult helyzetről.
      */
     public void utzarDetektal() {
-
         this.utFrissites();
         if (forgalomIranyito != null) {
             forgalomIranyito.utzarEsemeny(this);
@@ -53,7 +52,7 @@ public class UtvonalTervezo {
      */
     public String utvonalKeres() {
 
-        return "utvonal";
+        return null;
     }
 
     /**

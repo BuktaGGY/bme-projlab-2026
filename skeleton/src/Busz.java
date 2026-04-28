@@ -61,7 +61,7 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
             setAllapot(JarmuAllapot.HALAD);
         }
 
-        if(blokkoltSzamlalo > 0 ){
+        if(blokkoltSzamlalo > 0){
             blokkoltSzamlalo--;
         }
         
@@ -80,12 +80,9 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      * biztosítva a folyamatos oda-vissza ingázást.
      */
     public void megfordul() {
-
-        // Figyelem: Itt a temp változó is Vegallomas típusú lett!
         Vegallomas temp = kezdoAllomas;
         kezdoAllomas = vegAllomas;
         vegAllomas = temp;
-
     }
 
     /**

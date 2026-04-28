@@ -15,11 +15,8 @@ public class Soszoro extends KotroFej {
      */
     @Override
     public void takarit(Sav sav, Hokotro kotro) {
-
-        // Ellenőrizzük, hogy van-e só a tartályban
         if (kotro.getSo() > 0) {
             sav.sotSzor();
-            // Fogyasztjuk a sót
             kotro.setSo(kotro.getSo() - 1);
         }
 

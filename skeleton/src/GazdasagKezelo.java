@@ -26,9 +26,7 @@ public class GazdasagKezelo {
     }
 	 
     public void bevetelHozzaad(int bevetel){
-
         kozosKassza += bevetel;
-
     }
 
     /**
@@ -37,11 +35,9 @@ public class GazdasagKezelo {
      * @return "Igaz" értékkel tér vissza ha van elég fedezet, különben "hamis"
      */
     public boolean vasarlasValidacio(int osszeg){
-
         if(osszeg >= kozosKassza){
             return false;
         }
-
         return true;
     }
 
@@ -51,14 +47,12 @@ public class GazdasagKezelo {
      * @return "Igaz" értékkel tér vissza ha sikeres a vásárlás művelet, különben "hamis"
      */
     public boolean fizetes(int osszeg){
-
         if(vasarlasValidacio(osszeg)){
             kozosKassza -= osszeg;
+            return true;
         }
         else{
             return false;
         }
-
-        return true;
     }
 }

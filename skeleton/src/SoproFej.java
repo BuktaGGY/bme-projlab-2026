@@ -14,13 +14,11 @@ public class SoproFej extends KotroFej {
      */
     @Override
     public void takarit(Sav sav, Hokotro kotro) {
-
         int eltuntetettHo = sav.hoEltuntet();
-		
-		Sav szomszedosSav = sav.getJobbSav();
-		
-        if (szomszedosSav != null && eltuntetettHo > 0) {
-            szomszedosSav.hoNovel(eltuntetettHo);
+        sav.zuzalekotEltuntet();
+        if (sav.getJobbSav() != null && eltuntetettHo > 0) {
+            sav.getJobbSav().hoNovel(eltuntetettHo);
+            sav.getJobbSav().zuzalekotSzor();
         }
         
     }

@@ -13,9 +13,7 @@ public class HanyoFej extends KotroFej {
      */
     @Override
     public void takarit(Sav sav, Hokotro kotro) {
-		
-        // Csak az aktuális sávról tünteti el a havat, véglegesen
         sav.hoEltuntet();
-		
+        sav.zuzalekotEltuntet();
     }
 }

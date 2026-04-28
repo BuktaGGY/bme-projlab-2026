@@ -15,13 +15,9 @@ public class SarkanyFej extends KotroFej {
      */
     @Override
     public void takarit(Sav sav, Hokotro kotro) {
-
-        // Ellenőrizzük, hogy van-e elég üzemanyag
         if (kotro.getBiokerozin() > 0) {
             sav.mindentEltuntet();
-            // Fogyasztjuk a kerozint
             kotro.setBiokerozin(kotro.getBiokerozin() - 1); 
         }
-
     }
 }

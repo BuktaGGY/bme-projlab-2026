@@ -14,9 +14,6 @@ public class JegToro extends KotroFej {
      */
     @Override
     public void takarit(Sav sav, Hokotro kotro) {
-
-        // Utasítja a sávot a jég feltörésére
         sav.jegTores();
-
     }
 }
