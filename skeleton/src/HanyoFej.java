@@ -2,7 +2,6 @@ public class HanyoFej extends KotroFej {
 
     public HanyoFej(String name) {
         super(200); 
-		Skeleton.ctor(this, name);
     }
 
 	/**
@@ -14,11 +13,9 @@ public class HanyoFej extends KotroFej {
      */
     @Override
     public void takarit(Sav sav, Hokotro kotro) {
-		Skeleton.call(this, "takarit", Skeleton.getName(sav), Skeleton.getName(kotro));
 		
         // Csak az aktuális sávról tünteti el a havat, véglegesen
         sav.hoEltuntet();
 		
-		Skeleton.ret();
     }
 }

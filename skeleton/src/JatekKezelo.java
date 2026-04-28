@@ -18,28 +18,21 @@ public class JatekKezelo {
      * @param name A példány azonosító neve a naplózáshoz.
      */
     public JatekKezelo(String name) {
-        Skeleton.ctor(this, name);
     }
 
     public void start() {
-        Skeleton.call(this, "start");
         isRunning = true;
-        Skeleton.ret();
     }
 
     public void stop() {
-        Skeleton.call(this, "stop");
         isRunning = false;
-        Skeleton.ret();
     }
 
     public void tick() {
-        Skeleton.call(this, "tick");
         // Kivettem ezt mert a szekvencia diagramok szerint ezt nem o a tick hivja meg (Ho olvad az uton + kornyezeti havazas)
         // Lehethogy nem ez a jo megoldas de a szekvencia diagramon nem latom hogy a havaz fuggvenyt meghivnank a tick() utan
         //idojaraskezelo.Havaz();
         idojaraskezelo.olvasztasKezeles();
-        Skeleton.ret();
     }
 
     /**
@@ -47,8 +40,6 @@ public class JatekKezelo {
      * amikor egy busz sikeresen teljesít egy kört (érinti a végállomást).
      */
     public void buszPontszamNovel() {
-        Skeleton.call(this, "buszPontszamNovel");
         buszPontszamok++;
-        Skeleton.ret();
     }
 }

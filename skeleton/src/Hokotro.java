@@ -28,7 +28,6 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
      */
     public Hokotro(String name) {
         super();
-        Skeleton.ctor(this, name);
     }
 
     /**
@@ -36,8 +35,7 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
      */
     @Override
     public void frissitAllapot() {
-        Skeleton.call(this, "frissitAllapot");
-        Skeleton.ret();
+
     }
 
     /**
@@ -46,51 +44,37 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
      */
     @Override
     public void UtvonalatKijelol(Utszakasz[] ujUtvonal) {
-        Skeleton.call(this, "UtvonalatKijelol", Skeleton.getName(ujUtvonal));
         this.Utvonal = ujUtvonal;
-        Skeleton.ret();
     }
 
     /**
      * Eltakarítja a balesetet szenvedett (roncs) autókat az aktuális sávról.
      */
     public void roncsotTakarit(Jarmu jarmu) {
-        Skeleton.call(this, "roncsotTakarit");
         
         if (fi != null) {
             fi.roncsEltakarit(jarmu);
         }
         
-        Skeleton.ret();
     }
 
     public int getSo() {
-        Skeleton.call(this, "getSo");
-        Skeleton.ret(String.valueOf(so));
         return so;
     }
 
     public void setSo(int so) {
-        Skeleton.call(this, "setSo", String.valueOf(so));
         this.so = so;
-        Skeleton.ret();
     }
 
     public int getBiokerozin() {
-        Skeleton.call(this, "getBiokerozin");
-        Skeleton.ret(String.valueOf(biokerozin));
         return biokerozin;
     }
 
     public void setBiokerozin(int biokerozin) {
-        Skeleton.call(this, "setBiokerozin", String.valueOf(biokerozin));
         this.biokerozin = biokerozin;
-        Skeleton.ret();
     }
 
     public void setKotrofej(KotroFej kotrofej) {
-        Skeleton.call(this, "setKotrofej", "kotrofej");
         this.aktualisKotrofej = kotrofej;
-        Skeleton.ret();
     }
 }

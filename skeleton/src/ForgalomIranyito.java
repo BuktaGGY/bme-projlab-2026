@@ -31,7 +31,6 @@ public class ForgalomIranyito {
      * @param jarmu Roncs jármű
      */
     public void roncsEltakarit(Jarmu jarmu) {
-        Skeleton.call(this, "roncsEltakarit");
         
         if (jarmu instanceof Auto) {
             ((Auto) jarmu).megsemmisites();
@@ -45,7 +44,6 @@ public class ForgalomIranyito {
             gazdasagKezelo.bevetelHozzaad(100);
         }
         
-        Skeleton.ret();
     }
 	
     /**
@@ -53,7 +51,7 @@ public class ForgalomIranyito {
      * @param name A példány azonosító neve a naplózáshoz.
      */
     public ForgalomIranyito(String name) {
-        Skeleton.ctor(this, name);
+
     }
 
     /**
@@ -70,7 +68,6 @@ public class ForgalomIranyito {
      * @param ut Az útvonaltervező referenciája, ahonnan a járművek új utat kérhetnek.
      */
     public void utzarEsemeny(UtvonalTervezo ut) {
-        Skeleton.call(this, "utzarEsemeny", "ut");
 
         for (Jarmu j : jarmuvek) {
             if (j instanceof Auto) {
@@ -78,7 +75,6 @@ public class ForgalomIranyito {
             }
         }
         
-        Skeleton.ret();
     }
 
     /**
@@ -89,22 +85,19 @@ public class ForgalomIranyito {
      * @param csomopontok A kijelölt csomópontok tömbje.
      */
     public void buszUtvonalKiosztas(Busz b, Csomopont[] csomopontok) {
-        Skeleton.call(this, "buszUtvonalKiosztas", "b", "csomopontok");
         
         Utszakasz[] ujUtvonal = new Utszakasz[0];
 
         b.UtvonalatKijelol(ujUtvonal);
         
-        Skeleton.ret();
     }
 
     /**
      * Lépteti az összes nyilvántartott járművet a pályán.
      */
     public void mozgatJarmuvek() {
-        Skeleton.call(this, "mozgatJarmuvek");
         
-        Object aktualisUtszakasz = new Object(); Skeleton.ctor(aktualisUtszakasz, "utszakasz");
+        Object aktualisUtszakasz = new Object();
 
         for (Jarmu j : jarmuvek) {
             j.frissitAllapot();
@@ -113,14 +106,12 @@ public class ForgalomIranyito {
 
         this.utkozesVizsgalat();
         
-        Skeleton.ret();
     }
 
     /**
      * Ellenőrzi az esetleges ütközéseket
      */
     public void utkozesVizsgalat() {
-        Skeleton.call(this, "utkozesVizsgalat");
 
         List<Auto> autok = new ArrayList<>();
         for (Jarmu j : jarmuvek) {
@@ -134,7 +125,6 @@ public class ForgalomIranyito {
             autok.get(1).balesetezik();
         }
         
-        Skeleton.ret();
     }
 
     /**
@@ -144,7 +134,6 @@ public class ForgalomIranyito {
      * @param j2 Jármű2
      */
     public void balesetKezel(Jarmu j1, Jarmu j2) {
-        Skeleton.call(this, "balesetKezel");
 
         if(j1.getClass() == Busz.class && j2.getClass() == Busz.class){
             ((Busz) j1).balesetezik();
@@ -155,6 +144,5 @@ public class ForgalomIranyito {
             ((Auto) j2).balesetezik();
         }
 
-        Skeleton.ret();
     }
 }

@@ -9,6 +9,6 @@ public class Hid extends Utszakasz {
      * @param name Skeleton class miatt
      */
     public Hid(String name){
-        Skeleton.ctor(this, name);
+        
     }
 }

@@ -27,7 +27,6 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     public Busz(String name) {
         super();
-        Skeleton.ctor(this, name);
     }
 
     /**
@@ -45,12 +44,10 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     @Override
     public void balesetezik() {
-        Skeleton.call(this, "balesetezik");
 
         setAllapot(JarmuAllapot.MOZGÁSKÉPTELEN);
         setBlokk(5);
         
-        Skeleton.ret();
     }
 
     /**
@@ -59,7 +56,6 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     @Override
     public void frissitAllapot() {
-        Skeleton.call(this, "frissitAllapot");
 
         if(blokkoltSzamlalo == 0){
             setAllapot(JarmuAllapot.HALAD);
@@ -69,7 +65,6 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
             blokkoltSzamlalo--;
         }
         
-        Skeleton.ret();
     }
 
     /**
@@ -77,9 +72,7 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      * @param b A mozgásképtelenség időtartama (tickekben).
      */
     public void setBlokk(int b) {
-        Skeleton.call(this, "setBlokk", String.valueOf(b));
         blokkoltSzamlalo = b;
-        Skeleton.ret();
     }
 
     /**
@@ -87,14 +80,12 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      * biztosítva a folyamatos oda-vissza ingázást.
      */
     public void megfordul() {
-        Skeleton.call(this, "megfordul");
 
         // Figyelem: Itt a temp változó is Vegallomas típusú lett!
         Vegallomas temp = kezdoAllomas;
         kezdoAllomas = vegAllomas;
         vegAllomas = temp;
 
-        Skeleton.ret();
     }
 
     /**
@@ -104,11 +95,9 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     @Override
     public void UtvonalatKijelol(Utszakasz[] ujUtvonal) {
-        Skeleton.call(this, "UtvonalatKijelol", "ujUtvonal");
 
         this.Utvonal = ujUtvonal;
 
-        Skeleton.ret();
     }
 
     /**
@@ -118,12 +107,10 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     @Override
     public void mozog(Object utszakasz) {
-        Skeleton.call(this, "mozog", Skeleton.getName(utszakasz));
 
         if (vegAllomas != null) {
             vegAllomas.addErintes();
         }
         
-        Skeleton.ret();
     }
 }

@@ -10,7 +10,6 @@ public class Lakas extends PointOfInterest {
      */
     public Lakas(String name) {
         super(name);
-        Skeleton.ctor(this, name);
     }
 
     /**

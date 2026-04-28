@@ -3,7 +3,6 @@ public class JegToro extends KotroFej {
     // Konstruktor a Szkeleton névvel
     public JegToro(String name) {
         super(300);
-        Skeleton.ctor(this, name); // Regisztráció
     }
 
 
@@ -15,11 +14,9 @@ public class JegToro extends KotroFej {
      */
     @Override
     public void takarit(Sav sav, Hokotro kotro) {
-        Skeleton.call(this, "takarit", Skeleton.getName(sav), Skeleton.getName(kotro)); // Hívás jelzése
 
         // Utasítja a sávot a jég feltörésére
         sav.jegTores();
 
-        Skeleton.ret(); // Visszatérés jelzése
     }
 }

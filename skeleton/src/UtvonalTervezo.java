@@ -16,7 +16,7 @@ public class UtvonalTervezo {
      * @param name A példány azonosító neve a naplózáshoz.
      */
     public UtvonalTervezo(String name) {
-        Skeleton.ctor(this, name);
+        
     }
 
     /**
@@ -32,20 +32,19 @@ public class UtvonalTervezo {
      * és riasztja a forgalomirányítót a kialakult helyzetről.
      */
     public void utzarDetektal() {
-        Skeleton.call(this, "utzarDetektal");
+
         this.utFrissites();
         if (forgalomIranyito != null) {
             forgalomIranyito.utzarEsemeny(this);
         }
-        Skeleton.ret();
+
     }
 
     /**
      * Frissíti a belső térképgráfot (pl. kiveszi a blokkolt utakat).
      */
     public void utFrissites() {
-        Skeleton.call(this, "utFrissites");
-        Skeleton.ret();
+
     }
 
     /**
@@ -53,8 +52,7 @@ public class UtvonalTervezo {
      * @return Az új útvonal (szkeletonban egy dummy String/objektum).
      */
     public String utvonalKeres() {
-        Skeleton.call(this, "utvonalKeres");
-        Skeleton.ret("utvonal");
+
         return "utvonal";
     }
 
@@ -65,7 +63,6 @@ public class UtvonalTervezo {
      * @param csomopontok A játékos által kijelölt csomópontok tömbje.
      */
     public void utKijelol(Busz b, Csomopont[] csomopontok) {
-        Skeleton.call(this, "utKijelol", "b", "csomopontok");
 
         boolean ervenyes = this.utEllenorzes(csomopontok);
 
@@ -73,7 +70,6 @@ public class UtvonalTervezo {
             forgalomIranyito.buszUtvonalKiosztas(b, csomopontok);
         }
         
-        Skeleton.ret();
     }
 
     /**
@@ -83,8 +79,7 @@ public class UtvonalTervezo {
      * @return Igaz, ha az útvonal bejárható.
      */
     public boolean utEllenorzes(Csomopont[] csomopontok) {
-        Skeleton.call(this, "utEllenorzes", "csomopontok");
-        Skeleton.ret("true");
+
         return true;
     }
 }

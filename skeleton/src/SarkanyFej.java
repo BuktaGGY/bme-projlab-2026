@@ -3,7 +3,6 @@ public class SarkanyFej extends KotroFej {
     // Konstruktor a Szkeleton névvel
     public SarkanyFej(String name) {
         super(800);
-        Skeleton.ctor(this, name); // Regisztráció
     }
 
 
@@ -16,7 +15,6 @@ public class SarkanyFej extends KotroFej {
      */
     @Override
     public void takarit(Sav sav, Hokotro kotro) {
-        Skeleton.call(this, "takarit", Skeleton.getName(sav), Skeleton.getName(kotro)); // Hívás jelzése
 
         // Ellenőrizzük, hogy van-e elég üzemanyag
         if (kotro.getBiokerozin() > 0) {
@@ -25,6 +23,5 @@ public class SarkanyFej extends KotroFej {
             kotro.setBiokerozin(kotro.getBiokerozin() - 1); 
         }
 
-        Skeleton.ret(); // Visszatérés jelzése
     }
 }

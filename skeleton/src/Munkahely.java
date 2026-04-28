@@ -9,6 +9,5 @@ public class Munkahely extends PointOfInterest {
      */
     public Munkahely(String name) {
         super(name);
-        Skeleton.ctor(this, name);
     }
 }

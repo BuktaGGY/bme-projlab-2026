@@ -41,8 +41,7 @@ public abstract class Jarmu {
      * Frissíti a jármű útvonalát (pl. újratervezés után).
      */
     public void utvonalFrissit() {
-        Skeleton.call(this, "utvonalFrissit");
-        Skeleton.ret();
+
     }
 
     /**
@@ -83,10 +82,8 @@ public abstract class Jarmu {
      * @param szomszedosSav Szomszéd sáv
      */
     public void savValtas(Sav szomszedosSav) {
-        Skeleton.call(this, "savValtas", "szomszedosSav");
 
         aktualisSav = szomszedosSav;
-        Skeleton.ret("void");
     }
 
     /**
@@ -94,12 +91,9 @@ public abstract class Jarmu {
      * @param allapot Az új állapot.
      */
     public void setAllapot(JarmuAllapot allapot) {
-        // Itt a Skeleton.getName()-et használjuk a kérésednek megfelelően!
-        Skeleton.call(this, "setAllapot", Skeleton.getName(allapot));
 
         this.allapot = allapot;
 
-        Skeleton.ret();
     }
 
     /**
@@ -107,10 +101,8 @@ public abstract class Jarmu {
      * @param sav Aktuális sáv
      */
     public void setStartSav(Sav sav) {
-        Skeleton.call(this, "setStartSav", Skeleton.getName(sav));
 
         aktualisSav = sav;
 
-        Skeleton.ret();
     }
 }

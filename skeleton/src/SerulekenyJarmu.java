@@ -17,16 +17,14 @@ public abstract class SerulekenyJarmu extends Jarmu {
      * A jármű elakad a mély hóban (sebessége nullára csökken).
      */
     public void elakad() {
-        Skeleton.call(this, "elakad");
-        Skeleton.ret();
+
     }
 
     /**
      * A jármű megcsúszik a jégpáncélon, elveszítve az irányítást.
      */
     public void megcsuszik() {
-        Skeleton.call(this, "megcsuszik");
-        Skeleton.ret();
+
     }
 
     /**

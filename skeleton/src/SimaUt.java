@@ -9,6 +9,6 @@ public class SimaUt extends Utszakasz{
      * @param name Skeleton class miatt
      */
     public SimaUt(String name){
-        Skeleton.ctor(this, name);
+
     }
 }

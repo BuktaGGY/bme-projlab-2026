@@ -3,7 +3,6 @@ public class Soszoro extends KotroFej {
     // Konstruktor a Szkeleton névvel
     public Soszoro(String name) {
         super(150);
-        Skeleton.ctor(this, name); // Regisztráció
     }
 
 
@@ -16,7 +15,6 @@ public class Soszoro extends KotroFej {
      */
     @Override
     public void takarit(Sav sav, Hokotro kotro) {
-        Skeleton.call(this, "takarit", Skeleton.getName(sav), Skeleton.getName(kotro)); // Hívás jelzése
 
         // Ellenőrizzük, hogy van-e só a tartályban
         if (kotro.getSo() > 0) {
@@ -25,6 +23,5 @@ public class Soszoro extends KotroFej {
             kotro.setSo(kotro.getSo() - 1);
         }
 
-        Skeleton.ret(); // Visszatérés jelzése
     }
 }

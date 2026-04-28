@@ -24,14 +24,12 @@ public class Idojaraskezelo {
     public Idojaraskezelo(String name, int havazasIntenzitas, List<Sav> osszesSav) {
         this.havazasIntenzitas = havazasIntenzitas;
         this.osszesSav = osszesSav;
-        Skeleton.ctor(this, name);
     }
 
     /**
      * Növeli a hó mennyiségét az összes sávon
      */
     public void Havaz(){
-        Skeleton.call(this, "Havaz");
 
         for(Sav sav : osszesSav){
             // Hozzaadtam egy checket a sav allapotara, mert kell az egyik teszthez
@@ -40,14 +38,12 @@ public class Idojaraskezelo {
             } 
         }
 
-        Skeleton.ret();
     }
 
     /**
      * Kezeli a sávokon az olvadási folyamatokat.
      */
     public void olvasztasKezeles(){
-        Skeleton.call(this, "OvasztasKezeles");
 
         for(Sav sav : osszesSav){
             // Hozzaadtam egy checket a sav allapotara, mert kell az egyik teszthez
@@ -56,6 +52,5 @@ public class Idojaraskezelo {
             }
         }
 
-        Skeleton.ret();
     }
 }

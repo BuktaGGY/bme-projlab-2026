@@ -16,7 +16,6 @@ public class Vegallomas extends PointOfInterest {
      */
     public Vegallomas(String name) {
         super(name);
-        Skeleton.ctor(this, name);
     }
 
     /**
@@ -32,13 +31,11 @@ public class Vegallomas extends PointOfInterest {
      * és jelzi a JátékKezelőnek, hogy adjon egy pontot.
      */
     public void addErintes() {
-        Skeleton.call(this, "addErintes");
         
         erintesekSzama++;
         if (jatekKezelo != null) {
             jatekKezelo.buszPontszamNovel();
         }
         
-        Skeleton.ret();
     }
 }

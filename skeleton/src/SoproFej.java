@@ -3,8 +3,6 @@ public class SoproFej extends KotroFej {
     // A szkeleton a inicializáláskor adja meg a nevet (pl. "sf")
     public SoproFej(String name) {
         super(100); 
-        // 1. Lépés: Regisztráljuk magunkat a Skeletonban!
-        Skeleton.ctor(this, name); 
     }
 
 
@@ -16,8 +14,6 @@ public class SoproFej extends KotroFej {
      */
     @Override
     public void takarit(Sav sav, Hokotro kotro) {
-        // 2. Lépés: Jelezzük a hívást!
-        Skeleton.call(this, "takarit", Skeleton.getName(sav), Skeleton.getName(kotro)); 
 
         int eltuntetettHo = sav.hoEltuntet();
 		
@@ -27,7 +23,5 @@ public class SoproFej extends KotroFej {
             szomszedosSav.hoNovel(eltuntetettHo);
         }
         
-        // 3. Lépés: Jelezzük a visszatérést!
-        Skeleton.ret(); 
     }
 }

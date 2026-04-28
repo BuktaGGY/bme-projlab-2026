@@ -7,7 +7,6 @@ public abstract class PointOfInterest {
      * @param name A példány azonosító neve a naplózáshoz.
      */
     public PointOfInterest(String name) { 
-        Skeleton.ctor(this, name); 
     }
 
     /**

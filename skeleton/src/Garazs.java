@@ -10,7 +10,6 @@ public class Garazs extends PointOfInterest {
      */
     public Garazs(String name) { 
         super(name);
-        Skeleton.ctor(this, name);
     }
     
     /**

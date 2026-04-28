@@ -49,7 +49,6 @@ public class Sav {
      * Konstruktor
      */
     public Sav(String name){
-        Skeleton.ctor(this, name);
         savAllapot = SavAllapot.TISZTA;
         hoVastagsag = 0;
         letaposottDb = 0;
@@ -63,7 +62,6 @@ public class Sav {
      * @param mennyiseg Mennyivel kell a hó vastagságát növelni
      */
     public void hoNovel(int mennyiseg){
-        Skeleton.call(this, "hoNovel", String.valueOf(mennyiseg));
 
         hoVastagsag +=mennyiseg;
         if(hoVastagsag > 0 && savAllapot == SavAllapot.TISZTA){
@@ -73,7 +71,6 @@ public class Sav {
             setSavAllapot(SavAllapot.BLOKKOLT);
         }
 
-        Skeleton.ret("void");
     }
 
     /**
@@ -82,9 +79,7 @@ public class Sav {
      * @return A hó vastagsága kinullázás előtt
      */
     public int hoEltuntet(){
-        Skeleton.call(this, "hoEltuntet");
         this.savAllapot = SavAllapot.TISZTA;
-        Skeleton.ret(String.valueOf(hoVastagsag));
         return 10;
     }
 
@@ -92,16 +87,14 @@ public class Sav {
      * Függvény, amely megnöveli a sózottIdő változót és a sáv állapotát SÓZOTT-ra állítja.
      */
     public void sotSzor(){
-        Skeleton.call(this, "sotSzor");
-        Skeleton.ret("void");
+
     }
 
     /**
      * Mindent eltüntet a sávról és a sáv állapotát TISZTA állapotra állítja.
      */
     public void mindentEltuntet(){
-        Skeleton.call(this, "mindentEltuntet");
-        Skeleton.ret("void");
+
     }
 
     /**
@@ -110,9 +103,7 @@ public class Sav {
      * Végül a saját hóVastagság változóját kinullázza.
      */
     public void hoOldalra(){
-        Skeleton.call(this, "hoOldalra");
         savJobbra.hoNovel(hoVastagsag);
-        Skeleton.ret("void");
     }
 
     /**
@@ -120,8 +111,7 @@ public class Sav {
      * Továbbá növeli a sáv hóVastagság változóját.
      */
     public void jegTores(){
-        Skeleton.call(this, "jegTores");
-        Skeleton.ret("void");
+
     }
 
     /**
@@ -130,7 +120,6 @@ public class Sav {
      * @param a A sávon áthaladó autó
      */
     public void letapos(Jarmu a){
-        Skeleton.call(this, "letapos", Skeleton.getName(a));
 
         letaposottDb++;
         if(letaposottDb >= 5 && savAllapot != SavAllapot.BLOKKOLT){
@@ -141,7 +130,6 @@ public class Sav {
             ((SerulekenyJarmu) a).megcsuszik();
         }
         
-        Skeleton.ret("void");
     }
 
     /**
@@ -149,8 +137,7 @@ public class Sav {
      * @return A jobbra található sáv állapota
      */
     public SavAllapot getJobbSavAllapot(){
-        Skeleton.call(this, "getJobbSavAllapot");
-        Skeleton.ret("SavAllapot");
+
         return savJobbra.getAllapot();
     }
 
@@ -159,8 +146,7 @@ public class Sav {
      * @return A balra található sáv állapota
      */
     public SavAllapot getBalSavAllapot(){
-        Skeleton.call(this, "getBalSavAllapot");
-        Skeleton.ret("SavAllapot");
+
         return savBalra.getAllapot();
     }
 
@@ -168,8 +154,7 @@ public class Sav {
      * Visszaadja a hóVastagság változó értékét.
      */
     public int getHoVastagsag(){
-        Skeleton.call(this, "getHoVastagsag");
-        Skeleton.ret("int");
+
         return hoVastagsag;
     }
 
@@ -178,11 +163,9 @@ public class Sav {
      * @param allapot A sáv új állapota
      */
     public void setSavAllapot(SavAllapot allapot){
-        Skeleton.call(this, "setSavAllapot", String.valueOf(allapot));
 
         savAllapot = allapot;
 
-        Skeleton.ret("void");
     }
 
     /**
@@ -190,8 +173,6 @@ public class Sav {
      * @return A saját állapota
      */
     public SavAllapot getAllapot(){
-        Skeleton.call(this, "getAllapot");
-        Skeleton.ret(String.valueOf(savAllapot));
         return savAllapot;
     }
 
@@ -200,11 +181,9 @@ public class Sav {
      * @param s A jobbra található sáv referenciája
      */
     public void setJobbSav(Sav s){
-        Skeleton.call(this, "setJobbSav", Skeleton.getName(s));
 
         savJobbra = s;
 
-        Skeleton.ret("void");
     }
 
     /**
@@ -212,11 +191,9 @@ public class Sav {
      * @param s A balra található sáv referenciája
      */
     public void setBalSav(Sav s){
-        Skeleton.call(this, "setBalSav", String.valueOf(s));
 
         savBalra = s;
 
-        Skeleton.ret("void");
     }
 
     /**
@@ -224,8 +201,6 @@ public class Sav {
      * @return bal szomszedos sav
      */
     public Sav getBalSav(){
-        Skeleton.call(this, "getBalSav");
-        Skeleton.ret(Skeleton.getName(this.savBalra));
         return this.savBalra;
     }
 
@@ -234,8 +209,6 @@ public class Sav {
      * @return jobb szomszédos sáv
      */
 	public Sav getJobbSav() {
-        Skeleton.call(this, "getSzomszedosSav");
-        Skeleton.ret(Skeleton.getName(this.savJobbra)); // A jobb oldalit adja vissza
         return this.savJobbra;
     }
 

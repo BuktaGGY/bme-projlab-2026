@@ -9,6 +9,6 @@ public class Alagut extends Utszakasz {
      * @param name Skeleton class miatt
      */
     public Alagut(String name){
-        Skeleton.ctor(this, name);
+        
     }
 }

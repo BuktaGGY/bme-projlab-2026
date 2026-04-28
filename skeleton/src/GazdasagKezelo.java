@@ -22,15 +22,13 @@ public class GazdasagKezelo {
 	 
 	 //konstruktor
 	 public GazdasagKezelo(String name) {
-        Skeleton.ctor(this, name);
+
     }
 	 
     public void bevetelHozzaad(int bevetel){
-        Skeleton.call(this, "bevetelHozzaad");
 
         kozosKassza += bevetel;
 
-        Skeleton.ret();
     }
 
     /**
@@ -39,14 +37,11 @@ public class GazdasagKezelo {
      * @return "Igaz" értékkel tér vissza ha van elég fedezet, különben "hamis"
      */
     public boolean vasarlasValidacio(int osszeg){
-        Skeleton.call(this, "vasarlasValidacio");
 
         if(osszeg >= kozosKassza){
-            Skeleton.ret();
             return false;
         }
 
-        Skeleton.ret();
         return true;
     }
 
@@ -56,18 +51,14 @@ public class GazdasagKezelo {
      * @return "Igaz" értékkel tér vissza ha sikeres a vásárlás művelet, különben "hamis"
      */
     public boolean fizetes(int osszeg){
-        Skeleton.call(this, "fizetes");
 
         if(vasarlasValidacio(osszeg)){
             kozosKassza -= osszeg;
-            Skeleton.ret();
         }
         else{
-            Skeleton.ret();
             return false;
         }
 
-        Skeleton.ret();
         return true;
     }
 }

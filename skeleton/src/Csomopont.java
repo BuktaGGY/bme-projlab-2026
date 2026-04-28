@@ -20,7 +20,7 @@ public class Csomopont {
      * @param name A példány azonosító neve a naplózáshoz.
      */
     public Csomopont(String name) {
-        Skeleton.ctor(this, name);
+
     }
 
     /**
@@ -28,8 +28,7 @@ public class Csomopont {
      * @return A csomópont egyedi azonosítója.
      */
     public int getID(){
-        Skeleton.call(this, "getID");
-        Skeleton.ret(Skeleton.getName(id));
+
         return id;
     }
 
@@ -38,9 +37,6 @@ public class Csomopont {
      * @return Az útszakaszokat tartalmazó tömb.
      */
     public Utszakasz[] getUtszakaszok(){
-        Skeleton.call(this, "getUtszakaszok");
-        // Ha az utszakaszok null, akkor "null"-t ír ki a Skeleton
-        Skeleton.ret(utszakaszok != null ? "Utszakasz[]" : "null");
         return utszakaszok;
     }
 }
