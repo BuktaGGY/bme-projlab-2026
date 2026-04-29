@@ -28,12 +28,14 @@ public class Prototipus {
         this.jk = new JatekKezelo();
     }
 
+
 /**
      * Elindítja a beolvasási ciklust. A program addig olvas a standard bemenetről, 
      * amíg a 'kilep' parancsot meg nem kapja, vagy el nem fogy a bemenet (EOF).
      */
     public void run() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Bemenet:");
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
@@ -88,7 +90,19 @@ public class Prototipus {
                 //innentol meg nem keszek
 
                     case "uj_poi":
-                        System.out.println("[INFO] uj_poi parancs meg nincs implementalva.");
+                        String poiId = parts[1];
+                        String cspId = parts[2];
+
+                        String poiName = parts[3];
+                        switch (poiName) {
+                            case "lakas": poik.put(poiId,new Lakas("Lakas")); break;
+                            case "munkahely": poik.put(poiId,new Lakas("Munkahely")); break;
+                            case "vegallomas": poik.put(poiId,new Lakas("Vegallomas")); break;
+                            case "garazs":  poik.put(poiId,new Lakas("Garazs")); break;
+                        }
+                        poik.get(poiId).setCsomopont(csomopontok.get(cspId));
+
+                        System.out.println("[OK] Point of Interest letrehozva (" + poiName + ")");
                         break;
 
                     case "lerak_auto":
