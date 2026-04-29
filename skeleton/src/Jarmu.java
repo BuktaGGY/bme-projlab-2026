@@ -10,7 +10,7 @@ public abstract class Jarmu {
     protected JarmuAllapot allapot;
 
     /** A jármű egyedi azonosítója. */
-    protected int id;
+    protected String id;
     
     /** A jármű aktuális pozíciója az adott sávon belül. */
     protected int pozicioASavon;
@@ -28,7 +28,8 @@ public abstract class Jarmu {
      * Alapértelmezett konstruktor.
      * (A regisztrációt a Skeletonban a leszármazottak végzik el).
      */
-    public Jarmu() {
+    public Jarmu(String id) {
+        this.id = id;
     }
 
     /**
@@ -97,5 +98,10 @@ public abstract class Jarmu {
      */
     public void setStartSav(Sav sav) {
         aktualisSav = sav;
+    }
+
+
+    public void statKiir(){
+
     }
 }

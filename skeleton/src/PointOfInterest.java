@@ -1,12 +1,13 @@
 public abstract class PointOfInterest {
     protected Csomopont hely;
-    protected int id;
+    protected String id;
 
     /**
-     * Konstruktor a Szkeleton teszteléshez.
-     * @param name A példány azonosító neve a naplózáshoz.
+     * Konstruktor
+     * @param id A példány azonosító neve a naplózáshoz.
      */
-    public PointOfInterest(String name) { 
+    public PointOfInterest(String id) {
+        this.id = id;
     }
 
     /**

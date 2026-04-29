@@ -27,10 +27,10 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
 
     /**
      * Konstruktor a Szkeleton teszteléshez.
-     * @param name A példány azonosító neve a naplózáshoz.
+     * @param id A példány azonosító neve a naplózáshoz.
      */
-    public Hokotro(String name) {
-        super();
+    public Hokotro(String id) {
+        super(id);
     }
 
     /**

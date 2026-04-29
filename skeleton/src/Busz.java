@@ -22,11 +22,11 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
     private int blokkoltSzamlalo;
 
     /**
-     * Konstruktor a Szkeleton teszteléshez.
-     * @param name A példány azonosító neve a naplózáshoz.
+     * Konstruktor
+     * @param id A példány azonosító neve a naplózáshoz.
      */
-    public Busz(String name) {
-        super();
+    public Busz(String id) {
+        super(id);
     }
 
     /**

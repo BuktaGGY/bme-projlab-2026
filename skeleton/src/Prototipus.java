@@ -88,7 +88,7 @@ public class Prototipus {
                         break;
 
                 //innentol meg nem keszek
-
+                    //TODO ezt valaki nézze át
                     case "uj_poi":
                         String poiId = parts[1];
                         String cspId = parts[2];
@@ -96,17 +96,30 @@ public class Prototipus {
                         String poiType = parts[3];
                         switch (poiType) {
                             case "lakas": poik.put(poiId,new Lakas(poiId)); break;
-                            case "munkahely": poik.put(poiId,new Lakas(poiId)); break;
-                            case "vegallomas": poik.put(poiId,new Lakas(poiId)); break;
-                            case "garazs":  poik.put(poiId,new Lakas(poiId)); break;
+                            case "munkahely": poik.put(poiId,new Munkahely(poiId)); break;
+                            case "vegallomas": poik.put(poiId,new Vegallomas(poiId)); break;
+                            case "garazs":  poik.put(poiId,new Garazs(poiId)); break;
                         }
                         poik.get(poiId).setCsomopont(csomopontok.get(cspId));
 
                         System.out.println("[OK] Point of Interest letrehozva (" + poiType + ")");
                         break;
 
+                    //TODO bemeneti parameterek ellenorzese
                     case "lerak_auto":
-                        System.out.println("[INFO] lerak_auto parancs meg nincs implementalva.");
+                        String autoId = parts[1];
+                        String autoSavId = parts[2];
+                        int autoPozicio = Integer.parseInt(parts[3]);
+                        String celPoiId = parts[4];
+
+                        Auto a =  new Auto(autoId);
+                        a.setStartSav(savok.get(autoSavId));
+                        a.pozicioASavon = 50; //TODO ez csak egy rögzitett példa adat
+                        a.setCel(poik.get(celPoiId));
+
+                        jarmuvek.put(autoId, a);
+
+                        System.out.println("[OK] Auto lerakva");
                         break;
 
                     case "lerak_busz":
@@ -168,6 +181,10 @@ public class Prototipus {
                                                " | jeg: " + jegStr + " | so_ido: " + s.getSozottIdo() + 
                                                " | zuzalek: " + zuzalekStr + " | blokkolt: " + blokkoltStr);
                         } else {
+                            if(jarmuvek.containsKey(statId)) {
+                                Jarmu jarmu = jarmuvek.get(statId);
+                                jarmu.statKiir();
+                            }
                             // TODO: Járművek és POI-k statisztikájának kiírása
                             System.out.println("[INFO] stat parancs ehhez az objektumhoz meg nincs implementalva: " + statId);
                         }

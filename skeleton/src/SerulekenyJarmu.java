@@ -9,8 +9,8 @@ public abstract class SerulekenyJarmu extends Jarmu {
     /**
      * Alapértelmezett konstruktor.
      */
-    public SerulekenyJarmu() {
-        super();
+    public SerulekenyJarmu(String id) {
+        super(id);
     }
 
     /**

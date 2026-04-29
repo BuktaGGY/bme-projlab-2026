@@ -3,9 +3,13 @@
  * Megvalósítja az autó mozgását, frissíti az állapotát.
  */
 public class Auto extends SerulekenyJarmu {
-    public Auto(String name) {
-        super();
+    private PointOfInterest cel;
+
+    public Auto(String id) {
+        super(id);
     }
+
+
 
     /**
      * Frissíti az autó állapotát, ha az útszakasz amin halad nem járható.
@@ -55,5 +59,14 @@ public class Auto extends SerulekenyJarmu {
             aktualisSav.setSavAllapot(SavAllapot.TISZTA); 
         }
         
+    }
+
+    public void setCel(PointOfInterest cel) {
+        this.cel = cel;
+    }
+
+    public void statKiir(){
+        System.out.println("[STAT] AUTO"+ this.id + " | sav: " + aktualisSav + " | poz: " + pozicioASavon
+        +" | allapot: "+ allapot+ " | cel: " + cel);
     }
 }
