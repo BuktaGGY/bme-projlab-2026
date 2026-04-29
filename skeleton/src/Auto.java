@@ -66,7 +66,7 @@ public class Auto extends SerulekenyJarmu {
     }
 
     public void statKiir(){
-        System.out.println("[STAT] AUTO"+ this.id + " | sav: " + aktualisSav + " | poz: " + pozicioASavon
+        System.out.println("[STAT] AUTO "+ this.id + " | sav: " + aktualisSav + " | poz: " + pozicioASavon
         +" | allapot: "+ allapot+ " | cel: " + cel);
     }
 }

@@ -9,6 +9,7 @@ public class Vegallomas extends PointOfInterest {
     private List<Busz> erintoBuszok;
     private int erintesekSzama;
     private JatekKezelo jatekKezelo;
+    private String id;
 
     /**
      * Konstruktor a Szkeleton teszteléshez.
@@ -36,6 +37,9 @@ public class Vegallomas extends PointOfInterest {
         if (jatekKezelo != null) {
             jatekKezelo.buszPontszamNovel();
         }
-        
+    }
+
+    public void StatKiir(){
+        System.out.println("[STAT] VEGALLOMAS " + this.id+ " | erintesekSzama: "+ erintesekSzama); //TODO listaelemek listazasa
     }
 }

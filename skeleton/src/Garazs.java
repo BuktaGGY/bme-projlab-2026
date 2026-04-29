@@ -27,4 +27,9 @@ public class Garazs extends PointOfInterest {
      */
     public void tankol(KotroFej fej) {
     }
+
+    public void StatKiir(){
+        String foglalt =  isOccupied ? "igen" : "nem";
+        System.out.println("[STAT] GARAZS " + this.id+ " | foglalt: "+ foglalt);
+    }
 }

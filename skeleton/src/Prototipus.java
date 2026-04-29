@@ -185,8 +185,10 @@ public class Prototipus {
                                 Jarmu jarmu = jarmuvek.get(statId);
                                 jarmu.statKiir();
                             }
-                            // TODO: Járművek és POI-k statisztikájának kiírása
-                            System.out.println("[INFO] stat parancs ehhez az objektumhoz meg nincs implementalva: " + statId);
+                            if(poik.containsKey(statId)) {
+                                PointOfInterest poi = poik.get(statId);
+                                poi.StatKiir();
+                            }
                         }
                         break;
                         

@@ -18,4 +18,9 @@ public abstract class PointOfInterest {
         this.hely = csp;
     }
 
+    public void StatKiir(){}
+
+    public String getId() {
+        return id;
+    }
 }

@@ -19,4 +19,8 @@ public class Lakas extends PointOfInterest {
     public void setPar(Munkahely p) {
         this.par = p;
     }
+
+    public void StatKiir(){
+        System.out.println("[STAT] LAKAS " + this.id+ " | par: "+ par.getId());
+    }
 }
