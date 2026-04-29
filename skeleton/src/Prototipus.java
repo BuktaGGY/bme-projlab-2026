@@ -93,16 +93,16 @@ public class Prototipus {
                         String poiId = parts[1];
                         String cspId = parts[2];
 
-                        String poiName = parts[3];
-                        switch (poiName) {
-                            case "lakas": poik.put(poiId,new Lakas("Lakas")); break;
-                            case "munkahely": poik.put(poiId,new Lakas("Munkahely")); break;
-                            case "vegallomas": poik.put(poiId,new Lakas("Vegallomas")); break;
-                            case "garazs":  poik.put(poiId,new Lakas("Garazs")); break;
+                        String poiType = parts[3];
+                        switch (poiType) {
+                            case "lakas": poik.put(poiId,new Lakas(poiId)); break;
+                            case "munkahely": poik.put(poiId,new Lakas(poiId)); break;
+                            case "vegallomas": poik.put(poiId,new Lakas(poiId)); break;
+                            case "garazs":  poik.put(poiId,new Lakas(poiId)); break;
                         }
                         poik.get(poiId).setCsomopont(csomopontok.get(cspId));
 
-                        System.out.println("[OK] Point of Interest letrehozva (" + poiName + ")");
+                        System.out.println("[OK] Point of Interest letrehozva (" + poiType + ")");
                         break;
 
                     case "lerak_auto":
@@ -129,11 +129,21 @@ public class Prototipus {
                         break;
 
                     case "havaz_sav":
-                        System.out.println("[INFO] havaz_sav parancs meg nincs implementalva.");
+                        String savAzon = parts[1];
+                        int hoMennyiseg = Integer.parseInt(parts[2]);
+
+                        savok.get(savAzon).hoNovel(hoMennyiseg);
+                        System.out.println("[OK] "+ hoMennyiseg + " cm ho elhelyezve savon: " + savAzon);
                         break;
 
                     case "havaz_globalis":
-                        System.out.println("[INFO] havaz_globalis parancs meg nincs implementalva.");
+                        int hoMennyiseg2 = Integer.parseInt(parts[1]);
+
+                        for(Map.Entry<String, Sav> entry: savok.entrySet()) {
+                            savok.get(entry.getKey()).hoNovel(hoMennyiseg2);
+                        }
+
+                        System.out.println("[OK] " + hoMennyiseg2+ " cm hó elhelyezve minden sávon");
                         break;
 
                     case "tankol":
