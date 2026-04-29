@@ -50,7 +50,6 @@ public abstract class Jarmu {
      * @param utszakasz Az útszakasz (vagy annak egy része), amin a jármű mozog.
      */
     public void mozog(Object utszakasz) {
-        Skeleton.call(this, "mozog", "utszakasz");
 
         if(this.allapot == JarmuAllapot.ELAKADT) {
             if(this.getClass() == Auto.class ) {
@@ -59,13 +58,13 @@ public abstract class Jarmu {
                 if(s.getJobbSavAllapot() != SavAllapot.BLOKKOLT) {
                     savValtas(s.getJobbSav());
                     setAllapot(JarmuAllapot.HALAD);
-                    Skeleton.ret();
+
                     return;
                 }
                 if(s.getBalSavAllapot() != SavAllapot.BLOKKOLT){
                     savValtas(s.getBalSav());
                     setAllapot(JarmuAllapot.HALAD);
-                    Skeleton.ret();
+
                     return;
                 }
             }
@@ -73,8 +72,6 @@ public abstract class Jarmu {
         else{
             aktualisSav.letapos(this);
         }
-
-        Skeleton.ret("void");
     }
 
     /**
@@ -91,9 +88,7 @@ public abstract class Jarmu {
      * @param allapot Az új állapot.
      */
     public void setAllapot(JarmuAllapot allapot) {
-
         this.allapot = allapot;
-
     }
 
     /**
@@ -101,8 +96,6 @@ public abstract class Jarmu {
      * @param sav Aktuális sáv
      */
     public void setStartSav(Sav sav) {
-
         aktualisSav = sav;
-
     }
 }
