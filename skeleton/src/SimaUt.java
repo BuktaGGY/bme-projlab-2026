@@ -8,7 +8,7 @@ public class SimaUt extends Utszakasz{
      * Egyszerű konstruktor
      * @param name Skeleton class miatt
      */
-    public SimaUt(String name){
-
+    public SimaUt(String id, Csomopont eleje, Csomopont vege, int hossz) {
+        super(id, eleje, vege, hossz);
     }
 }

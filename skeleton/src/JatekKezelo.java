@@ -17,7 +17,7 @@ public class JatekKezelo {
      * Konstruktor a Szkeleton teszteléshez.
      * @param name A példány azonosító neve a naplózáshoz.
      */
-    public JatekKezelo(String name) {
+    public JatekKezelo() {
     }
 
     public void start() {
@@ -32,6 +32,7 @@ public class JatekKezelo {
         // Kivettem ezt mert a szekvencia diagramok szerint ezt nem o a tick hivja meg (Ho olvad az uton + kornyezeti havazas)
         // Lehethogy nem ez a jo megoldas de a szekvencia diagramon nem latom hogy a havaz fuggvenyt meghivnank a tick() utan
         //idojaraskezelo.Havaz();
+        aktualisTick++;
         idojaraskezelo.olvasztasKezeles();
     }
 

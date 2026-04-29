@@ -21,7 +21,7 @@ public class GazdasagKezelo {
      */
 	 
 	 //konstruktor
-	 public GazdasagKezelo(String name) {
+	public GazdasagKezelo(String name) {
 
     }
 	 
@@ -55,4 +55,9 @@ public class GazdasagKezelo {
             return false;
         }
     }
+
+    public int getKozosKassza(){
+        return kozosKassza;
+    }
+
 }

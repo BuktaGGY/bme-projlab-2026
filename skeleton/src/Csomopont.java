@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A közlekedési hálózat egy csomópontját reprezentáló osztály.
  * A csomópontok kötik össze az egyes útszakaszokat, és ezek adják
@@ -8,26 +11,26 @@ public class Csomopont {
     /**
      * A csomópont egyedi azonosítója.
      */
-    private int id;
+    private String id;
 
     /**
      * A csomóponthoz csatlakozó útszakaszok tömbje.
      */
-    private Utszakasz[] utszakaszok;
+    private List<Utszakasz> utszakaszok;
 
     /**
-     * Konstruktor a Szkeleton teszteléshez.
-     * @param name A példány azonosító neve a naplózáshoz.
+     * @param id A példány azonosító neve a naplózáshoz.
      */
-    public Csomopont(String name) {
-
+    public Csomopont(String id) {
+        this.id = id;
+        this.utszakaszok = new ArrayList<>();
     }
 
     /**
      * Visszaadja a csomópont azonosítóját.
      * @return A csomópont egyedi azonosítója.
      */
-    public int getID(){
+    public String getID(){
 
         return id;
     }
@@ -36,7 +39,11 @@ public class Csomopont {
      * Visszaadja a csomóponthoz csatlakozó útszakaszokat.
      * @return Az útszakaszokat tartalmazó tömb.
      */
-    public Utszakasz[] getUtszakaszok(){
+    public List<Utszakasz> getUtszakaszok(){
         return utszakaszok;
+    }
+
+    public void addUtszakasz(Utszakasz u){
+        this.utszakaszok.add(u);
     }
 }
