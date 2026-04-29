@@ -4,11 +4,7 @@
  */
 public class Alagut extends Utszakasz {
 
-    /**
-     * Egyszerű konstruktor
-     * @param name Skeleton class miatt
-     */
-    public Alagut(String name){
-        
+    public Alagut(String id, Csomopont eleje, Csomopont vege, int hossz) {
+        super(id, eleje, vege, hossz);
     }
 }

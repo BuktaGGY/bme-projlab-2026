@@ -4,11 +4,7 @@
  */
 public class Hid extends Utszakasz {
 
-    /**
-     * Egyszerű konstruktor
-     * @param name Skeleton class miatt
-     */
-    public Hid(String name){
-        
+    public Hid(String id, Csomopont eleje, Csomopont vege, int hossz) {
+        super(id, eleje, vege, hossz);
     }
 }
