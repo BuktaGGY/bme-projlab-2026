@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Egy útszakasz egy absztrakt osztály, amelynek legfőbb felelőssége, hogy egy alapsablonként szolgáljon a különböző út típusoknak.
@@ -5,20 +7,23 @@
  * Emellett tárolóként is szolgál, birtokolja a rajta futó sávokat és kezeli az életciklusukat.
  */
 public abstract class Utszakasz {
-    
-    /**
-     * Egy egész szám, amely az útszakasz fizikai hosszát tárolja.
-     */
+    protected String id;
     protected int hossz;
-
-    /**
-     * Egy referencia, amely az útszakasz kezdő pontjára mutat.
-     */
     protected Csomopont eleje;
-
-    /**
-     * Egy referencia, amely az útszakasz végpontjára mutat.
-     */
     protected Csomopont vege;
+    protected List<Sav> savok;
 
+    public Utszakasz(String id, Csomopont eleje, Csomopont vege, int hossz) {
+        this.id = id;
+        this.eleje = eleje;
+        this.vege = vege;
+        this.hossz = hossz;
+        this.savok = new ArrayList<>();
+    }
+
+    public void addSav(Sav s) {
+        this.savok.add(s);
+    }
+    
+    public String getId() { return id; }
 }

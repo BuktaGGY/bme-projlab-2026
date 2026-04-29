@@ -5,6 +5,8 @@
 */
 public class Sav {
 
+    private String id;
+
     /**
      * A sávon található hó mennyiségét tárolja egész számként.
      */
@@ -53,7 +55,8 @@ public class Sav {
     /**
      * Konstruktor
      */
-    public Sav(String name){
+    public Sav(String id) {
+        this.id = id;
         savAllapot = SavAllapot.TISZTA;
         isSozott = false;
         hoVastagsag = 0;
@@ -249,5 +252,27 @@ public class Sav {
      */
     public void setSozottIdo(int mennyiseg){
         sozottIdo = mennyiseg;
+    }
+
+    
+    public String getId() { return id; }
+
+    public boolean isZuzalekos() { return isZuzalekos; }
+
+    public void setParameterek(int ho, boolean jeg, int so_ido, boolean zuzalek) {
+        this.hoVastagsag = ho;
+        this.sozottIdo = so_ido;
+        this.isSozott = (so_ido > 0);
+        this.isZuzalekos = zuzalek;
+        
+        if (jeg) {
+            this.savAllapot = SavAllapot.JEGPANCEL;
+        } else if (ho >= this.kuszobErtek) {
+            this.savAllapot = SavAllapot.BLOKKOLT;
+        } else if (ho > 0) {
+            this.savAllapot = SavAllapot.HAVAS;
+        } else {
+            this.savAllapot = SavAllapot.TISZTA;
+        }
     }
 }
