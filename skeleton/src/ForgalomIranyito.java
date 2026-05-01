@@ -44,13 +44,13 @@ public class ForgalomIranyito {
         for (Map.Entry<String, Jarmu> entry : jarmuvek.entrySet()) {
             String id = entry.getKey();
             Jarmu jarmu = entry.getValue();
-
             jarmu.frissitAllapot();
-            jarmu.mozog(jarmu.Utvonal[0]);
+
+            if (jarmu.allapot == JarmuAllapot.HALAD || jarmu.allapot == JarmuAllapot.ELAKADT || jarmu.allapot == JarmuAllapot.MEGCSÚSZOTT) {
+                jarmu.mozog(jarmu.Utvonal[0]);
+            }
+            this.utkozesVizsgalat();
         }
-
-        this.utkozesVizsgalat();
-
     }
     /**
      * ELtakarítja a roncsot a pályáról, a takarításért járó összeg jováíródik a közös számlán.
@@ -58,9 +58,7 @@ public class ForgalomIranyito {
      */
     public void roncsEltakarit(Jarmu jarmu) {
         
-        if (jarmu instanceof Auto) {
-            ((Auto) jarmu).megsemmisites();
-        }
+        jarmu.megsemmisites();
         
         if (utvonalTervezo != null) {
             utvonalTervezo.utFrissites();
@@ -120,7 +118,19 @@ public class ForgalomIranyito {
      * Ellenőrzi az esetleges ütközéseket
      */
     public void utkozesVizsgalat() {
-        
+        List<Jarmu> jarmuvekLista = new ArrayList<>(jarmuvek.values());
+        for (int i = 0; i < jarmuvekLista.size(); i++){
+            for (int j = i + 1; j < jarmuvekLista.size(); j++){
+                Jarmu j1 = jarmuvekLista.get(i);
+                Jarmu j2 = jarmuvekLista.get(j);
+                if (j1.aktualisSav == j2.aktualisSav && Math.abs(j1.pozicioASavon - j2.pozicioASavon) <= 10){
+                    if (j1.allapot == JarmuAllapot.MEGCSÚSZOTT || j2.allapot == JarmuAllapot.MEGCSÚSZOTT){
+                        balesetKezel(j1, j2);
+                        System.out.println("[ESEMENY] " + j1.id + ", " + j2.id + " | BALESET | " + j1.aktualisSav.getId() + " sav allapota BLOKKOLT lett");
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -130,15 +140,7 @@ public class ForgalomIranyito {
      * @param j2 Jármű2
      */
     public void balesetKezel(Jarmu j1, Jarmu j2) {
-
-        if(j1.getClass() == Busz.class && j2.getClass() == Busz.class){
-            ((Busz) j1).balesetezik();
-            ((Busz) j2).balesetezik();
-        }
-        if(j1.getClass() == Auto.class && j2.getClass() == Auto.class){
-            ((Auto) j1).balesetezik();
-            ((Auto) j2).balesetezik();
-        }
-
+        j1.balesetezik();
+        j2.balesetezik();
     }
 }

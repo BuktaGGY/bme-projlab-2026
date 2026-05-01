@@ -22,7 +22,12 @@ public abstract class Utszakasz {
     }
 
     public void addSav(Sav s) {
-        this.savok.add(s);
+        if (!savok.isEmpty()){
+            Sav utolsoSav = savok.get(savok.size() - 1);
+            utolsoSav.setJobbSav(s);
+            s.setBalSav(utolsoSav);
+        }
+        savok.add(s);
     }
     
     public String getId() { return id; }

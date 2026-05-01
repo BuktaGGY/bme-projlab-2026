@@ -51,7 +51,7 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
 
         setAllapot(JarmuAllapot.MOZGÁSKÉPTELEN);
         setBlokk(5);
-        
+        System.out.println("[ESEMENY] " + this.id + " | MEGCSUSZOTT | " + aktualisSav.getId() + " savban");
     }
 
     /**
@@ -116,7 +116,7 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
     }
 
     public void statKiir(){
-        System.out.println("[STAT] BUSZ "+ this.id + " | sav: " + aktualisSav + " | poz: " + pozicioASavon
-                +" | allapot: "+ allapot+ " | vegallomas: " + vegAllomas + " | kezdoallomas: " + kezdoAllomas);
+        System.out.println("[STAT] BUSZ "+ this.id + " | sav: " + aktualisSav.getId() + " | poz: " + pozicioASavon
+                +" | allapot: "+ allapot + " | vegallomas: " + vegAllomas.getId() + " | kezdoallomas: " + kezdoAllomas.getId());
     }
 }

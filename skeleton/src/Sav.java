@@ -158,11 +158,8 @@ public class Sav {
             setSavAllapot(SavAllapot.JEGPANCEL);
         }
 
-        // !!! Nem lehet instanceof-ot hasznalni tehat ide majd mast kell
-        // Ha mar a Jarmu az ososztaly akkor nem lenne csak konnyebb siman meghivni a megcsuszik fuggvenyt, es az megoldja sajat maga?
-        // Marmint ha nem serulekeny a jarmu akkor a megcsuszik nem csinal ugye semmit sem, de ha serulekeny akkor igen?
-        if (savAllapot == SavAllapot.JEGPANCEL && a instanceof SerulekenyJarmu) {
-            ((SerulekenyJarmu) a).megcsuszik();
+        if (savAllapot == SavAllapot.JEGPANCEL) {
+            a.megcsuszik();
         }
     }
 
@@ -171,6 +168,9 @@ public class Sav {
      * @return A jobbra található sáv állapota
      */
     public SavAllapot getJobbSavAllapot(){
+        if (savJobbra == null){
+            return savAllapot.BLOKKOLT;
+        }
         return savJobbra.getAllapot();
     }
 
@@ -179,6 +179,9 @@ public class Sav {
      * @return A balra található sáv állapota
      */
     public SavAllapot getBalSavAllapot(){
+        if (savBalra == null){
+            return savAllapot.BLOKKOLT;
+        }
         return savBalra.getAllapot();
     }
 
@@ -265,12 +268,12 @@ public class Sav {
         this.isSozott = (so_ido > 0);
         this.isZuzalekos = zuzalek;
         
-        if (jeg) {
-            this.savAllapot = SavAllapot.JEGPANCEL;
+        if (ho > 0) {
+            this.savAllapot = SavAllapot.HAVAS;
         } else if (ho >= this.kuszobErtek) {
             this.savAllapot = SavAllapot.BLOKKOLT;
-        } else if (ho > 0) {
-            this.savAllapot = SavAllapot.HAVAS;
+        } else if (jeg) {
+            this.savAllapot = SavAllapot.JEGPANCEL;
         } else {
             this.savAllapot = SavAllapot.TISZTA;
         }

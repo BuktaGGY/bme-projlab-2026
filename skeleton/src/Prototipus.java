@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -15,7 +17,9 @@ public class Prototipus {
     private Map<String, Utszakasz> utak = new HashMap<>();
     private Map<String, Sav> savok = new HashMap<>();
     private Map<String, PointOfInterest> poik = new HashMap<>();
-
+    private Map<String, Hokotro> hokotrok = new HashMap<>();
+    private Map<String, Busz> buszok = new HashMap<>();
+    private Map<String, Auto> autok = new HashMap<>();
     /**
      * A Prototipus konstruktora.
      * Példányosítja a játékkezelőt és előkészíti a memóriát.
@@ -65,7 +69,6 @@ public class Prototipus {
                     case "hozzaad_sav":
                         String parentUtId = parts[1];
                         String savId = parts[2];
-                        
                         Sav sav = new Sav(savId);
                         utak.get(parentUtId).addSav(sav);
                         savok.put(savId, sav);
@@ -111,7 +114,7 @@ public class Prototipus {
                         Sav autoSav = savok.get(autoSavId);
                         PointOfInterest autoCel = poik.get(celPoiId);
                         Auto a =  new Auto(autoId, autoPozicio, autoSav, autoCel);
-
+                        autok.put(autoId, a);
                         jk.getForgalomIranyito().addJarmu(a);
 
                         System.out.println("[OK] Auto lerakva sávon: "+ autoSav.getId());
@@ -125,7 +128,7 @@ public class Prototipus {
 
                         Sav kezdoSav = savok.get(buszSavId);
                         Busz b =  new Busz(buszId, buszPozicio,kezdoSav );
-
+                        buszok.put(buszId, b);
                         jk.getForgalomIranyito().addJarmu(b);
                         System.out.println("[OK] Busz lerakva sávon: "+ kezdoSav.getId());
                         break;
@@ -145,19 +148,60 @@ public class Prototipus {
                             case "sarkany":  hk = new Hokotro(hokotroId,new SarkanyFej(),savok.get(hokotroSavId),hokotroPozicio); break;
                             case "zuzalekszoro": hk = new Hokotro(hokotroId,new zuzalekSzoro(),savok.get(hokotroSavId),hokotroPozicio); break;
                         }
-
+                        hokotrok.put(hokotroId, hk);
                         jk.getForgalomIranyito().addJarmu(hk);
                         System.out.println("[OK] Hokotro lerakva sávon: "+hokotroId+" Fej: "+fejTipus);
                         break;
 
                     case "utvonal":
-                        System.out.println("[INFO] utvonal parancs meg nincs implementalva.");
+                        String jarmuId = parts[1];
+                        String utvonal = line.substring(line.indexOf(parts[1]) + parts[1].length()).trim();
+                        String[] csomopontokIDs = utvonal.split(",\\s*|\\s+");
+                        if (buszok.containsKey(jarmuId)){
+                            Busz bus = buszok.get(jarmuId);
+                            boolean ervenyes = true;
+                            Csomopont[] kijeloltUt = new Csomopont[csomopontokIDs.length];
+                            for (int i = 0; i < csomopontokIDs.length; i++){
+                                if (!csomopontok.containsKey(csomopontokIDs[i])){
+                                    ervenyes = false;
+                                    break;
+                                }
+                                kijeloltUt[i] = csomopontok.get(csomopontokIDs[i]);
+                            }
+                            if (ervenyes){
+                                for (int i = 0; i < kijeloltUt.length - 1; i++){
+                                    Csomopont akt = kijeloltUt[i];
+                                    Csomopont kov = kijeloltUt[i + 1];
+                                    boolean vanKozosUt = false;
+                                    for (Utszakasz u : akt.getUtszakaszok()){
+                                        if (kov.getUtszakaszok().contains(u)){
+                                            vanKozosUt = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!vanKozosUt){
+                                        ervenyes = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (!ervenyes){
+                                System.out.println("[HIBA] Ervenytelen utvonal megadva");
+                            } else {
+                                System.out.println("[OK] Utvonal sikeresen beallitva (" + jarmuId + ")");
+                            }
+                        } else if (hokotrok.containsKey(jarmuId)){
+                            System.out.println("[OK] Utvonal beallitva (" + jarmuId + ")");
+                        }
                         break;
 
                     case "lep":
                         int n = Integer.parseInt(parts[1]);
+                        if (jk.idojaraskezelo != null){
+                            jk.idojaraskezelo.setOsszesSav(new ArrayList<>(savok.values()));
+                        }
                         jk.start();
-
+                        
                         for (int i = 0; i < n; i++) {
                             jk.tick();
                         }
@@ -178,15 +222,63 @@ public class Prototipus {
                             savok.get(entry.getKey()).hoNovel(hoMennyiseg2);
                         }
 
-                        System.out.println("[OK] " + hoMennyiseg2+ " cm hó elhelyezve minden sávon");
+                        System.out.println("[OK] " + hoMennyiseg2 + " cm hó elhelyezve minden sávon");
                         break;
 
                     case "tankol":
-                        System.out.println("[INFO] tankol parancs meg nincs implementalva.");
+                        String tankol_jarmuId = parts[1];
+                        String anyag = parts[2];
+                        if (hokotrok.containsKey(tankol_jarmuId)){
+                            Hokotro tankol_kotro = hokotrok.get(tankol_jarmuId);
+                            int fizetendo = 0;
+                            switch (anyag){
+                                case "so": fizetendo = 150; break;
+                                case "biokerozin": fizetendo = 300; break;
+                                case "zuzalek": fizetendo = 150; break;
+                            }
+                            if (fizetendo > 0 && jk.gazdasagKezelo != null && jk.gazdasagKezelo.fizetes(fizetendo)){
+                                if (anyag.equals("so")){
+                                    tankol_kotro.setSo(100);
+                                    System.out.println("[OK] " + tankol_jarmuId + " tankolas sikeres (uj so: 100)");
+                                } else if (anyag.equals("biokerozin")){
+                                    tankol_kotro.setBiokerozin(100);
+                                    System.out.println("[OK] " + tankol_jarmuId + " tankolas sikeres (uj biokerozin: 100)");
+                                } else if (anyag.equals("zuzalek")){
+                                    tankol_kotro.setZuzalek(100);
+                                    System.out.println("[OK] " + tankol_jarmuId + " tankolas sikeres (uj zuzalek: 100)");
+                                }
+                                System.out.println("[ESEMENY] KOLTSEGVETES | VASARLAS | egyenleg: " + jk.gazdasagKezelo.getKozosKassza());
+                            } else {
+                                System.out.println("[HIBA] Sikertelen tankolas (nincs eleg penz vagy ismeretlen anyag)");
+                            }
+                        }
                         break;
 
                     case "cserel_fej":
-                        System.out.println("[INFO] cserel_fej parancs meg nincs implementalva.");
+                        String jarmuID = parts[1];
+                        String ujFej = parts[2];
+                        if (hokotrok.containsKey(jarmuID)){
+                            Hokotro kotro = hokotrok.get(jarmuID);
+                            KotroFej kFej = null;
+                            switch (ujFej) {
+                                case "sopro": kFej = new SoproFej(); break;
+                                case "soszoro": kFej = new Soszoro(); break;
+                                case "hanyo": kFej = new HanyoFej(); break;
+                                case "jegtoro": kFej = new JegToro(); break;
+                                case "sarkany": kFej = new SarkanyFej(); break;
+                                case "zuzalekszoro": kFej = new zuzalekSzoro(); break;
+                            }
+                            if (kFej != null && jk.gazdasagKezelo != null){
+                                int ar = kFej.getAr();
+                                if (jk.gazdasagKezelo.fizetes(ar)){
+                                    kotro.setKotrofej(kFej);
+                                    System.out.println("[OK] " + jarmuID + " fejcsere sikeres (uj fej: " + ujFej + ")");
+                                    System.out.println("[ESEMENY] KOLTSEGVETES | VASARLAS | egyenleg: " + jk.gazdasagKezelo.getKozosKassza());
+                                } else {
+                                    System.out.println("[HIBA] Nincs eleg penz a fejcserehez");
+                                }
+                            }
+                        }
                         break;
 
                     case "stat":
@@ -215,7 +307,25 @@ public class Prototipus {
                         break;
                         
                     case "stat_minden":
-                        System.out.println("[INFO] stat_minden parancs meg nincs implementalva.");
+                        if (savok.values().isEmpty() || autok.values().isEmpty() || hokotrok.values().isEmpty() || buszok.values().isEmpty()){
+                            break;
+                        }
+                        for (Map.Entry<String,Sav> entry : savok.entrySet()){
+                            Sav s = entry.getValue();
+                            String jegStr = (s.getAllapot() == SavAllapot.JEGPANCEL) ? "igen" : "nem";
+                            String zuzalekStr = s.isZuzalekos() ? "igen" : "nem";
+                            String blokkoltStr = (s.getAllapot() == SavAllapot.BLOKKOLT) ? "igen" : "nem";
+                            System.out.println("[STAT] SAV " + s.getId() + " | ho: " + s.getHoVastagsag() + " | jeg: " + jegStr + "so_ido" + s.getSozottIdo() + " | zuzalek: " + zuzalekStr + " | blokkolt: " + blokkoltStr);
+                        }
+                        for (Auto stat_auto : autok.values()){
+                            stat_auto.statKiir();
+                        }
+                        for (Busz stat_buszok : buszok.values()){
+                            stat_buszok.statKiir();
+                        }
+                        for (Hokotro stat_hokotrok : hokotrok.values()){
+                            stat_hokotrok.statKiir();
+                        }
                         break;
 
                     case "kilep":
@@ -229,6 +339,7 @@ public class Prototipus {
                 }
             } catch (Exception e) {
                 System.out.println("[HIBA] Rossz parameterezes a parancsnak: " + line);
+                e.printStackTrace();
             }
         }
         scanner.close();

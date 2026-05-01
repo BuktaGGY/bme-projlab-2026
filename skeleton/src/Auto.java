@@ -19,13 +19,14 @@ public class Auto extends SerulekenyJarmu {
      */
     @Override
     public void frissitAllapot() {
-
-        switch (aktualisSav.getAllapot()) {
-            case HAVAS:
-            case BLOKKOLT:
-                setAllapot(JarmuAllapot.ELAKADT);
-                break;
-            default: setAllapot(JarmuAllapot.HALAD); break;
+        if (allapot == JarmuAllapot.RONCS){
+            return;
+        }
+        if (aktualisSav.getAllapot() == SavAllapot.BLOKKOLT){
+            setAllapot(JarmuAllapot.ELAKADT);
+            System.out.println("[ESEMENY] " + this.id + " | ELAKADT | " + aktualisSav.getId() + " savban (ho: " + aktualisSav.getHoVastagsag() + "cm)");
+        } else {
+            setAllapot(JarmuAllapot.HALAD);
         }
 
     }
@@ -34,17 +35,22 @@ public class Auto extends SerulekenyJarmu {
         if(this.allapot == JarmuAllapot.ELAKADT) {
 
             //Kiszabadulás logika
-            Sav s =this.aktualisSav;
+            Sav s = this.aktualisSav;
             if(s.getJobbSavAllapot() != SavAllapot.BLOKKOLT) {
                 savValtas(s.getJobbSav());
                 setAllapot(JarmuAllapot.HALAD);
-
-                return;
+                System.out.println("[ESEMENY] " + this.id + " | SAVOT_VALTOTT | " + s.getId() + " -> " + s.getJobbSav().getId() + " savra");
             }
-            if(s.getBalSavAllapot() != SavAllapot.BLOKKOLT){
+            else if(s.getBalSavAllapot() != SavAllapot.BLOKKOLT){
                 savValtas(s.getBalSav());
                 setAllapot(JarmuAllapot.HALAD);
+                System.out.println("[ESEMENY] " + this.id + " | SAVOT_VALTOTT | " + s.getId() + " -> " + s.getBalSav().getId() + " savra");
+            } else {
+                return;
             }
+        }
+        if (aktualisSav.getAllapot() == SavAllapot.JEGPANCEL && !aktualisSav.isZuzalekos()){
+            megcsuszik();
         }
         else{
             if(allapot == JarmuAllapot.HALAD) {
@@ -64,7 +70,9 @@ public class Auto extends SerulekenyJarmu {
             System.out.println("[ESEMENY] "+id+ " | UJ SZAKASZRA LEPETT | "+aktualisSav.getId() +" savban (uj pozicio: "+pozicioASavon+")");
         }else{
             pozicioASavon = ujPoz;
-            System.out.println("[ESEMENY] "+id+ " | MOZGOTT | "+aktualisSav.getId() +" savban (uj pozicio: "+pozicioASavon+")");
+            if (allapot != JarmuAllapot.MEGCSÚSZOTT) {
+                System.out.println("[ESEMENY] "+id+ " | MOZGOTT | "+aktualisSav.getId() +" savban (uj pozicio: "+pozicioASavon+")");
+            }
         }
     }
 
@@ -86,10 +94,14 @@ public class Auto extends SerulekenyJarmu {
      */
     @Override
     public void balesetezik() {
-
         setAllapot(JarmuAllapot.RONCS);
         aktualisSav.setSavAllapot(SavAllapot.BLOKKOLT);
+    }
 
+    @Override
+    public void megcsuszik() {
+        setAllapot(JarmuAllapot.MEGCSÚSZOTT);
+        System.out.println("[ESEMENY] " + this.id + " | MEGCSUSZOTT | " + aktualisSav.getId() + " savban");
     }
 
     /**
@@ -118,7 +130,7 @@ public class Auto extends SerulekenyJarmu {
     }
 
     public void statKiir(){
-        System.out.println("[STAT] AUTO "+ this.id + " | sav: " + aktualisSav + " | poz: " + pozicioASavon
-        +" | allapot: "+ allapot+ " | cel: " + cel);
+        System.out.println("[STAT] AUTO "+ this.id + " | sav: " + aktualisSav.getId() + " | poz: " + pozicioASavon
+        +" | allapot: "+ allapot + " | cel: " + cel.getId());
     }
 }
