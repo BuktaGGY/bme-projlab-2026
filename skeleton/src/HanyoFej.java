@@ -1,6 +1,6 @@
 public class HanyoFej extends KotroFej {
 
-    public HanyoFej(String name) {
+    public HanyoFej() {
         super(200); 
     }
 
@@ -8,12 +8,17 @@ public class HanyoFej extends KotroFej {
      * Véglegesen eltünteti (megsemmisíti) a havat az aktuális sávról. 
      * A szomszédos sávot nem használja és nem módosítja.
      * * @param sav           Az a sáv, amelyen a hókotró éppen tartózkodik és takarít.
-     * @param szomszedosSav Az ősosztály miatt átvett paraméter, de ez a fej nem használja.
+     *
      * @param kotro         A műveletet végző hókotró referenciája.
      */
     @Override
     public void takarit(Sav sav, Hokotro kotro) {
         sav.hoEltuntet();
         sav.zuzalekotEltuntet();
+    }
+
+    @Override
+    public String getFejTipus() {
+        return "hanyo";
     }
 }

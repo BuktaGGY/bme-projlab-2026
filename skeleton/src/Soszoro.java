@@ -1,7 +1,7 @@
 public class Soszoro extends KotroFej {
 
     // Konstruktor a Szkeleton névvel
-    public Soszoro(String name) {
+    public Soszoro() {
         super(150);
     }
 
@@ -10,7 +10,6 @@ public class Soszoro extends KotroFej {
      * Sót szór az aktuális sávra a hókotró saját sókészletéből, ami megolvasztja 
      * a jeget és megakadályozza a további fagyást. A működéshez sóra van szükség.
      * * @param sav           Az a sáv, amelyre a sót szórja.
-     * @param szomszedosSav Az ősosztály miatt átvett paraméter, de ez a fej nem használja.
      * @param kotro         A műveletet végző hókotró referenciája, ahonnan a sót fogyasztja.
      */
     @Override
@@ -19,6 +18,10 @@ public class Soszoro extends KotroFej {
             sav.sotSzor();
             kotro.setSo(kotro.getSo() - 1);
         }
+    }
 
+    @Override
+    public String getFejTipus() {
+        return "soszoro";
     }
 }

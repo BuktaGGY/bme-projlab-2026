@@ -12,4 +12,8 @@ public class zuzalekSzoro extends KotroFej{
             kotro.setZuzalek(kotro.getSo() - 1);
         }
     }
+    @Override
+    public String getFejTipus() {
+        return "zuzalekszoro";
+    }
 }

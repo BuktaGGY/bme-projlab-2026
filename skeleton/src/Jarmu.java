@@ -10,7 +10,7 @@ public abstract class Jarmu {
     protected JarmuAllapot allapot;
 
     /** A jármű egyedi azonosítója. */
-    protected String id;
+    protected final String id;
     
     /** A jármű aktuális pozíciója az adott sávon belül. */
     protected int pozicioASavon;

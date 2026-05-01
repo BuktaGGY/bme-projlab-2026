@@ -29,8 +29,11 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
      * Konstruktor a Szkeleton teszteléshez.
      * @param id A példány azonosító neve a naplózáshoz.
      */
-    public Hokotro(String id) {
+    public Hokotro(String id, KotroFej fej, Sav kezdoSav, int pozSavon) {
         super(id);
+        aktualisKotrofej = fej;
+        aktualisSav = kezdoSav;
+        this.pozicioASavon = pozSavon;
     }
 
     /**
@@ -57,6 +60,11 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
         if (fi != null) {
             fi.roncsEltakarit(jarmu);
         }
+    }
+
+    public void statKiir(){
+        System.out.println("[STAT] HOKOTRO "+ this.id + " | sav: " + aktualisSav + " | poz: " + pozicioASavon
+                +" | fej: "+ aktualisKotrofej.getFejTipus()+ " | so: " + so + " | kerozin: " + biokerozin);
     }
 
     public int getSo() {

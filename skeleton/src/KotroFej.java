@@ -14,6 +14,7 @@ public abstract class KotroFej {
         this.ar = ar;
     }
 
+    public abstract String getFejTipus();
 
 	/*A metódus a hókotróra felszerelt aktuális kotrófej
 	specifikus hó- és jégeltakarítási algoritmusát hajtja

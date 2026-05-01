@@ -116,16 +116,14 @@ public class Prototipus {
 
                         fk.addJarmu(a);
 
-                        System.out.println("[OK] Auto lerakva");
+                        System.out.println("[OK] Auto lerakva sávon: "+ autoSav.getId());
                         break;
 
                     case "lerak_busz":
                         String buszId = parts[1];
                         String buszSavId = parts[2];
                         int buszPozicio = Integer.parseInt(parts[3]);
-                        String buszCelPoiId = parts[4];
-
-                        //Vegallomas vegAll = (Vegallomas) poik.get(buszCelPoiId);
+                        String buszVegallomasPoiId = parts[4]; //TODO utvonal beállitas
 
                         Sav kezdoSav = savok.get(buszSavId);
                         Busz b =  new Busz(buszId, buszPozicio,kezdoSav );
@@ -135,7 +133,23 @@ public class Prototipus {
                         break;
 
                     case "lerak_hokotro":
-                        System.out.println("[INFO] lerak_hokotro parancs meg nincs implementalva.");
+                        String hokotroId = parts[1];
+                        String hokotroSavId = parts[2];
+                        int hokotroPozicio = Integer.parseInt(parts[3]);
+                        String fejTipus =  parts[4];
+                        
+                        Hokotro hk = null;
+                        switch (fejTipus) {
+                            case "sopro":  hk = new Hokotro(hokotroId,new SoproFej(),savok.get(hokotroSavId),hokotroPozicio); break;
+                            case "soszoro":  hk = new Hokotro(hokotroId,new Soszoro(),savok.get(hokotroSavId),hokotroPozicio); break;
+                            case "hanyo":  hk = new Hokotro(hokotroId,new HanyoFej(),savok.get(hokotroSavId),hokotroPozicio); break;
+                            case "jegtoro":  hk = new Hokotro(hokotroId,new JegToro(),savok.get(hokotroSavId),hokotroPozicio); break;
+                            case "sarkany":  hk = new Hokotro(hokotroId,new SarkanyFej(),savok.get(hokotroSavId),hokotroPozicio); break;
+                            case "zuzalekszoro": hk = new Hokotro(hokotroId,new zuzalekSzoro(),savok.get(hokotroSavId),hokotroPozicio); break;
+                        }
+
+                        fk.addJarmu(hk);
+                        System.out.println("[OK] Hokotro lerakva sávon: "+hokotroId+" Fej: "+fejTipus);
                         break;
 
                     case "utvonal":
