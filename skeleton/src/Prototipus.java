@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class Prototipus {
     // A játékot vezérlő fő osztály
     private JatekKezelo jk;
-    private ForgalomIranyito fk;
 
     // Azonosítókhoz kötött objektumtárolók a parancsok feldolgozásához
     private Map<String, Csomopont> csomopontok = new HashMap<>();
@@ -23,7 +22,6 @@ public class Prototipus {
      */
     public Prototipus() {
         this.jk = new JatekKezelo();
-        this.fk = new ForgalomIranyito();
     }
 
 
@@ -114,7 +112,7 @@ public class Prototipus {
                         PointOfInterest autoCel = poik.get(celPoiId);
                         Auto a =  new Auto(autoId, autoPozicio, autoSav, autoCel);
 
-                        fk.addJarmu(a);
+                        jk.getForgalomIranyito().addJarmu(a);
 
                         System.out.println("[OK] Auto lerakva sávon: "+ autoSav.getId());
                         break;
@@ -128,7 +126,7 @@ public class Prototipus {
                         Sav kezdoSav = savok.get(buszSavId);
                         Busz b =  new Busz(buszId, buszPozicio,kezdoSav );
 
-                        fk.addJarmu(b);
+                        jk.getForgalomIranyito().addJarmu(b);
                         System.out.println("[OK] Busz lerakva sávon: "+ kezdoSav.getId());
                         break;
 
@@ -148,7 +146,7 @@ public class Prototipus {
                             case "zuzalekszoro": hk = new Hokotro(hokotroId,new zuzalekSzoro(),savok.get(hokotroSavId),hokotroPozicio); break;
                         }
 
-                        fk.addJarmu(hk);
+                        jk.getForgalomIranyito().addJarmu(hk);
                         System.out.println("[OK] Hokotro lerakva sávon: "+hokotroId+" Fej: "+fejTipus);
                         break;
 
@@ -158,6 +156,8 @@ public class Prototipus {
 
                     case "lep":
                         int n = Integer.parseInt(parts[1]);
+                        jk.start();
+
                         for (int i = 0; i < n; i++) {
                             jk.tick();
                         }
@@ -203,8 +203,8 @@ public class Prototipus {
                                                " | jeg: " + jegStr + " | so_ido: " + s.getSozottIdo() + 
                                                " | zuzalek: " + zuzalekStr + " | blokkolt: " + blokkoltStr);
                         } else {
-                            if(fk.ContainsJarmuId(statId)) {
-                                Jarmu jarmu = fk.getJarmu(statId);
+                            if(jk.getForgalomIranyito().ContainsJarmuId(statId)) {
+                                Jarmu jarmu = jk.getForgalomIranyito().getJarmu(statId);
                                 jarmu.statKiir();
                             }
                             if(poik.containsKey(statId)) {

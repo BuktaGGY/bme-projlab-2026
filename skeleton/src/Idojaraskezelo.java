@@ -17,11 +17,10 @@ public class Idojaraskezelo {
 
     /**
      * Konstruktor
-     * @param name Név
      * @param havazasIntenzitas Tickenként leeső hó
      * @param osszesSav Referencia sávokra
      */
-    public Idojaraskezelo(String name, int havazasIntenzitas, List<Sav> osszesSav) {
+    public Idojaraskezelo(int havazasIntenzitas, List<Sav> osszesSav) {
         this.havazasIntenzitas = havazasIntenzitas;
         this.osszesSav = osszesSav;
     }

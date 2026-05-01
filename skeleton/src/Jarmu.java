@@ -30,6 +30,7 @@ public abstract class Jarmu {
      */
     public Jarmu(String id) {
         this.id = id;
+        Utvonal = new Utszakasz[1];
     }
 
     /**
@@ -52,27 +53,6 @@ public abstract class Jarmu {
      */
     public void mozog(Object utszakasz) {
 
-        if(this.allapot == JarmuAllapot.ELAKADT) {
-            if(this.getClass() == Auto.class ) {
-
-                Sav s =this.aktualisSav;
-                if(s.getJobbSavAllapot() != SavAllapot.BLOKKOLT) {
-                    savValtas(s.getJobbSav());
-                    setAllapot(JarmuAllapot.HALAD);
-
-                    return;
-                }
-                if(s.getBalSavAllapot() != SavAllapot.BLOKKOLT){
-                    savValtas(s.getBalSav());
-                    setAllapot(JarmuAllapot.HALAD);
-
-                    return;
-                }
-            }
-        }
-        else{
-            aktualisSav.letapos(this);
-        }
     }
 
     /**

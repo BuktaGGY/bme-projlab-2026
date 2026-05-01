@@ -14,10 +14,14 @@ public class JatekKezelo {
     public int buszPontszamok;
 
     /**
-     * Konstruktor a Szkeleton teszteléshez.
-     * @param name A példány azonosító neve a naplózáshoz.
+     * Konstruktor
      */
     public JatekKezelo() {
+        aktualisTick = 0;
+        buszPontszamok = 0;
+        isRunning = false;
+        forgalomIranyito = new  ForgalomIranyito();
+        //idojaraskezelo = new Idojaraskezelo(20,);
     }
 
     public void start() {
@@ -32,8 +36,14 @@ public class JatekKezelo {
         // Kivettem ezt mert a szekvencia diagramok szerint ezt nem o a tick hivja meg (Ho olvad az uton + kornyezeti havazas)
         // Lehethogy nem ez a jo megoldas de a szekvencia diagramon nem latom hogy a havaz fuggvenyt meghivnank a tick() utan
         //idojaraskezelo.Havaz();
+
+        if (!isRunning) {return;}
+
+       // idojaraskezelo.olvasztasKezeles();
+        forgalomIranyito.mozgatJarmuvek();
+
         aktualisTick++;
-        idojaraskezelo.olvasztasKezeles();
+
     }
 
     /**
@@ -42,5 +52,9 @@ public class JatekKezelo {
      */
     public void buszPontszamNovel() {
         buszPontszamok++;
+    }
+
+    public ForgalomIranyito getForgalomIranyito() {
+        return forgalomIranyito;
     }
 }

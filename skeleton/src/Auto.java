@@ -11,6 +11,7 @@ public class Auto extends SerulekenyJarmu {
         this.pozicioASavon = pozicioSavban;
         this.setStartSav(startSav);
         this.cel = cel;
+        sebesseg = 1;
     }
 
     /**
@@ -29,6 +30,57 @@ public class Auto extends SerulekenyJarmu {
 
     }
 
+    public void mozog(Object utszakasz) {
+        if(this.allapot == JarmuAllapot.ELAKADT) {
+
+            //Kiszabadulás logika
+            Sav s =this.aktualisSav;
+            if(s.getJobbSavAllapot() != SavAllapot.BLOKKOLT) {
+                savValtas(s.getJobbSav());
+                setAllapot(JarmuAllapot.HALAD);
+
+                return;
+            }
+            if(s.getBalSavAllapot() != SavAllapot.BLOKKOLT){
+                savValtas(s.getBalSav());
+                setAllapot(JarmuAllapot.HALAD);
+            }
+        }
+        else{
+            if(allapot == JarmuAllapot.HALAD) {
+                aktualisSav.letapos(this);
+                haladasSavban(sebesseg*10);//TODO hány egyseget lépjen?
+
+
+            }
+        }
+    }
+
+    public void haladasSavban(int tav){
+        int ujPoz = pozicioASavon + tav;
+        if(ujPoz > 100) {
+            pozicioASavon = ujPoz -100;
+            utvonalFrissit();
+            System.out.println("[ESEMENY] "+id+ " | UJ SZAKASZRA LEPETT | "+aktualisSav.getId() +" savban (uj pozicio: "+pozicioASavon+")");
+        }else{
+            pozicioASavon = ujPoz;
+            System.out.println("[ESEMENY] "+id+ " | MOZGOTT | "+aktualisSav.getId() +" savban (uj pozicio: "+pozicioASavon+")");
+        }
+    }
+
+    /**
+     * Lepteti egy egyseget az utvonalat
+     */
+    public void utvonalFrissit() {
+        Utszakasz[] ujUtvonal = new Utszakasz[Utvonal.length];
+
+        for(int i = 1; i < Utvonal.length; i++) {
+            ujUtvonal[i-1] = Utvonal[i];
+        }
+
+        this.Utvonal = ujUtvonal;
+        //aktualisSav = Utvonal.savok[0]; //TODO Savkezeles
+    }
     /**
      * Baleset esetén az autó ronccsá válik, a sáv amin halad pedig blokkolt lesz.
      */
@@ -46,9 +98,7 @@ public class Auto extends SerulekenyJarmu {
      */
     public void ujraTervezes(UtvonalTervezo ut) {
         
-        ut.utvonalKeres();
-        this.utvonalFrissit();
-        
+        //this.Utvonal = ut.utvonalKeres();
     }
 
     /**

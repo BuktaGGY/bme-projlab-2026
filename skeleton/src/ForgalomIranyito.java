@@ -11,20 +11,22 @@ import java.util.Map;
  */
 public class ForgalomIranyito {
 
+
+    /**
+     * A forgalomirányító által felügyelt járművek listája.
+     */
+    private Map<String, Jarmu> jarmuvek;
+
+	private UtvonalTervezo utvonalTervezo;
+    private GazdasagKezelo gazdasagKezelo;
+
+
     /**
      * Konstruktor a Szkeleton teszteléshez.
      */
     public ForgalomIranyito() {
-
+        jarmuvek = new HashMap<>();
     }
-    /**
-     * A forgalomirányító által felügyelt járművek listája.
-     */
-    //private List<Jarmu> jarmuvek = new ArrayList<>();
-    private Map<String, Jarmu> jarmuvek = new HashMap<>();
-
-	private UtvonalTervezo utvonalTervezo;
-    private GazdasagKezelo gazdasagKezelo;
 
     public void setUtvonalTervezo(UtvonalTervezo ut) {
         this.utvonalTervezo = ut;
@@ -34,7 +36,22 @@ public class ForgalomIranyito {
         this.gazdasagKezelo = g;
     }
 
+    /**
+     * Lépteti az összes nyilvántartott járművet a pályán.
+     */
+    public void mozgatJarmuvek() {
 
+        for (Map.Entry<String, Jarmu> entry : jarmuvek.entrySet()) {
+            String id = entry.getKey();
+            Jarmu jarmu = entry.getValue();
+
+            jarmu.frissitAllapot();
+            jarmu.mozog(jarmu.Utvonal[0]);
+        }
+
+        this.utkozesVizsgalat();
+
+    }
     /**
      * ELtakarítja a roncsot a pályáról, a takarításért járó összeg jováíródik a közös számlán.
      * @param jarmu Roncs jármű
@@ -62,6 +79,8 @@ public class ForgalomIranyito {
     public void addJarmu(Jarmu j) {
         jarmuvek.put(j.id, j);
     }
+
+    public void deleteJarmu(Jarmu j) {jarmuvek.remove(j.id);}
 
     public Jarmu getJarmu(String id) {
         return  jarmuvek.get(id);
@@ -95,24 +114,7 @@ public class ForgalomIranyito {
         
     }
 
-    /**
-     * Lépteti az összes nyilvántartott járművet a pályán.
-     */
-    public void mozgatJarmuvek() {
-        
-        Object aktualisUtszakasz = new Object();
 
-        for (Map.Entry<String, Jarmu> entry : jarmuvek.entrySet()) {
-            String id = entry.getKey();
-            Jarmu jarmu = entry.getValue();
-
-            jarmu.frissitAllapot();
-            jarmu.mozog(aktualisUtszakasz);
-        }
-
-        this.utkozesVizsgalat();
-        
-    }
 
     /**
      * Ellenőrzi az esetleges ütközéseket

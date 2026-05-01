@@ -107,7 +107,7 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      * * @param utszakasz Az aktuális útszakasz, amin halad (az ősosztály paraméterezése miatt).
      */
     @Override
-    public void mozog(Object utszakasz) {
+    public void mozog(Object Utszakasz) {
 
         if (vegAllomas != null) {
             vegAllomas.addErintes();
