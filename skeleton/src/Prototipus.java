@@ -17,16 +17,13 @@ public class Prototipus {
     private Map<String, Sav> savok = new HashMap<>();
     private Map<String, PointOfInterest> poik = new HashMap<>();
 
-
-    // Ideiglenes tároló a hókotróknak
-    private Map<String, Hokotro> hokotrok = new HashMap<>();
-
     /**
      * A Prototipus konstruktora.
      * Példányosítja a játékkezelőt és előkészíti a memóriát.
      */
     public Prototipus() {
         this.jk = new JatekKezelo();
+        this.fk = new ForgalomIranyito();
     }
 
 
@@ -88,7 +85,7 @@ public class Prototipus {
                         System.out.println("[OK] Sav parameterei beallitva (" + sId + ")");
                         break;
 
-                //innentol meg nem keszek
+
                     //TODO ezt valaki nézze át
                     case "uj_poi":
                         String poiId = parts[1];
@@ -113,10 +110,9 @@ public class Prototipus {
                         int autoPozicio = Integer.parseInt(parts[3]);
                         String celPoiId = parts[4];
 
-                        Auto a =  new Auto(autoId);
-                        a.setStartSav(savok.get(autoSavId));
-                        a.pozicioASavon = 50; //TODO ez csak egy rögzitett példa adat
-                        a.setCel(poik.get(celPoiId));
+                        Sav autoSav = savok.get(autoSavId);
+                        PointOfInterest autoCel = poik.get(celPoiId);
+                        Auto a =  new Auto(autoId, autoPozicio, autoSav, autoCel);
 
                         fk.addJarmu(a);
 
@@ -124,7 +120,18 @@ public class Prototipus {
                         break;
 
                     case "lerak_busz":
-                        System.out.println("[INFO] lerak_busz parancs meg nincs implementalva.");
+                        String buszId = parts[1];
+                        String buszSavId = parts[2];
+                        int buszPozicio = Integer.parseInt(parts[3]);
+                        String buszCelPoiId = parts[4];
+
+                        //Vegallomas vegAll = (Vegallomas) poik.get(buszCelPoiId);
+
+                        Sav kezdoSav = savok.get(buszSavId);
+                        Busz b =  new Busz(buszId, buszPozicio,kezdoSav );
+
+                        fk.addJarmu(b);
+                        System.out.println("[OK] Busz lerakva sávon: "+ kezdoSav.getId());
                         break;
 
                     case "lerak_hokotro":

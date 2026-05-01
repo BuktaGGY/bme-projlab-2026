@@ -25,8 +25,12 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      * Konstruktor
      * @param id A példány azonosító neve a naplózáshoz.
      */
-    public Busz(String id) {
+    public Busz(String id, int pozicioSavban, Sav startSav) {
         super(id);
+        this.blokkoltSzamlalo = 0;
+        this.allapot = JarmuAllapot.HALAD;
+        this.pozicioASavon = pozicioSavban;
+        this.setStartSav(startSav);
     }
 
     /**
@@ -109,5 +113,10 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
             vegAllomas.addErintes();
         }
         
+    }
+
+    public void statKiir(){
+        System.out.println("[STAT] BUSZ "+ this.id + " | sav: " + aktualisSav + " | poz: " + pozicioASavon
+                +" | allapot: "+ allapot+ " | vegallomas: " + vegAllomas + " | kezdoallomas: " + kezdoAllomas);
     }
 }

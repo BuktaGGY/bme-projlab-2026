@@ -5,11 +5,13 @@
 public class Auto extends SerulekenyJarmu {
     private PointOfInterest cel;
 
-    public Auto(String id) {
+    public Auto(String id,  int pozicioSavban, Sav startSav, PointOfInterest cel) {
         super(id);
+        this.allapot = JarmuAllapot.HALAD;
+        this.pozicioASavon = pozicioSavban;
+        this.setStartSav(startSav);
+        this.cel = cel;
     }
-
-
 
     /**
      * Frissíti az autó állapotát, ha az útszakasz amin halad nem járható.

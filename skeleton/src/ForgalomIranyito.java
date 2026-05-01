@@ -10,7 +10,13 @@ import java.util.Map;
  * és közvetítő (mediator) szerepet tölt be az ÚtvonalTervező és a Járművek között.
  */
 public class ForgalomIranyito {
-    
+
+    /**
+     * Konstruktor a Szkeleton teszteléshez.
+     */
+    public ForgalomIranyito() {
+
+    }
     /**
      * A forgalomirányító által felügyelt járművek listája.
      */
@@ -47,14 +53,6 @@ public class ForgalomIranyito {
             gazdasagKezelo.bevetelHozzaad(100);
         }
         
-    }
-	
-    /**
-     * Konstruktor a Szkeleton teszteléshez.
-     * @param name A példány azonosító neve a naplózáshoz.
-     */
-    public ForgalomIranyito(String name) {
-
     }
 
     /**
