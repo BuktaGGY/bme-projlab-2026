@@ -40,13 +40,20 @@ public class Idojaraskezelo {
      * Kezeli a sávokon az olvadási folyamatokat.
      */
     public void olvasztasKezeles(){
-        for(Sav sav : osszesSav){
-            if (sav.getSozottIdo() > 0){
-                sav.setSozottIdo(sav.getSozottIdo() - 1);
+        for (Sav s : osszesSav){
+            if (s.getSozottIdo() > 0){
+                s.setSozottIdo(s.getSozottIdo() - 1);
             }
-            if (sav.getAllapot() == SavAllapot.SOZOTT && sav.getSozottIdo() == 0){
-                sav.hoEltuntet();
+            if (s.getAllapot() == SavAllapot.SOZOTT && s.getSozottIdo() == 0){
+                String miOlvadt = (s.getHoVastagsag() > 0) ? "ho" : "jeg";
+                s.hoEltuntet();
+                System.out.println("[ESEMENY] IDOJARAS | OLVADAS | " + s.getId() + " savrol elolvadt a " + miOlvadt);
             }
         }
+    }
+
+
+    public void setOsszesSav(List<Sav> savok){
+        osszesSav = savok;
     }
 }

@@ -84,4 +84,9 @@ public abstract class Jarmu {
     public void statKiir(){
 
     }
+
+    // instanceof elkerulese erdekeben
+    public void megcsuszik() {}
+    public void balesetezik() {}
+    public void megsemmisites() {}
 }
