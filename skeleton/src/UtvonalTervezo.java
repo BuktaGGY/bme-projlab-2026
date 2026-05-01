@@ -87,4 +87,7 @@ public class UtvonalTervezo {
 
         return true;
     }
+
+    public void setForgalomIranyito(ForgalomIranyito forgalomIranyito) {
+    }
 }
