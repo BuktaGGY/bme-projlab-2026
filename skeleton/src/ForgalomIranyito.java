@@ -1,5 +1,8 @@
+import java.net.JarURLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A forgalom irányításáért felelős központi osztály.
@@ -11,8 +14,8 @@ public class ForgalomIranyito {
     /**
      * A forgalomirányító által felügyelt járművek listája.
      */
-    private List<Jarmu> jarmuvek = new ArrayList<>();
-
+    //private List<Jarmu> jarmuvek = new ArrayList<>();
+    private Map<String, Jarmu> jarmuvek = new HashMap<>();
 
 	private UtvonalTervezo utvonalTervezo;
     private GazdasagKezelo gazdasagKezelo;
@@ -59,7 +62,15 @@ public class ForgalomIranyito {
      * @param j A hozzáadandó jármű.
      */
     public void addJarmu(Jarmu j) {
-        jarmuvek.add(j);
+        jarmuvek.put(j.id, j);
+    }
+
+    public Jarmu getJarmu(String id) {
+        return  jarmuvek.get(id);
+    }
+
+    public boolean ContainsJarmuId(String id) {
+        return jarmuvek.containsKey(id);
     }
 
     /**
@@ -69,12 +80,6 @@ public class ForgalomIranyito {
      */
     public void utzarEsemeny(UtvonalTervezo ut) {
 
-        for (Jarmu j : jarmuvek) {
-            if (j instanceof Auto) {
-                ((Auto) j).ujraTervezes(ut);
-            }
-        }
-        
     }
 
     /**
@@ -99,9 +104,12 @@ public class ForgalomIranyito {
         
         Object aktualisUtszakasz = new Object();
 
-        for (Jarmu j : jarmuvek) {
-            j.frissitAllapot();
-            j.mozog(aktualisUtszakasz);
+        for (Map.Entry<String, Jarmu> entry : jarmuvek.entrySet()) {
+            String id = entry.getKey();
+            Jarmu jarmu = entry.getValue();
+
+            jarmu.frissitAllapot();
+            jarmu.mozog(aktualisUtszakasz);
         }
 
         this.utkozesVizsgalat();
@@ -112,18 +120,6 @@ public class ForgalomIranyito {
      * Ellenőrzi az esetleges ütközéseket
      */
     public void utkozesVizsgalat() {
-
-        List<Auto> autok = new ArrayList<>();
-        for (Jarmu j : jarmuvek) {
-            if (j instanceof Auto) {
-                autok.add((Auto) j);
-            }
-        }
-
-        if (autok.size() >= 2) {
-            autok.get(0).balesetezik();
-            autok.get(1).balesetezik();
-        }
         
     }
 

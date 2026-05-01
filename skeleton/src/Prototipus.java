@@ -9,13 +9,14 @@ import java.util.Scanner;
 public class Prototipus {
     // A játékot vezérlő fő osztály
     private JatekKezelo jk;
+    private ForgalomIranyito fk;
 
     // Azonosítókhoz kötött objektumtárolók a parancsok feldolgozásához
     private Map<String, Csomopont> csomopontok = new HashMap<>();
     private Map<String, Utszakasz> utak = new HashMap<>();
     private Map<String, Sav> savok = new HashMap<>();
     private Map<String, PointOfInterest> poik = new HashMap<>();
-    private Map<String, Jarmu> jarmuvek = new HashMap<>();
+
 
     // Ideiglenes tároló a hókotróknak
     private Map<String, Hokotro> hokotrok = new HashMap<>();
@@ -117,7 +118,7 @@ public class Prototipus {
                         a.pozicioASavon = 50; //TODO ez csak egy rögzitett példa adat
                         a.setCel(poik.get(celPoiId));
 
-                        jarmuvek.put(autoId, a);
+                        fk.addJarmu(a);
 
                         System.out.println("[OK] Auto lerakva");
                         break;
@@ -181,8 +182,8 @@ public class Prototipus {
                                                " | jeg: " + jegStr + " | so_ido: " + s.getSozottIdo() + 
                                                " | zuzalek: " + zuzalekStr + " | blokkolt: " + blokkoltStr);
                         } else {
-                            if(jarmuvek.containsKey(statId)) {
-                                Jarmu jarmu = jarmuvek.get(statId);
+                            if(fk.ContainsJarmuId(statId)) {
+                                Jarmu jarmu = fk.getJarmu(statId);
                                 jarmu.statKiir();
                             }
                             if(poik.containsKey(statId)) {
