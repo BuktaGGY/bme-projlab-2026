@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Az útvonalak tervezéséért és a hálózat gráfjának kezeléséért felelős osztály.
  * Feladata az útzárak detektálása, új útvonalak keresése, valamint a játékos
@@ -9,23 +12,26 @@ public class UtvonalTervezo {
      * A forgalomirányító referenciája. Ezen keresztül értesíti a járműveket
      * az útváltozásokról az UML asszociáció alapján.
      */
-    private ForgalomIranyito forgalomIranyito;
+    private final ForgalomIranyito forgalomIranyito;
+
+    private Map<String, Utszakasz> utak;
 
     /**
-     * Konstruktor a Szkeleton teszteléshez.
-     * @param name A példány azonosító neve a naplózáshoz.
+     * Konstruktor
      */
-    public UtvonalTervezo(String name) {
-        
+    public UtvonalTervezo(ForgalomIranyito forgalomIranyito) {
+        this.forgalomIranyito = forgalomIranyito;
+        utak = new HashMap<>();
     }
 
-    /**
-     * Beállítja a forgalomirányító referenciáját.
-     * @param fi A ForgalomIranyito példány.
-     */
-    public void setForgalomIranyito(ForgalomIranyito fi) {
-        this.forgalomIranyito = fi;
+    public void addUt(String id, Utszakasz ut) {
+        utak.put(id, ut);
     }
+
+    public Utszakasz getUt(String id) {
+        return utak.get(id);
+    }
+
 
     /**
      * Detektálja, ha egy útszakasz blokkolttá válik, frissíti a belső hálózatot,

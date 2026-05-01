@@ -24,6 +24,10 @@ public abstract class Utszakasz {
     public void addSav(Sav s) {
         this.savok.add(s);
     }
+
+    public Sav getSav(int id) {
+        return this.savok.get(id);
+    }
     
     public String getId() { return id; }
 }

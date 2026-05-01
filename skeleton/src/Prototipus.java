@@ -8,11 +8,10 @@ import java.util.Scanner;
  */
 public class Prototipus {
     // A játékot vezérlő fő osztály
-    private JatekKezelo jk;
-
+    private final JatekKezelo jk;
     // Azonosítókhoz kötött objektumtárolók a parancsok feldolgozásához
     private Map<String, Csomopont> csomopontok = new HashMap<>();
-    private Map<String, Utszakasz> utak = new HashMap<>();
+
     private Map<String, Sav> savok = new HashMap<>();
     private Map<String, PointOfInterest> poik = new HashMap<>();
 
@@ -56,7 +55,8 @@ public class Prototipus {
                         int hossz = Integer.parseInt(parts[4]);
                         
                         SimaUt ut = new SimaUt(utId, c1, c2, hossz);
-                        utak.put(utId, ut);
+                        jk.getUtvonalTervezo().addUt(utId,ut);
+
                         c1.addUtszakasz(ut);
                         c2.addUtszakasz(ut);
                         System.out.println("[OK] Ut letrehozva (" + utId + ")");
@@ -67,7 +67,7 @@ public class Prototipus {
                         String savId = parts[2];
                         
                         Sav sav = new Sav(savId);
-                        utak.get(parentUtId).addSav(sav);
+                        //jk.getUtvonalTervezo().getUt(parentUtId).addSav(sav);
                         savok.put(savId, sav);
                         System.out.println("[OK] Sav hozzaadva (" + savId + ")");
                         break;
@@ -78,7 +78,8 @@ public class Prototipus {
                         boolean jeg = parts[3].equals("igen");
                         int soIdo = Integer.parseInt(parts[4]);
                         boolean zuzalek = parts[5].equals("igen");
-                        
+
+
                         savok.get(sId).setParameterek(ho, jeg, soIdo, zuzalek);
                         System.out.println("[OK] Sav parameterei beallitva (" + sId + ")");
                         break;

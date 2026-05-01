@@ -22,6 +22,11 @@ public class JatekKezelo {
         isRunning = false;
         forgalomIranyito = new  ForgalomIranyito();
         //idojaraskezelo = new Idojaraskezelo(20,);
+        utvonalTervezo = new UtvonalTervezo(forgalomIranyito);
+    }
+
+    public UtvonalTervezo getUtvonalTervezo() {
+        return utvonalTervezo;
     }
 
     public void start() {
