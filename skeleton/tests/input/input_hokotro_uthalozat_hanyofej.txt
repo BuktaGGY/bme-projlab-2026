@@ -1,0 +1,29 @@
+uj_csomopont n0
+uj_csomopont n1
+uj_csomopont n2
+uj_csomopont n3
+uj_csomopont n4
+uj_csomopont n5
+uj_ut u_a n0 n1 100
+hozzaad_sav u_a a
+uj_ut u_b n1 n2 100
+hozzaad_sav u_b b
+uj_ut u_c n2 n3 100
+hozzaad_sav u_c c
+uj_ut u_d n1 n3 100
+hozzaad_sav u_d d
+uj_ut u_e n3 n4 100
+hozzaad_sav u_e e
+uj_ut u_f n3 n5 100
+hozzaad_sav u_f f
+allit_sav a 0 nem 0 nem
+allit_sav b 20 nem 0 nem
+allit_sav c 15 nem 0 nem
+allit_sav d 0 igen 0 nem
+allit_sav e 0 igen 0 igen
+allit_sav f 20 nem 0 igen
+lerak_hokotro hk1 a 0 hanyo
+utvonal hk1 n1, n2, n3, n4
+lep 40
+stat_minden
+kilep

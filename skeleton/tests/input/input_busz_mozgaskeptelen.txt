@@ -1,0 +1,15 @@
+uj_csomopont c1
+uj_csomopont c2
+uj_poi v1 c1 vegallomas
+uj_poi v2 c2 vegallomas
+uj_ut u1 c1 c2 100
+hozzaad_sav u1 s1
+allit_sav s1 0 igen 0 nem
+lerak_busz b1 s1 0 v2
+lep 1
+stat b1
+lep 4
+stat b1
+lep 1
+stat b1
+kilep

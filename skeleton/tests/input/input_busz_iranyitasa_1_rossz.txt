@@ -1,0 +1,10 @@
+uj_csomopont c1
+uj_csomopont c2
+uj_csomopont c3
+uj_ut u1 c1 c2 100
+hozzaad_sav u1 s1
+uj_poi v1 c3 vegallomas
+lerak_busz b1 s1 0 v1
+utvonal b1 c1, c3
+stat b1
+kilep

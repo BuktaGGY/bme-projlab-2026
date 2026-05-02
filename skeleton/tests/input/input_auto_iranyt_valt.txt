@@ -1,0 +1,24 @@
+uj_csomopont n0
+uj_csomopont n1
+uj_csomopont n2
+uj_csomopont n3
+uj_ut u0 n0 n1 50
+hozzaad_sav u0 s0
+uj_ut u1 n1 n2 50
+hozzaad_sav u1 s1
+uj_ut u2 n1 n3 50
+hozzaad_sav u2 s2
+uj_ut u3 n3 n2 50
+hozzaad_sav u3 s3
+allit_sav s0 0 nem 0 nem
+allit_sav s1 0 igen 0 nem
+allit_sav s2 0 nem 0 nem
+allit_sav s3 0 nem 0 nem
+uj_poi p1 n2 munkahely
+lerak_auto a2 s1 5 p1
+lerak_auto a3 s1 10 p1
+lerak_auto a1 s0 0 p1A
+lep 1
+stat s1
+stat a1
+kilep

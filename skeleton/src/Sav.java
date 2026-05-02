@@ -270,10 +270,10 @@ public class Sav {
         this.isSozott = (so_ido > 0);
         this.isZuzalekos = zuzalek;
         
-        if (ho > 0) {
-            this.savAllapot = SavAllapot.HAVAS;
-        } else if (ho >= this.kuszobErtek) {
+        if (ho >= this.kuszobErtek) {
             this.savAllapot = SavAllapot.BLOKKOLT;
+        } else if (ho > 0) {
+            this.savAllapot = SavAllapot.HAVAS;
         } else if (jeg) {
             this.savAllapot = SavAllapot.JEGPANCEL;
         } else {

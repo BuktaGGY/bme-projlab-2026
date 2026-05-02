@@ -1,0 +1,14 @@
+[OK] Csomopont letrehozva (c1)
+[OK] Csomopont letrehozva (c2)
+[OK] Ut letrehozva (u1)
+[OK] Sav hozzaadva (s1)
+[OK] Sav parameterei beallitva (s1)
+[OK] Point Of Interest letrehozva (p1)
+[OK] Auto lerakva (a1)
+[OK] Auto lerakva (a2)
+[ESEMENY] a1 | MEGCSUSZOTT | s1 savban
+[ESEMENY] a1, a2 | BALESET | s1 sav allapota BLOKKOLT lett
+[STAT] AUTO a1 | sav: s1 | poz: 10 | allapot: RONCS | cel: p1
+[STAT] AUTO a2 | sav: s1 | poz: 15 | allapot: RONCS | cel: p1
+[STAT] SAV s1 | ho: 0 | jeg: igen | so_ido: 0 | zuzalek: nem | blokkolt: igen
+[OK] Kilepes

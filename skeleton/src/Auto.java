@@ -28,7 +28,6 @@ public class Auto extends SerulekenyJarmu {
         } else {
             setAllapot(JarmuAllapot.HALAD);
         }
-
     }
 
     public void mozog(Object utszakasz) {

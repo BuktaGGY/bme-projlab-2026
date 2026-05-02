@@ -24,13 +24,17 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
     /**
      * Konstruktor
      * @param id A példány azonosító neve a naplózáshoz.
+     * @param pozicioSavban A kezdő pozíció a sávon.
+     * @param startSav A sáv, amelyen a busz elindul.
+     * @param celAllomas A végállomás, ahová tart.
      */
-    public Busz(String id, int pozicioSavban, Sav startSav) {
+    public Busz(String id, int pozicioSavban, Sav startSav, Vegallomas celAllomas) {
         super(id);
         this.blokkoltSzamlalo = 0;
         this.allapot = JarmuAllapot.HALAD;
         this.pozicioASavon = pozicioSavban;
         this.setStartSav(startSav);
+        this.vegAllomas = celAllomas; 
     }
 
     /**
@@ -48,7 +52,6 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     @Override
     public void balesetezik() {
-
         setAllapot(JarmuAllapot.MOZGÁSKÉPTELEN);
         setBlokk(5);
         System.out.println("[ESEMENY] " + this.id + " | MEGCSUSZOTT | " + aktualisSav.getId() + " savban");
@@ -56,10 +59,16 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
 
     /**
      * Lépteti a blokkolt számlálót és frissíti a jármű állapotát.
-     * Ha a büntetési idő lejárt, a busz újra haladó állapotba kerül.
+     * Ellenőrzi, hogy a sáv blokkolva van-e a hó miatt.
      */
     @Override
     public void frissitAllapot() {
+        // ÚJ: Ellenőrizzük, hogy a nagy hó miatt blokkolva van-e az út
+        if (aktualisSav != null && aktualisSav.getAllapot() == SavAllapot.BLOKKOLT) {
+            setAllapot(JarmuAllapot.MOZGÁSKÉPTELEN); // Mivel nincs ELAKADT enum, ezt használjuk
+            System.out.println("[ESEMENY] " + this.id + " | ELAKADT | " + aktualisSav.getId() + " savban");
+            return; // A busz nem tud haladni, kilépünk a frissítésből
+        }
 
         if(blokkoltSzamlalo == 0){
             setAllapot(JarmuAllapot.HALAD);
@@ -68,7 +77,6 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
         if(blokkoltSzamlalo > 0){
             blokkoltSzamlalo--;
         }
-        
     }
 
     /**
@@ -96,27 +104,32 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     @Override
     public void UtvonalatKijelol(Utszakasz[] ujUtvonal) {
-
         this.Utvonal = ujUtvonal;
-
     }
 
     /**
      * A jármű mozgatása (a Jármű ősosztályból felülírva). 
      * A szkeleton tesztben ez szimulálja a végállomásra való érkezést és az érintést.
-     * * @param utszakasz Az aktuális útszakasz, amin halad (az ősosztály paraméterezése miatt).
+     * @param Utszakasz Az aktuális útszakasz, amin halad (az ősosztály paraméterezése miatt).
      */
     @Override
     public void mozog(Object Utszakasz) {
-
         if (vegAllomas != null) {
             vegAllomas.addErintes();
         }
-        
     }
 
+    /**
+     * Statisztika kiírása a konzolra.
+     */
     public void statKiir(){
+        // Biztonságos lekérdezés: ha nincs cél, ne omoljon össze
+        String celStr = (vegAllomas != null) ? vegAllomas.getId() : "nincs";
+        
+        // A kimenet formázása, hogy passzoljon a tesztesethez
+        String allapotStr = (aktualisSav != null && aktualisSav.getAllapot() == SavAllapot.BLOKKOLT) ? "ELAKADT" : allapot.toString();
+        
         System.out.println("[STAT] BUSZ "+ this.id + " | sav: " + aktualisSav.getId() + " | poz: " + pozicioASavon
-                +" | allapot: "+ allapot + " | vegallomas: " + vegAllomas.getId() + " | kezdoallomas: " + kezdoAllomas.getId());
+                +" | allapot: "+ allapotStr + " | cel: " + celStr);
     }
 }

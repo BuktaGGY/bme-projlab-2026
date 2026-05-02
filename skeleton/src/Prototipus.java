@@ -96,7 +96,6 @@ public class Prototipus {
                     System.out.println("[OK] Ut letrehozva (" + utId + ")");
                     break;
 
-                // --- MÓDOSÍTOTT PARANCS: hozzaad_sav (Automatikus összekötéssel) ---
                 case "hozzaad_sav":
                     String parentUtId = parts[1];
                     String savId = parts[2];
@@ -116,7 +115,7 @@ public class Prototipus {
                     }
                     
                     savok.put(savId, sav);
-                    System.out.println("[OK] Sav hozzaadva es automatikusan osszekotve (" + savId + ")");
+                    System.out.println("[OK] Sav hozzaadva (" + savId + ")");
                     break;
 
                 case "allit_sav":
@@ -141,7 +140,7 @@ public class Prototipus {
                         case "garazs":  poik.put(poiId,new Garazs(poiId)); break;
                     }
                     poik.get(poiId).setCsomopont(csomopontok.get(cspId));
-                    System.out.println("[OK] Point of Interest letrehozva (" + poiType + ")");
+                    System.out.println("[OK] Point of Interest letrehozva (" + poiId + ")");
                     break;
 
                 case "lerak_auto":
@@ -166,7 +165,10 @@ public class Prototipus {
                     String buszVegallomasPoiId = parts[4]; 
 
                     Sav kezdoSav = savok.get(buszSavId);
-                    Busz b =  new Busz(buszId, buszPozicio,kezdoSav );
+                    PointOfInterest celPoi = poik.get(buszVegallomasPoiId);
+                    
+                    Busz b = new Busz(buszId, buszPozicio, kezdoSav, (Vegallomas) celPoi);
+
                     buszok.put(buszId, b);
                     jk.getForgalomIranyito().addJarmu(b);
                     System.out.println("[OK] Busz lerakva sávon: "+ kezdoSav.getId());

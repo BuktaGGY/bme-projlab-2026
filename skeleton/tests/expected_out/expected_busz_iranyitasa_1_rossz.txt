@@ -1,0 +1,10 @@
+[OK] Csomopont letrehozva (c1)
+[OK] Csomopont letrehozva (c2)
+[OK] Csomopont letrehozva (c3)
+[OK] Ut letrehozva (u1)
+[OK] Sav hozzaadva (s1)
+[OK] Point Of Interest letrehozva (v1)
+[OK] Busz lerakva (b1)
+[HIBA] Ervenytelen utvonal megadva
+[STAT] BUSZ b1 | sav: s1 | poz: 0 | allapot: HALAD | cel: v1 | utvonal: ures
+[OK] Kilepes

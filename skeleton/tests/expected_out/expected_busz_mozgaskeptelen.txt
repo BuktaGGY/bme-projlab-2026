@@ -1,0 +1,16 @@
+[OK] Csomopont letrehozva (c1)
+[OK] Csomopont letrehozva (c2)
+[OK] Point Of Interest letrehozva (v1)
+[OK] Point Of Interest letrehozva (v2)
+[OK] Ut letrehozva (u1)
+[OK] Sav hozzaadva (s1)
+[OK] Sav parameterei beallitva (s1)
+[OK] Busz lerakva (b1)
+[ESEMENY] b1 | MEGCSUSZOTT | s1 savban
+[ESEMENY] b1 | MOZGASKEPTELEN | 5 tick buntetes
+[STAT] BUSZ b1 | sav: s1 | poz: 10 | allapot: MOZGASKEPTELEN | blokkolt_ido: 5
+[STAT] BUSZ b1 | sav: s1 | poz: 10 | allapot: MOZGASKEPTELEN | blokkolt_ido: 1
+[ESEMENY] b1 | UJRA_INDULT | buntetes lejart
+[ESEMENY] b1 | MOZGOTT | s1 savban (uj pozicio: 20)
+[STAT] BUSZ b1 | sav: s1 | poz: 20 | allapot: HALAD | blokkolt_ido: 0
+[OK] Kilepes
