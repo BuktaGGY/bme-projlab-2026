@@ -1,0 +1,15 @@
+[OK] Csomopont letrehozva (c1)
+[OK] Csomopont letrehozva (c2)
+[OK] Ut letrehozva (u1)
+[OK] Sav hozzaadva (s1)
+[OK] Point Of Interest letrehozva (g1)
+[OK] Hokotro lerakva (hk1)
+[STAT] KASSZA | egyenleg: 1000 | pontszam: 0
+[STAT] HOKOTRO hk1 | sav: s1 | poz: 0 | fej: sopro | so: 0 | kerozin: 0
+[OK] hk1 tankolas sikeres (uj so: 100)
+[ESEMENY] KOLTSEGVETES | VASARLAS | egyenleg: 850
+[OK] hk1 tankolas sikeres (uj biokerozin: 100)
+[ESEMENY] KOLTSEGVETES | VASARLAS | egyenleg: 550
+[STAT] KASSZA | egyenleg: 550 | pontszam: 0
+[STAT] HOKOTRO hk1 | sav: s1 | poz: 0 | fej: sopro | so: 100 | kerozin: 100
+[OK] Kilepes

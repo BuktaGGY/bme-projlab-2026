@@ -7,8 +7,7 @@ public class HanyoFej extends KotroFej {
 	/**
      * Véglegesen eltünteti (megsemmisíti) a havat az aktuális sávról. 
      * A szomszédos sávot nem használja és nem módosítja.
-     * * @param sav           Az a sáv, amelyen a hókotró éppen tartózkodik és takarít.
-     *
+     * @param sav           Az a sáv, amelyen a hókotró éppen tartózkodik és takarít.
      * @param kotro         A műveletet végző hókotró referenciája.
      */
     @Override

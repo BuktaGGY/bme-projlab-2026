@@ -9,16 +9,15 @@ import java.util.Scanner;
  * Felelőssége a szabványos bemenet olvasása, a modell vezérlése és a kimenet írása.
  */
 public class Prototipus {
-    // A játékot vezérlő fő osztály
     private final JatekKezelo jk;
-    // Azonosítókhoz kötött objektumtárolók a parancsok feldolgozásához
+    
     private Map<String, Csomopont> csomopontok = new HashMap<>();
-
     private Map<String, Sav> savok = new HashMap<>();
     private Map<String, PointOfInterest> poik = new HashMap<>();
     private Map<String, Hokotro> hokotrok = new HashMap<>();
     private Map<String, Busz> buszok = new HashMap<>();
     private Map<String, Auto> autok = new HashMap<>();
+
     /**
      * A Prototipus konstruktora.
      * Példányosítja a játékkezelőt és előkészíti a memóriát.
@@ -28,7 +27,7 @@ public class Prototipus {
     }
 
 
-/**
+    /**
      * Elindítja a beolvasási ciklust. A program addig olvas a standard bemenetről, 
      * amíg a 'kilep' parancsot meg nem kapja, vagy el nem fogy a bemenet (EOF).
      */
@@ -44,8 +43,6 @@ public class Prototipus {
 
         try {
             switch (command) {
-                
-                // --- ÚJ PARANCS: load ---
                 case "load":
                     String fajlNev = parts[1];
                     try {
@@ -54,10 +51,9 @@ public class Prototipus {
                         while (fileScanner.hasNextLine()) {
                             String fileLine = fileScanner.nextLine().trim();
                             if (!fileLine.isEmpty()) {
-                                // Rekurzívan hívjuk, de figyeljük a visszatérést!
                                 boolean fajlFolytat = egyParancsFeldolgozasa(fileLine, fileScanner); 
                                 if (!fajlFolytat) {
-                                    break; // Ha a fájlban volt a "kilep", csak a fájlolvasást szakítjuk meg!
+                                    break;
                                 }
                             }
                         }
@@ -68,7 +64,6 @@ public class Prototipus {
                     }
                     break;
 
-                // --- ÚJ PARANCS: random ---
                 case "random":
                     boolean isRandom = parts[1].equals("be");
                     JatekKezelo.veletlenBe = isRandom;
@@ -104,12 +99,11 @@ public class Prototipus {
                     Utszakasz ut = jk.getUtvonalTervezo().getUt(parentUtId);
                     if (ut != null) {
                         List<Sav> eddigiSavok = ut.getSavok();
-                        
-                        // Ha már van sáv az úton, összekötjük az utolsóval
+                    
                         if (!eddigiSavok.isEmpty()) {
                             Sav elozoSav = eddigiSavok.get(eddigiSavok.size() - 1);
-                            elozoSav.setJobbSav(sav); // Az előző jobb szomszédja az új lesz
-                            sav.setBalSav(elozoSav);  // Az új bal szomszédja az előző lesz
+                            elozoSav.setJobbSav(sav);
+                            sav.setBalSav(elozoSav);
                         }
                         ut.addSav(sav); 
                     }
@@ -194,25 +188,20 @@ public class Prototipus {
                     System.out.println("[OK] Hokotro lerakva sávon: "+hokotroId+" Fej: "+fejTipus);
                     break;
 
-                // --- ÚJ PARANCS: vasarol_hokotro (instanceof nélkül!) ---
                 case "vasarol_hokotro":
                     String ujHkId = parts[1];
                     String garazsId = parts[2];
                     
-                    // Ellenőrizzük, hogy létezik-e, és az osztálya pontosan Garazs-e (instanceof helyett)
                     if (poik.containsKey(garazsId) && poik.get(garazsId).getClass().getSimpleName().equals("Garazs")) {
                         Garazs g = (Garazs) poik.get(garazsId);
                         
-                        // Levonjuk a kasszából (pl. 1000 az új gép ára)
                         if (jk.gazdasagKezelo != null && jk.gazdasagKezelo.fizetes(1000)) {
                             
                             Csomopont garazsCsp = g.getCsomopont();
                             
-                            // Megkeressük az első útszakasz első sávját a lerakáshoz
                             if(garazsCsp != null && !garazsCsp.getUtszakaszok().isEmpty()) {
                                 Sav lerakoSav = garazsCsp.getUtszakaszok().get(0).getSavok().get(0);
                                 
-                                // Létrehozzuk alapfelszereltséggel (söprőfej)
                                 Hokotro ujHk = new Hokotro(ujHkId, new SoproFej(), lerakoSav, 0);
                                 
                                 hokotrok.put(ujHkId, ujHk);

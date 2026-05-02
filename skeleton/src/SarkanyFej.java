@@ -4,11 +4,10 @@ public class SarkanyFej extends KotroFej {
         super(800);
     }
 
-
 	/**
      * Biokerozin felhasználásával azonnal felolvaszt és eltüntet minden havat és jeget 
      * az aktuális sávról. A működéshez a hókotrónak rendelkeznie kell kerozinnal.
-     * * @param sav           Az a sáv, amelyen az olvasztás történik.
+     * @param sav           Az a sáv, amelyen az olvasztás történik.
      * @param kotro         A műveletet végző hókotró referenciája, ahonnan a kerozint fogyasztja.
      */
     @Override

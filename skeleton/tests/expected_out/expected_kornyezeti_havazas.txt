@@ -1,0 +1,17 @@
+[OK] Csomopont letrehozva (c1)
+[OK] Csomopont letrehozva (c2)
+[OK] Csomopont letrehozva (c3)
+[OK] Ut letrehozva (u1)
+[OK] Ut letrehozva (u2)
+[OK] Sav hozzaadva (s1)
+[OK] Sav hozzaadva (s2)
+[ESEMENY] IDOJARAS | HAVAZAS | +1cm s1 savra
+[STAT] SAV s1 | ho: 1 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
+[STAT] SAV s2 | ho: 0 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
+[ESEMENY] IDOJARAS | HAVAZAS | +6cm minden tiszta savra
+[STAT] SAV s1 | ho: 7 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
+[STAT] SAV s2 | ho: 6 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
+[ESEMENY] IDOJARAS | HAVAZAS | +7cm minden tiszta savra
+[STAT] SAV s1 | ho: 14 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
+[STAT] SAV s2 | ho: 13 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
+[OK] Kilepes

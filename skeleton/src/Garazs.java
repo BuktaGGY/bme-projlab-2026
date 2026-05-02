@@ -4,12 +4,9 @@
 public class Garazs extends PointOfInterest {
     private boolean isOccupied;
 
-    /**
-     * Konstruktor a Szkeleton teszteléshez.
-     * @param name A példány azonosító neve a naplózáshoz.
-     */
-    public Garazs(String name) { 
-        super(name);
+    public Garazs(String id, Csomopont hely) { 
+        super(id, hely);
+        this.isOccupied = false;
     }
     
     /**
@@ -18,6 +15,13 @@ public class Garazs extends PointOfInterest {
      * @param fej - a kotrofej, amit le akarunk cserelni
      */
     public void fejCsere(KotroFej fej) {
+        //TODO: ha egy kotro az adott csomoponton tartozkodik, akkor foglaltra allitja a garazst, ehhez kell a 
+        //hokotro helyzete
+        if (!isOccupied) {
+            System.out.println("[ESEMENY] GARAZS " + this.id + " | FEJCSERE | " + fej.getFejTipus() + " fejjel");
+        } else {
+            System.out.println("[ESEMENY] GARAZS " + this.id + " | FEJCSERE_SIKERTELEN | mar foglalt");
+        }
     }
 
     /**
@@ -26,10 +30,17 @@ public class Garazs extends PointOfInterest {
      * @param fej - a kotro fej, amit fel akarunk tankolni
      */
     public void tankol(KotroFej fej) {
+        //TODO: ha egy kotro az adott csomoponton tartozkodik, akkor foglaltra allitja a garazst, ehhez kell a 
+        //hokotro helyzete
+        if (!isOccupied) {
+            System.out.println("[ESEMENY] GARAZS " + this.id + " | TANKOL | " + fej.getFejTipus() + " fejjel");
+        } else {
+            System.out.println("[ESEMENY] GARAZS " + this.id + " | TANKOLAS_SIKERTELEN | mar foglalt");
+        }
     }
 
     public void StatKiir(){
         String foglalt =  isOccupied ? "igen" : "nem";
-        System.out.println("[STAT] GARAZS " + this.id+ " | foglalt: "+ foglalt);
+        System.out.println("[STAT] GARAZS " + this.id + " | foglalt: "+ foglalt);
     }
 }

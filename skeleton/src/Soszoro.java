@@ -1,6 +1,5 @@
 public class Soszoro extends KotroFej {
 
-    // Konstruktor a Szkeleton névvel
     public Soszoro() {
         super(150);
     }
@@ -9,7 +8,7 @@ public class Soszoro extends KotroFej {
 	/**
      * Sót szór az aktuális sávra a hókotró saját sókészletéből, ami megolvasztja 
      * a jeget és megakadályozza a további fagyást. A működéshez sóra van szükség.
-     * * @param sav           Az a sáv, amelyre a sót szórja.
+     * @param sav           Az a sáv, amelyre a sót szórja.
      * @param kotro         A műveletet végző hókotró referenciája, ahonnan a sót fogyasztja.
      */
     @Override

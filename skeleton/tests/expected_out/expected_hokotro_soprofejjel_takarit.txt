@@ -1,0 +1,15 @@
+[OK] Csomopont letrehozva (c1)
+[OK] Csomopont letrehozva (c2)
+[OK] Ut letrehozva (u1)
+[OK] Sav hozzaadva (s1)
+[OK] Sav hozzaadva (s2)
+[OK] Sav parameterei beallitva (s1)
+[OK] Sav parameterei beallitva (s2)
+[STAT] SAV s1 | ho: 5 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
+[STAT] SAV s2 | ho: 5 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
+[OK] Hokotro lerakva (hk1)
+[OK] Utvonal beallitva (hk1)
+[ESEMENY] hk1 | TAKARITOTT | s1 sav (maradek ho: 0cm)
+[STAT] SAV s1 | ho: 0 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
+[STAT] SAV s2 | ho: 10 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
+[OK] Kilepes

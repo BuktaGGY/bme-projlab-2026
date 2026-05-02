@@ -1,0 +1,14 @@
+uj_csomopont c1
+uj_csomopont c2
+uj_ut u1 c1 c2 50
+hozzaad_sav u1 s1
+uj_poi g1 c1 garazs
+allit_sav s1 5 nem 0 nem
+stat s1
+lerak_hokotro hk1 s1 0 soszoro
+tankol hk1 so
+utvonal hk1 c2
+lep 1
+stat s1
+stat hk1
+kilep

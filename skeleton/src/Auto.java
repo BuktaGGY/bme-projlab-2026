@@ -32,15 +32,13 @@ public class Auto extends SerulekenyJarmu {
 
     public void mozog(Object utszakasz) {
         if(this.allapot == JarmuAllapot.ELAKADT) {
-
-            //Kiszabadulás logika
             Sav s = this.aktualisSav;
             if(s.getJobbSavAllapot() != SavAllapot.BLOKKOLT) {
                 savValtas(s.getJobbSav());
                 setAllapot(JarmuAllapot.HALAD);
                 System.out.println("[ESEMENY] " + this.id + " | SAVOT_VALTOTT | " + s.getId() + " -> " + s.getJobbSav().getId() + " savra");
             }
-            else if(s.getBalSavAllapot() != SavAllapot.BLOKKOLT){
+            else if(s.getBalSavAllapot() != SavAllapot.BLOKKOLT) {
                 savValtas(s.getBalSav());
                 setAllapot(JarmuAllapot.HALAD);
                 System.out.println("[ESEMENY] " + this.id + " | SAVOT_VALTOTT | " + s.getId() + " -> " + s.getBalSav().getId() + " savra");
@@ -76,7 +74,7 @@ public class Auto extends SerulekenyJarmu {
     }
 
     /**
-     * Lepteti egy egyseget az utvonalat
+     * Lépteti (updateli) egy egységgel az útvonalat.
      */
     public void utvonalFrissit() {
         Utszakasz[] ujUtvonal = new Utszakasz[Utvonal.length];
@@ -88,6 +86,7 @@ public class Auto extends SerulekenyJarmu {
         this.Utvonal = ujUtvonal;
         //aktualisSav = Utvonal.savok[0]; //TODO Savkezeles
     }
+
     /**
      * Baleset esetén az autó ronccsá válik, a sáv amin halad pedig blokkolt lesz.
      */
@@ -104,7 +103,7 @@ public class Auto extends SerulekenyJarmu {
     }
 
     /**
-     * Ujratervezi az autó útvonalát, amin az autó haladni fog.
+     * Újratervezi az autó útvonalát, amin az autó haladni fog.
      * @param ut út
      */
     public void ujraTervezes(UtvonalTervezo ut) {
@@ -118,7 +117,6 @@ public class Auto extends SerulekenyJarmu {
     public void megsemmisites() {
         
         if (aktualisSav != null) {
-            // A roncs eltakarítása után a sáv újra járható lesz
             aktualisSav.setSavAllapot(SavAllapot.TISZTA); 
         }
         
@@ -132,4 +130,5 @@ public class Auto extends SerulekenyJarmu {
         System.out.println("[STAT] AUTO "+ this.id + " | sav: " + aktualisSav.getId() + " | poz: " + pozicioASavon
         +" | allapot: "+ allapot + " | cel: " + cel.getId());
     }
+
 }

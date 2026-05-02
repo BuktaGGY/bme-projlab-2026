@@ -8,8 +8,9 @@ public class Lakas extends PointOfInterest {
      * Konstruktor a Szkeleton teszteléshez.
      * @param name A példány azonosító neve a naplózáshoz.
      */
-    public Lakas(String name) {
-        super(name);
+    public Lakas(String id, Csomopont hely, Munkahely par) {
+        super(id, hely);
+        this.par = par;
     }
 
     /**
@@ -21,6 +22,6 @@ public class Lakas extends PointOfInterest {
     }
 
     public void StatKiir(){
-        System.out.println("[STAT] LAKAS " + this.id+ " | par: "+ par.getId());
+        System.out.println("[STAT] LAKAS " + this.id + " | par: "+ par.getId());
     }
 }

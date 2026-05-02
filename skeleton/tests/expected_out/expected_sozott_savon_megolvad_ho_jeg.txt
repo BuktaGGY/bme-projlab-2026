@@ -1,0 +1,13 @@
+[OK] Csomopont letrehozva (c1)
+[OK] Csomopont letrehozva (c2)
+[OK] Ut letrehozva (u1)
+[OK] Sav hozzaadva (s1)
+[OK] Sav parameterei beallitva (s1)
+[STAT] SAV s1 | ho: 5 | jeg: nem | so_ido: 5 | zuzalek: nem | blokkolt: nem
+[ESEMENY] IDOJARAS | OLVADAS | s1 savrol elolvadt a ho
+[STAT] SAV s1 | ho: 0 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
+[OK] Sav parameterei beallitva (s1)
+[STAT] SAV s1 | ho: 0 | jeg: igen | so_ido: 5 | zuzalek: nem | blokkolt: nem
+[ESEMENY] IDOJARAS | OLVADAS | s1 savrol elolvadt a jeg
+[STAT] SAV s1 | ho: 0 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
+[OK] Kilepes

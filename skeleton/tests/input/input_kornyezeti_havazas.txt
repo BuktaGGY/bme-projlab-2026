@@ -1,0 +1,17 @@
+uj_csomopont c1
+uj_csomopont c2
+uj_csomopont c3
+uj_ut u1 c1 c2 50
+uj_ut u2 c2 c3 50
+hozzaad_sav u1 s1
+hozzaad_sav u2 s2
+havaz_sav s1 1
+stat s1
+stat s2
+havaz_globalis 6
+stat s1
+stat s2
+havaz_globalis 7
+stat s1
+stat s2
+kilep
