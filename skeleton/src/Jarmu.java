@@ -24,6 +24,9 @@ public abstract class Jarmu {
     /** A jármű által követett útvonal, útszakaszok sorozataként. */
     protected Utszakasz[] Utvonal;
 
+    /** Az aktuális útszakasz indexe a kijelölt Útvonal tömbben. */
+    protected int utvonalIndex = 0;
+
     /**
      * Alapértelmezett konstruktor.
      * (A regisztrációt a Skeletonban a leszármazottak végzik el).
@@ -47,12 +50,43 @@ public abstract class Jarmu {
     }
 
     /**
-     * Lépteti a járművet a megadott útszakaszon, ellenőrzi, hogy ki tud-e szabadulni
-     * az elakadt auto.
-     * @param utszakasz Az útszakasz (vagy annak egy része), amin a jármű mozog.
+     * Lépteti a járművet a megadott útszakaszon. Ha eléri a sáv végét,
+     * automatikusan átlép a következő útszakaszra.
+     * @param utszakasz Ezt a paramétert az ősosztályból megörököltük, de a belső logikát használjuk.
      */
     public void mozog(Object utszakasz) {
+        if (allapot != JarmuAllapot.HALAD) return;
 
+        pozicioASavon += sebesseg;
+        int aktualisHossz = aktualisSav.getHossz();
+
+        if (pozicioASavon >= aktualisHossz) {
+            int maradek = pozicioASavon - aktualisHossz;
+
+            if (Utvonal != null && utvonalIndex + 1 < Utvonal.length && Utvonal[utvonalIndex + 1] != null) {
+                utvonalIndex++;
+                Utszakasz kovetkezoUt = Utvonal[utvonalIndex];
+                Sav regiSav = aktualisSav;
+
+                aktualisSav = kovetkezoUt.getSavok().get(0);
+                pozicioASavon = maradek;
+
+                System.out.println("[ESEMENY] " + id + " | UJ SZAKASZRA LEPETT | " + regiSav.getId() + " -> " + aktualisSav.getId() + " savra (uj poz: " + pozicioASavon + ")");
+            } else {
+                pozicioASavon = aktualisHossz;
+                celbaErt();
+            }
+        } else {
+            System.out.println("[ESEMENY] " + id + " | MOZGOTT | " + aktualisSav.getId() + " savban (uj pozicio: " + pozicioASavon + ")");
+        }
+    }
+
+
+    /**
+     * Hook metódus, amit a leszármazottak felülírhatnak, hogy egyedi 
+     * logikát hajtsanak végre, amikor az útvonal végére érnek.
+     */
+    protected void celbaErt() {
     }
 
     /**

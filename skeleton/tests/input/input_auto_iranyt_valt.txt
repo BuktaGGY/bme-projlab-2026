@@ -17,7 +17,7 @@ allit_sav s3 0 nem 0 nem
 uj_poi p1 n2 munkahely
 lerak_auto a2 s1 5 p1
 lerak_auto a3 s1 10 p1
-lerak_auto a1 s0 0 p1A
+lerak_auto a1 s0 0 p1
 lep 1
 stat s1
 stat a1

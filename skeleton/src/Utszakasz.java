@@ -31,7 +31,17 @@ public abstract class Utszakasz {
             utolsoSav.setJobbSav(s);
             s.setBalSav(utolsoSav);
         }
+        s.setSzuloUtszakasz(this);
         savok.add(s);
+    }
+
+    /**
+     * Visszaadja az útszakasz másik végén lévő csomópontot.
+     */
+    public Csomopont getMasikVeg(Csomopont cs) {
+        if (eleje != null && eleje.getID().equals(cs.getID())) return vege;
+        if (vege != null && vege.getID().equals(cs.getID())) return eleje;
+        return null;
     }
 
     public Sav getSav(int id) {

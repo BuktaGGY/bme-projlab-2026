@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,8 +14,7 @@ public class UtvonalTervezo {
      * A forgalomirányító referenciája. Ezen keresztül értesíti a járműveket
      * az útváltozásokról az UML asszociáció alapján.
      */
-    private final ForgalomIranyito forgalomIranyito;
-
+    private ForgalomIranyito forgalomIranyito;
     private Map<String, Utszakasz> utak;
 
     /**
@@ -21,7 +22,7 @@ public class UtvonalTervezo {
      */
     public UtvonalTervezo(ForgalomIranyito forgalomIranyito) {
         this.forgalomIranyito = forgalomIranyito;
-        utak = new HashMap<>();
+        this.utak = new HashMap<>();
     }
 
     public void addUt(String id, Utszakasz ut) {
@@ -32,17 +33,25 @@ public class UtvonalTervezo {
         return utak.get(id);
     }
 
+    private boolean isUtszakaszJarhato(Utszakasz u) {
+        if (u.getSavok() == null || u.getSavok().isEmpty()) return false;
+        for (Sav s : u.getSavok()) {
+            if (s.getAllapot() != SavAllapot.BLOKKOLT) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Detektálja, ha egy útszakasz blokkolttá válik, frissíti a belső hálózatot,
      * és riasztja a forgalomirányítót a kialakult helyzetről.
      */
-    public void utzarDetektal() {
-        this.utFrissites();
+    public void utzarDetektal(String blokkoltSavId) {
+        System.out.println("[ESEMENY] UTVONALTERVEZO | UTZAR_DETEKTALVA | " + blokkoltSavId + " sav blokkolt");
         if (forgalomIranyito != null) {
             forgalomIranyito.utzarEsemeny(this);
         }
-
     }
 
     /**
@@ -54,11 +63,56 @@ public class UtvonalTervezo {
 
     /**
      * Új, optimális útvonalat keres a hálózatban a paraméterek alapján.
-     * @return Az új útvonal (szkeletonban egy dummy String/objektum).
+     * @return Az új útvonal.
      */
-    public String utvonalKeres() {
+    public Utszakasz[] utvonalKeres(Csomopont honnan, Csomopont hova) {
+        Map<Csomopont, Integer> tavolsag = new HashMap<>();
+        Map<Csomopont, Utszakasz> elozoUt = new HashMap<>();
+        Map<Csomopont, Csomopont> elozoCsomopont = new HashMap<>();
+        List<Csomopont> feldolgozatlan = new ArrayList<>();
 
-        return null;
+        tavolsag.put(honnan, 0);
+        feldolgozatlan.add(honnan);
+
+        while (!feldolgozatlan.isEmpty()) {
+            Csomopont u = null;
+            int minTav = Integer.MAX_VALUE;
+            for (Csomopont c : feldolgozatlan) {
+                if (tavolsag.getOrDefault(c, Integer.MAX_VALUE) < minTav) {
+                    minTav = tavolsag.get(c);
+                    u = c;
+                }
+            }
+            if (u == null || u == hova) break;
+            feldolgozatlan.remove(u);
+
+            for (Utszakasz ut : u.getUtszakaszok()) {
+                if (!isUtszakaszJarhato(ut)) continue;
+
+                Csomopont v = ut.getMasikVeg(u);
+                if (v == null) continue;
+
+                int altTavolsag = tavolsag.get(u) + ut.getHossz();
+                if (altTavolsag < tavolsag.getOrDefault(v, Integer.MAX_VALUE)) {
+                    tavolsag.put(v, altTavolsag);
+                    elozoCsomopont.put(v, u);
+                    elozoUt.put(v, ut);
+                    if (!feldolgozatlan.contains(v)) {
+                        feldolgozatlan.add(v);
+                    }
+                }
+            }
+        }
+
+        if (!elozoCsomopont.containsKey(hova)) return null;
+
+        List<Utszakasz> path = new ArrayList<>();
+        Csomopont curr = hova;
+        while (curr != honnan) {
+            path.add(0, elozoUt.get(curr));
+            curr = elozoCsomopont.get(curr);
+        }
+        return path.toArray(new Utszakasz[0]);
     }
 
     /**
@@ -68,13 +122,23 @@ public class UtvonalTervezo {
      * @param csomopontok A játékos által kijelölt csomópontok tömbje.
      */
     public void utKijelol(Busz b, Csomopont[] csomopontok) {
-
-        boolean ervenyes = this.utEllenorzes(csomopontok);
-
-        if (forgalomIranyito != null && ervenyes) {
-            forgalomIranyito.buszUtvonalKiosztas(b, csomopontok);
+        if (!utEllenorzes(csomopontok)) {
+            // Nem folytonos az út
+            return; 
         }
-        
+
+        Utszakasz[] ujUt = new Utszakasz[csomopontok.length - 1];
+        for (int i = 0; i < csomopontok.length - 1; i++) {
+            Csomopont c1 = csomopontok[i];
+            Csomopont c2 = csomopontok[i+1];
+            for (Utszakasz u : c1.getUtszakaszok()) {
+                if (c2.getUtszakaszok().contains(u)) {
+                    ujUt[i] = u;
+                    break;
+                }
+            }
+        }
+        b.UtvonalatKijelol(ujUt);
     }
 
     /**
@@ -84,10 +148,20 @@ public class UtvonalTervezo {
      * @return Igaz, ha az útvonal bejárható.
      */
     public boolean utEllenorzes(Csomopont[] csomopontok) {
-
+        for (int i = 0; i < csomopontok.length - 1; i++) {
+            boolean vanKozos = false;
+            for (Utszakasz u : csomopontok[i].getUtszakaszok()) {
+                if (csomopontok[i+1].getUtszakaszok().contains(u)) {
+                    vanKozos = true;
+                    break;
+                }
+            }
+            if (!vanKozos) return false;
+        }
         return true;
     }
 
     public void setForgalomIranyito(ForgalomIranyito forgalomIranyito) {
+        this.forgalomIranyito = forgalomIranyito;
     }
 }
