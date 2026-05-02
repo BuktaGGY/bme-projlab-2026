@@ -89,14 +89,14 @@ public class ForgalomIranyito {
     }
 
     /**
-     * Útzár esemény kezelése. Értesíti a nyilvántartott autókat, 
-     * hogy egy útszakasz blokkolva lett, és újratervezésre van szükség.
+     * Útzár esemény kezelése. Értesíti a nyilvántartott járműveket, 
+     * hogy egy útszakasz blokkolva lett, és újratervezésre lehet szükség.
      * @param ut Az útvonaltervező referenciája, ahonnan a járművek új utat kérhetnek.
      */
     public void utzarEsemeny(UtvonalTervezo ut) {
         for (Jarmu jarmu : jarmuvek.values()) {
-            if (jarmu instanceof Auto && jarmu.allapot == JarmuAllapot.HALAD) {
-                ((Auto) jarmu).ujraTervezes(ut);
+            if (jarmu.allapot == JarmuAllapot.HALAD) {
+                jarmu.ujraTervezes(ut);
             }
         }
     }

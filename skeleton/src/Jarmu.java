@@ -123,4 +123,5 @@ public abstract class Jarmu {
     public void megcsuszik() {}
     public void balesetezik() {}
     public void megsemmisites() {}
+    public void ujraTervezes(UtvonalTervezo ut) {}
 }
