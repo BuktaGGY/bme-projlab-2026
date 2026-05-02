@@ -6,17 +6,17 @@
 public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
 
     /**
-     * A busz által bejárt útvonal indulási állomása.
+     *A busz által bejárt útvonal indulási állomása.
      */
     private Vegallomas kezdoAllomas;
 
     /**
-     * A busz által bejárt útvonal célállomása.
+     *A busz által bejárt útvonal célállomása.
      */
     private Vegallomas vegAllomas;
 
     /**
-     * A busz balesete után nem tud mozogni egy meghatározott ideig,
+     *A busz balesete után nem tud mozogni egy meghatározott ideig,
      * ennek nyilvántartására használatos számláló.
      */
     private int blokkoltSzamlalo;
@@ -64,11 +64,10 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     @Override
     public void frissitAllapot() {
-        // ÚJ: Ellenőrizzük, hogy a nagy hó miatt blokkolva van-e az út
         if (aktualisSav != null && aktualisSav.getAllapot() == SavAllapot.BLOKKOLT) {
-            setAllapot(JarmuAllapot.MOZGÁSKÉPTELEN); // Mivel nincs ELAKADT enum, ezt használjuk
+            setAllapot(JarmuAllapot.MOZGÁSKÉPTELEN);
             System.out.println("[ESEMENY] " + this.id + " | ELAKADT | " + aktualisSav.getId() + " savban");
-            return; // A busz nem tud haladni, kilépünk a frissítésből
+            return;
         }
 
         if(blokkoltSzamlalo == 0){
@@ -137,11 +136,9 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
     /**
      * Statisztika kiírása a konzolra.
      */
+    @Override
     public void statKiir(){
-        // Biztonságos lekérdezés: ha nincs cél, ne omoljon össze
         String celStr = (vegAllomas != null) ? vegAllomas.getId() : "nincs";
-        
-        // A kimenet formázása, hogy passzoljon a tesztesethez
         String allapotStr = (aktualisSav != null && aktualisSav.getAllapot() == SavAllapot.BLOKKOLT) ? "ELAKADT" : allapot.toString();
         
         System.out.println("[STAT] BUSZ "+ this.id + " | sav: " + aktualisSav.getId() + " | poz: " + pozicioASavon

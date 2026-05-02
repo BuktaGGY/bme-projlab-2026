@@ -76,6 +76,7 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
         }
     }
 
+    @Override
     public void statKiir(){
         System.out.println("[STAT] HOKOTRO "+ this.id + " | sav: " + aktualisSav.getId() + " | poz: " + pozicioASavon
                 + " | fej: "+ aktualisKotrofej.getFejTipus() + " | so: " + so + " | kerozin: " + biokerozin);

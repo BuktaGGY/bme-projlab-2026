@@ -39,6 +39,7 @@ public class Garazs extends PointOfInterest {
         }
     }
 
+    @Override
     public void StatKiir(){
         String foglalt =  isOccupied ? "igen" : "nem";
         System.out.println("[STAT] GARAZS " + this.id + " | foglalt: "+ foglalt);

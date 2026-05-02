@@ -9,14 +9,17 @@ public class Vegallomas extends PointOfInterest {
     private List<Busz> erintoBuszok;
     private int erintesekSzama;
     private JatekKezelo jatekKezelo;
-    private String id;
 
     /**
      * Konstruktor a Szkeleton teszteléshez.
      * @param name A példány azonosító neve a naplózáshoz.
      */
-    public Vegallomas(String name) {
-        super(name);
+    public Vegallomas(String id, Csomopont hely, List<Busz> erintoBuszok, JatekKezelo jk) {
+        super(id, hely);
+        this.hely = hely;
+        this.erintoBuszok = erintoBuszok;
+        this.jatekKezelo = jk;
+        this.erintesekSzama = 0;
     }
 
     /**
@@ -39,7 +42,12 @@ public class Vegallomas extends PointOfInterest {
         }
     }
 
+    @Override
     public void StatKiir(){
-        System.out.println("[STAT] VEGALLOMAS " + this.id+ " | erintesekSzama: "+ erintesekSzama); //TODO listaelemek listazasa
+        System.out.println("[STAT] VEGALLOMAS " + this.id + " | erintesekSzama: "+ erintesekSzama + 
+        " | erinto buszok: ");
+        for(Busz b : erintoBuszok) {
+            System.out.println("[" + b.id + "]");
+        }
     }
 }

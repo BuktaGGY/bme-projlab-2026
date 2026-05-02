@@ -128,10 +128,10 @@ public class Prototipus {
                     String cspId = parts[2];
                     String poiType = parts[3];
                     switch (poiType) {
-                        case "lakas": poik.put(poiId,new Lakas(poiId)); break;
-                        case "munkahely": poik.put(poiId,new Munkahely(poiId)); break;
-                        case "vegallomas": poik.put(poiId,new Vegallomas(poiId)); break;
-                        case "garazs":  poik.put(poiId,new Garazs(poiId)); break;
+                        case "lakas": poik.put(poiId,new Lakas(poiId, null,null)); break;
+                        case "munkahely": poik.put(poiId,new Munkahely(poiId,null)); break;
+                        case "vegallomas": poik.put(poiId,new Vegallomas(poiId, null, null, null)); break;
+                        case "garazs":  poik.put(poiId,new Garazs(poiId, null)); break;
                     }
                     poik.get(poiId).setCsomopont(csomopontok.get(cspId));
                     System.out.println("[OK] Point of Interest letrehozva (" + poiId + ")");
