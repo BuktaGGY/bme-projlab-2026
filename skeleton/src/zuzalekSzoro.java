@@ -9,7 +9,7 @@ public class zuzalekSzoro extends KotroFej{
     public void takarit(Sav sav, Hokotro kotro) {
         if (kotro.getZuzalek() > 0) {
             sav.zuzalekotSzor();
-            kotro.setZuzalek(kotro.getSo() - 1);
+            kotro.setZuzalek(kotro.getZuzalek() - 1); 
         }
     }
     @Override

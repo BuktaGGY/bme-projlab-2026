@@ -8,7 +8,7 @@ public class GazdasagKezelo {
     /**
      * A játék során összegyűjtött pénz nyilvántartása
      */
-    private int kozosKassza;
+    private int kozosKassza = 10000;
 
     /**
      * A különböző fejtípusok név-ár párjait tartalmazó gyűjtemény

@@ -1,0 +1,11 @@
+random ki
+uj_csomopont c1
+uj_csomopont c2
+uj_ut u1 c1 c2 100
+hozzaad_sav u1 s1
+allit_sav s1 0 nem 0 nem
+lerak_hokotro h1 s1 0 zuzalekszoro
+utvonal h1 c2
+lep 1
+stat s1
+kilep

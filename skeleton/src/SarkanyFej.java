@@ -12,10 +12,10 @@ public class SarkanyFej extends KotroFej {
      * @param kotro         A műveletet végző hókotró referenciája, ahonnan a kerozint fogyasztja.
      */
     @Override
-    public void takarit(Sav sav, Hokotro kotro) {
-        if (kotro.getBiokerozin() > 0) {
-            sav.mindentEltuntet();
-            kotro.setBiokerozin(kotro.getBiokerozin() - 1); 
+    public void takarit(Sav sav, Hokotro hk) {
+        sav.hoEltuntet(); 
+        if (sav.getAllapot() == SavAllapot.JEGPANCEL) {
+            sav.setSavAllapot(SavAllapot.TISZTA);
         }
     }
     @Override
