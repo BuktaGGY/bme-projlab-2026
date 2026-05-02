@@ -11,7 +11,7 @@ public class Auto extends SerulekenyJarmu {
         this.pozicioASavon = pozicioSavban;
         this.setStartSav(startSav);
         this.cel = cel;
-        sebesseg = 1;
+        this.sebesseg = 20;
     }
 
     /**
@@ -30,35 +30,36 @@ public class Auto extends SerulekenyJarmu {
         }
     }
 
+    @Override
     public void mozog(Object utszakasz) {
-        if(this.allapot == JarmuAllapot.ELAKADT) {
-
-            //Kiszabadulás logika
+        if (this.allapot == JarmuAllapot.ELAKADT) {
+            // Kiszabadulás logika
             Sav s = this.aktualisSav;
-            if(s.getJobbSavAllapot() != SavAllapot.BLOKKOLT) {
+            if (s.getJobbSavAllapot() != SavAllapot.BLOKKOLT) {
                 savValtas(s.getJobbSav());
                 setAllapot(JarmuAllapot.HALAD);
-                System.out.println("[ESEMENY] " + this.id + " | SAVOT_VALTOTT | " + s.getId() + " -> " + s.getJobbSav().getId() + " savra");
-            }
-            else if(s.getBalSavAllapot() != SavAllapot.BLOKKOLT){
+                System.out.println("[ESEMENY] " + this.id + " | SAVOT_VALTOTT | " + s.getId() + " -> " + aktualisSav.getId() + " savra");
+            } else if (s.getBalSavAllapot() != SavAllapot.BLOKKOLT) {
                 savValtas(s.getBalSav());
                 setAllapot(JarmuAllapot.HALAD);
-                System.out.println("[ESEMENY] " + this.id + " | SAVOT_VALTOTT | " + s.getId() + " -> " + s.getBalSav().getId() + " savra");
+                System.out.println("[ESEMENY] " + this.id + " | SAVOT_VALTOTT | " + s.getId() + " -> " + aktualisSav.getId() + " savra");
             } else {
                 return;
             }
         }
-        if (aktualisSav.getAllapot() == SavAllapot.JEGPANCEL && !aktualisSav.isZuzalekos()){
+
+        if (aktualisSav.getAllapot() == SavAllapot.JEGPANCEL && !aktualisSav.isZuzalekos()) {
             megcsuszik();
+        } else if (allapot == JarmuAllapot.HALAD) {
+            aktualisSav.letapos(this);
+            super.mozog(utszakasz);
         }
-        else{
-            if(allapot == JarmuAllapot.HALAD) {
-                aktualisSav.letapos(this);
-                haladasSavban(sebesseg*10);//TODO hány egyseget lépjen?
+    }
 
-
-            }
-        }
+    @Override
+    protected void celbaErt() {
+        System.out.println("[ESEMENY] " + id + " | CELBA_ERT | " + cel.getId());
+        megsemmisites();
     }
 
     public void haladasSavban(int tav){

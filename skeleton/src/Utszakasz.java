@@ -31,6 +31,7 @@ public abstract class Utszakasz {
             utolsoSav.setJobbSav(s);
             s.setBalSav(utolsoSav);
         }
+        s.setSzuloUtszakasz(this);
         savok.add(s);
     }
 

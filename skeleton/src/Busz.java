@@ -35,6 +35,7 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
         this.pozicioASavon = pozicioSavban;
         this.setStartSav(startSav);
         this.vegAllomas = celAllomas; 
+        this.sebesseg = 15;
     }
 
     /**
@@ -113,10 +114,24 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      * @param Utszakasz Az aktuális útszakasz, amin halad (az ősosztály paraméterezése miatt).
      */
     @Override
-    public void mozog(Object Utszakasz) {
+    public void mozog(Object utszakasz) {
+        if (allapot == JarmuAllapot.HALAD) {
+            aktualisSav.letapos(this);
+            super.mozog(utszakasz);
+        }
+    }
+
+    @Override
+    protected void celbaErt() {
+        System.out.println("[ESEMENY] " + this.id + " | CELBA_ERT | " + vegAllomas.getId());
+        megfordul();
         if (vegAllomas != null) {
             vegAllomas.addErintes();
         }
+
+        utvonalIndex = 0;
+        pozicioASavon = 0;
+        System.out.println("[ESEMENY] " + this.id + " | KORT_TELJESITETT | vegallomas: " + kezdoAllomas.getId() + " (Pontszam novelve)");
     }
 
     /**

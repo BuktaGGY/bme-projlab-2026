@@ -34,6 +34,7 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
         aktualisKotrofej = fej;
         aktualisSav = kezdoSav;
         this.pozicioASavon = pozSavon;
+        this.sebesseg = 10;
     }
 
     /**
@@ -43,36 +44,18 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
     public void frissitAllapot() {
         if (aktualisKotrofej != null && aktualisSav != null) {
             aktualisKotrofej.takarit(aktualisSav, this);
-            System.out.println("[ESEMENY] " + this.id + " | TAKARITOT | " + aktualisSav.getId() + " sav");
+            System.out.println("[ESEMENY] " + this.id + " | TAKARITOTT | " + aktualisSav.getId() + " sav");
         }
+    }
 
-        if (Utvonal != null && Utvonal.length > 0) {
-            int sebesseg = 10; 
-            this.pozicioASavon += sebesseg;
+    @Override
+    public void mozog(Object utszakasz) {
+        super.mozog(utszakasz);
+    }
 
-            int aktualisUtszakaszIndex = -1;
-            for (int i = 0; i < Utvonal.length; i++) {
-                if (Utvonal[i] != null && Utvonal[i].getSavok() != null && Utvonal[i].getSavok().contains(aktualisSav)) {
-                    aktualisUtszakaszIndex = i;
-                    break;
-                }
-            }
-
-            int utHossz = 100; 
-
-            if (aktualisUtszakaszIndex != -1 && this.pozicioASavon >= utHossz) {
-                if (aktualisUtszakaszIndex + 1 < Utvonal.length && Utvonal[aktualisUtszakaszIndex + 1] != null) {
-                    Sav regiSav = aktualisSav;
-                    aktualisSav = Utvonal[aktualisUtszakaszIndex + 1].getSavok().get(0);
-                    pozicioASavon = pozicioASavon - utHossz;
-                    System.out.println("[ESEMENY] " + this.id + " | SAVOT_VALTOTT | " + regiSav.getId() + " -> " + aktualisSav.getId() + " savra");
-                } else {
-                    this.pozicioASavon = utHossz; 
-                    this.Utvonal = null;          
-                    System.out.println("[ESEMENY] " + this.id + " | CELBA_ERT | Befejezte a kijelolt utvonalat");
-                }
-            }
-        }
+    @Override
+    protected void celbaErt() {
+        System.out.println("[ESEMENY] " + this.id + " | CELBA_ERT | Befejezte a kijelolt utvonalat");
     }
 
     /**

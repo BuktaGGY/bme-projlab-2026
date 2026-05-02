@@ -53,6 +53,11 @@ public class Sav {
     private boolean isZuzalekos;
 
     /**
+     * Eltárolja hogy a sáv melyik útszakaszon tartózkodik.
+     */
+    private Utszakasz szuloUtszakasz;
+
+    /**
      * Konstruktor
      */
     public Sav(String id) {
@@ -279,5 +284,16 @@ public class Sav {
         } else {
             this.savAllapot = SavAllapot.TISZTA;
         }
+    }
+
+    public void setSzuloUtszakasz(Utszakasz ut) {
+        this.szuloUtszakasz = ut;
+    }
+
+    public int getHossz() {
+        if (szuloUtszakasz != null) {
+            return szuloUtszakasz.getHossz();
+        }
+        return 100;
     }
 }
