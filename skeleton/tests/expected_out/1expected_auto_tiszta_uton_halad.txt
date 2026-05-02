@@ -2,7 +2,7 @@
 [OK] Csomopont letrehozva (c2)
 [OK] Ut letrehozva (u1)
 [OK] Sav hozzaadva (s1)
-[OK] Sav paraméterei beallitva (s1)
+[OK] Sav parameterei beallitva (s1)
 [OK] Point of Interest letrehozva (p1)
 [OK] Auto lerakva (a1)
 [STAT] AUTO a1 | sav: s1 | poz: 0 | allapot: HALAD | cel: p1

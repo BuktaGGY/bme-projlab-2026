@@ -26,4 +26,3 @@ lerak_hokotro hk1 a 0 hanyo
 utvonal hk1 n1, n2, n3, n4
 lep 40
 stat_minden
-kilep
