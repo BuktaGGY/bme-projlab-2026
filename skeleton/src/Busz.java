@@ -71,6 +71,9 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
         }
 
         if(blokkoltSzamlalo == 0){
+            if(allapot == JarmuAllapot.MOZGÁSKÉPTELEN){
+                System.out.println("[ESEMENY] "+ this.id+" | UJRA_INDULT | buntetes lejart");
+            }
             setAllapot(JarmuAllapot.HALAD);
         }
 
@@ -85,6 +88,8 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     public void setBlokk(int b) {
         blokkoltSzamlalo = b;
+        setAllapot(JarmuAllapot.MOZGÁSKÉPTELEN);
+        System.out.println("[ESEMENY] "+ this.id +" | MOZGASKEPTELEN | 5 tick buntetes");
     }
 
     /**
@@ -110,7 +115,7 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
     /**
      * A jármű mozgatása (a Jármű ősosztályból felülírva). 
      * A szkeleton tesztben ez szimulálja a végállomásra való érkezést és az érintést.
-     * @param Utszakasz Az aktuális útszakasz, amin halad (az ősosztály paraméterezése miatt).
+     * @param utszakasz Az aktuális útszakasz, amin halad (az ősosztály paraméterezése miatt).
      */
     @Override
     public void mozog(Object utszakasz) {
@@ -133,6 +138,12 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
         System.out.println("[ESEMENY] " + this.id + " | KORT_TELJESITETT | vegallomas: " + kezdoAllomas.getId() + " (Pontszam novelve)");
     }
 
+    @Override
+    public void megcsuszik() {
+        System.out.println("[ESEMENY] " + this.id + " | MEGCSUSZOTT | " + aktualisSav.getId() + " savban");
+        setBlokk(5);
+    }
+
     /**
      * Statisztika kiírása a konzolra.
      */
@@ -140,7 +151,11 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
     public void statKiir(){
         String celStr = (vegAllomas != null) ? vegAllomas.getId() : "nincs";
         String allapotStr = (aktualisSav != null && aktualisSav.getAllapot() == SavAllapot.BLOKKOLT) ? "ELAKADT" : allapot.toString();
-        
+
+        if(allapot == JarmuAllapot.MOZGÁSKÉPTELEN){
+            System.out.println("[ESEMENY] "+ this.id +" | MOZGASKEPTELEN | blokkolt_ido: "+blokkoltSzamlalo);
+            return;
+        }
         System.out.println("[STAT] BUSZ "+ this.id + " | sav: " + aktualisSav.getId() + " | poz: " + pozicioASavon
                 +" | allapot: "+ allapotStr + " | cel: " + celStr);
     }

@@ -170,7 +170,7 @@ public class Prototipus {
 
                 buszok.put(buszId, b);
                 jk.getForgalomIranyito().addJarmu(b);
-                System.out.println("[OK] Busz lerakva sávon: "+ kezdoSav.getId());
+                System.out.println("[OK] Busz lerakva ("+ buszId +")");
                 break;
 
             case "lerak_hokotro":

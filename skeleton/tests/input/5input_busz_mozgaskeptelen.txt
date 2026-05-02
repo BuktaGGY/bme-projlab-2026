@@ -10,6 +10,7 @@ lep 1
 stat b1
 lep 4
 stat b1
-lep 1
+allit_sav s1 0 nem 0 nem
+lep 2
 stat b1
 kilep
