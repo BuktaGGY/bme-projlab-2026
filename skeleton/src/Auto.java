@@ -11,7 +11,7 @@ public class Auto extends SerulekenyJarmu {
         this.pozicioASavon = pozicioSavban;
         this.setStartSav(startSav);
         this.cel = cel;
-        this.sebesseg = 20;
+        this.sebesseg = 10;
     }
 
     /**
@@ -109,8 +109,20 @@ public class Auto extends SerulekenyJarmu {
      * @param ut út
      */
     public void ujraTervezes(UtvonalTervezo ut) {
-        
-        //this.Utvonal = ut.utvonalKeres();
+        if (aktualisSav == null || aktualisSav.getSzuloUtszakasz() == null) return;
+
+        Csomopont honnan = aktualisSav.getSzuloUtszakasz().getMasikVeg(null);
+        if (aktualisSav.getSzuloUtszakasz().eleje != null) {
+            honnan = aktualisSav.getSzuloUtszakasz().vege; 
+        }
+        Csomopont hova = cel.getCsomopont();
+
+        Utszakasz[] ujUtvonal = ut.utvonalKeres(honnan, hova);
+        if (ujUtvonal != null) {
+            this.Utvonal = ujUtvonal;
+            this.utvonalIndex = 0;
+            System.out.println("[ESEMENY] " + id + " | UJRATERVEZES | uj utvonal beallitva (kerulo)");
+        }
     }
 
     /**

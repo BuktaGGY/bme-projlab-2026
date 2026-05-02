@@ -94,7 +94,11 @@ public class ForgalomIranyito {
      * @param ut Az útvonaltervező referenciája, ahonnan a járművek új utat kérhetnek.
      */
     public void utzarEsemeny(UtvonalTervezo ut) {
-
+        for (Jarmu jarmu : jarmuvek.values()) {
+            if (jarmu instanceof Auto && jarmu.allapot == JarmuAllapot.HALAD) {
+                ((Auto) jarmu).ujraTervezes(ut);
+            }
+        }
     }
 
     /**
@@ -142,5 +146,9 @@ public class ForgalomIranyito {
     public void balesetKezel(Jarmu j1, Jarmu j2) {
         j1.balesetezik();
         j2.balesetezik();
+
+        if (utvonalTervezo != null && j1.aktualisSav != null) {
+            utvonalTervezo.utzarDetektal(j1.aktualisSav.getId());
+        }
     }
 }

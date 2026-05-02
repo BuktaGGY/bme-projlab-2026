@@ -290,6 +290,10 @@ public class Sav {
         this.szuloUtszakasz = ut;
     }
 
+    public Utszakasz getSzuloUtszakasz() {
+        return szuloUtszakasz;
+    }
+
     public int getHossz() {
         if (szuloUtszakasz != null) {
             return szuloUtszakasz.getHossz();

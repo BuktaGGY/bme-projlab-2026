@@ -155,7 +155,7 @@ public class Prototipus {
                     autok.put(autoId, a);
                     jk.getForgalomIranyito().addJarmu(a);
 
-                    System.out.println("[OK] Auto lerakva sávon: "+ autoSav.getId());
+                    System.out.println("[OK] Auto lerakva ("+ autoId +")");
                     break;
 
                 case "lerak_busz":
