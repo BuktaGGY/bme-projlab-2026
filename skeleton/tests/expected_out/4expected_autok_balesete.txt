@@ -8,10 +8,7 @@
 [OK] Auto lerakva (a2)
 [ESEMENY] a1 | MEGCSUSZOTT | s1 savban
 [ESEMENY] a1, a2 | BALESET | s1 sav allapota BLOKKOLT lett
-[STAT] KASSZA | egyenleg: 0 | pontszam: 0
-[OK] Hokotro lerakva (hk1)
-[OK] Utvonal beallitva (hk1)
-[ESEMENY] hk1 | RONCSOT_TAKARITOTT | a1, a2 megsemmisult, s1 sav felszabadult
-[STAT] SAV s1 | ho: 0 | jeg: igen | so_ido: 0 | zuzalek: nem | blokkolt: nem
-[STAT] KASSZA | egyenleg: 100 | pontszam: 0
+[STAT] AUTO a1 | sav: s1 | poz: 10 | allapot: RONCS | cel: p1
+[STAT] AUTO a2 | sav: s1 | poz: 15 | allapot: RONCS | cel: p1
+[STAT] SAV s1 | ho: 0 | jeg: igen | so_ido: 0 | zuzalek: nem | blokkolt: igen
 [OK] Kilepes
