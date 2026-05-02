@@ -23,4 +23,8 @@ public abstract class PointOfInterest {
     public String getId() {
         return id;
     }
+	
+	public Csomopont getCsomopont() {
+        return this.hely;
+    }
 }

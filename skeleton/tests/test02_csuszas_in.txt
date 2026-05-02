@@ -1,0 +1,15 @@
+random ki
+uj_csomopont c1
+uj_csomopont c2
+uj_poi l1 c2 lakas
+uj_ut u1 c1 c2 100
+hozzaad_sav u1 s1
+hozzaad_sav u1 s2
+allit_sav s1 0 igen 0 igen
+allit_sav s2 0 igen 0 nem
+lerak_auto a1 s1 0 l1
+lerak_auto a2 s2 0 l1
+lep 1
+stat a1
+stat a2
+kilep

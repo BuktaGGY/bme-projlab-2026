@@ -1,7 +1,7 @@
 /** 
  * A sáv egy példányosítható osztály, amelynek elsődleges felelőssége egy sáv állapotának
  * nyilvántartása, illetve az állapotokat módosító események kezelése.
- * Felelős továbbá a sajáat járhatóságának megállapításáért, valamint ismeri a mellette lévő sávokat is.
+ * Felelős továbbá a saját járhatóságának megállapításáért, valamint ismeri a mellette lévő sávokat is.
 */
 public class Sav {
 
@@ -112,7 +112,7 @@ public class Sav {
 
     public int zuzalekotEltuntet(){
         isZuzalekos = false;
-        return 1; // Itt nem tudom, hogy hol taroljuk, hogy mennyit ad vissza es minek, lehet en neztem be idk xd
+        return 1;
     }
 
     /**
@@ -133,7 +133,9 @@ public class Sav {
      * Végül a saját hóVastagság változóját kinullázza.
      */
     public void hoOldalra(){
-        savJobbra.hoNovel(hoVastagsag);
+        if (savJobbra != null) {
+            savJobbra.hoNovel(hoVastagsag);
+        }
     }
 
     /**
@@ -149,8 +151,8 @@ public class Sav {
 
     /**
      * Növeli a letaposottDb változót eggyel, ha elérte a határt a letaposások száma,
-     * akkor jégpánéllá válik az sáv állapota.
-     * @param a A sávon áthaladó autó
+     * akkor jégpánéllá válik az sáv állapota. A jármű megcsúszását is itt ellenőrizzük.
+     * @param a A sávon áthaladó jármű
      */
     public void letapos(Jarmu a){
         letaposottDb++;
@@ -158,7 +160,8 @@ public class Sav {
             setSavAllapot(SavAllapot.JEGPANCEL);
         }
 
-        if (savAllapot == SavAllapot.JEGPANCEL) {
+        // JAVÍTÁS: A jármű csak akkor csúszik meg, ha jégpáncél van ÉS NINCS zúzalék!
+        if (savAllapot == SavAllapot.JEGPANCEL && !isZuzalekos) {
             a.megcsuszik();
         }
     }
@@ -169,7 +172,7 @@ public class Sav {
      */
     public SavAllapot getJobbSavAllapot(){
         if (savJobbra == null){
-            return savAllapot.BLOKKOLT;
+            return SavAllapot.BLOKKOLT;
         }
         return savJobbra.getAllapot();
     }
@@ -180,7 +183,7 @@ public class Sav {
      */
     public SavAllapot getBalSavAllapot(){
         if (savBalra == null){
-            return savAllapot.BLOKKOLT;
+            return SavAllapot.BLOKKOLT;
         }
         return savBalra.getAllapot();
     }
@@ -236,7 +239,7 @@ public class Sav {
      * Visszaadja a jobb szomszedos sávot
      * @return jobb szomszédos sáv
      */
-	public Sav getJobbSav() {
+    public Sav getJobbSav() {
         return savJobbra;
     }
 
@@ -256,7 +259,6 @@ public class Sav {
     public void setSozottIdo(int mennyiseg){
         sozottIdo = mennyiseg;
     }
-
     
     public String getId() { return id; }
 

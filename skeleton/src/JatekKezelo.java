@@ -11,6 +11,7 @@ public class JatekKezelo {
     ForgalomIranyito forgalomIranyito;
     GazdasagKezelo gazdasagKezelo;
     
+	public static boolean veletlenBe = false;
     public boolean isRunning;
     public int aktualisTick;
     public int buszPontszamok;

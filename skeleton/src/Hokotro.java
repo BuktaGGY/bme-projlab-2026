@@ -39,9 +39,46 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
     /**
      * Frissíti a hókotró állapotát.
      */
-    @Override
+	@Override
     public void frissitAllapot() {
+        // 1. TAKARÍTÁS FÁZISA
+        if (aktualisKotrofej != null && aktualisSav != null) {
+            aktualisKotrofej.takarit(aktualisSav, this);
+            System.out.println("[ESEMENY] " + this.id + " | TAKARITOT | " + aktualisSav.getId() + " sav");
+        }
 
+        // 2. MOZGÁS FÁZISA
+        if (Utvonal != null && Utvonal.length > 0) {
+            int sebesseg = 10; 
+            this.pozicioASavon += sebesseg;
+
+            int aktualisUtszakaszIndex = -1;
+            for (int i = 0; i < Utvonal.length; i++) {
+                // ÚJÍTÁS: NULL-SAFE ELLENŐRZÉS! 
+                // Csak akkor vizsgáljuk a sávokat, ha a tömb eleme ténylegesen létezik
+                if (Utvonal[i] != null && Utvonal[i].getSavok() != null && Utvonal[i].getSavok().contains(aktualisSav)) {
+                    aktualisUtszakaszIndex = i;
+                    break;
+                }
+            }
+
+            int utHossz = 100; 
+
+            // Ha elértük vagy túlléptük a jelenlegi útszakasz végét
+            if (aktualisUtszakaszIndex != -1 && this.pozicioASavon >= utHossz) {
+                // Szintén null-safe ellenőrzés a következő útszakaszra
+                if (aktualisUtszakaszIndex + 1 < Utvonal.length && Utvonal[aktualisUtszakaszIndex + 1] != null) {
+                    Sav regiSav = aktualisSav;
+                    aktualisSav = Utvonal[aktualisUtszakaszIndex + 1].getSavok().get(0);
+                    pozicioASavon = pozicioASavon - utHossz;
+                    System.out.println("[ESEMENY] " + this.id + " | SAVOT_VALTOTT | " + regiSav.getId() + " -> " + aktualisSav.getId() + " savra");
+                } else {
+                    this.pozicioASavon = utHossz; 
+                    this.Utvonal = null;          
+                    System.out.println("[ESEMENY] " + this.id + " | CELBA_ERT | Befejezte a kijelolt utvonalat");
+                }
+            }
+        }
     }
 
     /**

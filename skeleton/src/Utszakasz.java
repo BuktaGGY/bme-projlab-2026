@@ -21,6 +21,10 @@ public abstract class Utszakasz {
         this.savok = new ArrayList<>();
     }
 
+	public int getHossz(){
+		return this.hossz;
+	}
+
     public void addSav(Sav s) {
         if (!savok.isEmpty()){
             Sav utolsoSav = savok.get(savok.size() - 1);
@@ -32,6 +36,10 @@ public abstract class Utszakasz {
 
     public Sav getSav(int id) {
         return this.savok.get(id);
+    }
+	
+	public List<Sav> getSavok() {
+        return this.savok;
     }
     
     public String getId() { return id; }
