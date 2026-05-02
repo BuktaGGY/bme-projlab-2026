@@ -23,6 +23,7 @@ public class Auto extends SerulekenyJarmu {
             return;
         }
         if (aktualisSav.getAllapot() == SavAllapot.BLOKKOLT){
+            if(allapot == JarmuAllapot.ELAKADT){return;}
             setAllapot(JarmuAllapot.ELAKADT);
             System.out.println("[ESEMENY] " + this.id + " | ELAKADT | " + aktualisSav.getId() + " savban (ho: " + aktualisSav.getHoVastagsag() + "cm)");
         } else {
