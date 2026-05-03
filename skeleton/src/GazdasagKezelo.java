@@ -17,7 +17,6 @@ public class GazdasagKezelo {
 
     /**
      * Pénz hozzáadását végzi a közös kasszához
-     * @param bevetel bevétel
      */
 	 
 	 //konstruktor
