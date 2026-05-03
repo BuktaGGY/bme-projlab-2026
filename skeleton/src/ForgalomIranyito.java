@@ -46,7 +46,7 @@ public class ForgalomIranyito {
             Jarmu jarmu = entry.getValue();
             jarmu.frissitAllapot();
 
-            if (jarmu.allapot == JarmuAllapot.HALAD || jarmu.allapot == JarmuAllapot.ELAKADT || jarmu.allapot == JarmuAllapot.MEGCSÚSZOTT) {
+            if (jarmu.allapot == JarmuAllapot.HALAD || jarmu.allapot == JarmuAllapot.ELAKADT || jarmu.allapot == JarmuAllapot.MEGCSUSZOTT) {
                 jarmu.mozog(jarmu.Utvonal[0]);
             }
             this.utkozesVizsgalat();
@@ -128,7 +128,7 @@ public class ForgalomIranyito {
                 Jarmu j1 = jarmuvekLista.get(i);
                 Jarmu j2 = jarmuvekLista.get(j);
                 if (j1.aktualisSav == j2.aktualisSav && Math.abs(j1.pozicioASavon - j2.pozicioASavon) <= 10){
-                    if (j1.allapot == JarmuAllapot.MEGCSÚSZOTT || j2.allapot == JarmuAllapot.MEGCSÚSZOTT){
+                    if (j1.allapot == JarmuAllapot.MEGCSUSZOTT || j2.allapot == JarmuAllapot.MEGCSUSZOTT){
                         balesetKezel(j1, j2);
                         System.out.println("[ESEMENY] " + j1.id + ", " + j2.id + " | BALESET | " + j1.aktualisSav.getId() + " sav allapota BLOKKOLT lett");
                     }

@@ -7,8 +7,9 @@
 [OK] Auto lerakva (a1)
 [OK] Auto lerakva (a2)
 [ESEMENY] a1 | MEGCSUSZOTT | s1 savban
+[ESEMENY] UTVONALTERVEZO | UTZAR_DETEKTALVA | s1 sav blokkolt
 [ESEMENY] a1, a2 | BALESET | s1 sav allapota BLOKKOLT lett
-[STAT] AUTO a1 | sav: s1 | poz: 10 | allapot: RONCS | cel: p1
-[STAT] AUTO a2 | sav: s1 | poz: 15 | allapot: RONCS | cel: p1
-[STAT] SAV s1 | ho: 0 | jeg: igen | so_ido: 0 | zuzalek: nem | blokkolt: igen
+[STAT] AUTO a1 | sav: s1 | poz: 0 | allapot: RONCS | cel: p1
+[STAT] AUTO a2 | sav: s1 | poz: 5 | allapot: RONCS | cel: p1
+[STAT] SAV s1 | ho: 0 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: igen
 [OK] Kilepes

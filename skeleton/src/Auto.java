@@ -71,7 +71,7 @@ public class Auto extends SerulekenyJarmu {
             System.out.println("[ESEMENY] "+id+ " | UJ SZAKASZRA LEPETT | "+aktualisSav.getId() +" savban (uj pozicio: "+pozicioASavon+")");
         }else{
             pozicioASavon = ujPoz;
-            if (allapot != JarmuAllapot.MEGCSÚSZOTT) {
+            if (allapot != JarmuAllapot.MEGCSUSZOTT) {
                 System.out.println("[ESEMENY] "+id+ " | MOZGOTT | "+aktualisSav.getId() +" savban (uj pozicio: "+pozicioASavon+")");
             }
         }
@@ -102,7 +102,7 @@ public class Auto extends SerulekenyJarmu {
 
     @Override
     public void megcsuszik() {
-        setAllapot(JarmuAllapot.MEGCSÚSZOTT);
+        setAllapot(JarmuAllapot.MEGCSUSZOTT);
         System.out.println("[ESEMENY] " + this.id + " | MEGCSUSZOTT | " + aktualisSav.getId() + " savban");
     }
 

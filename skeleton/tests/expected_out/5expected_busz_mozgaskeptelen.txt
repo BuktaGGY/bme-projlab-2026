@@ -8,10 +8,11 @@
 [OK] Busz lerakva (b1)
 [ESEMENY] b1 | MEGCSUSZOTT | s1 savban
 [ESEMENY] b1 | MOZGASKEPTELEN | 5 tick buntetes
-[STAT] BUSZ b1 | sav: s1 | poz: 10 | allapot: MOZGASKEPTELEN | blokkolt_ido: 5
-[STAT] BUSZ b1 | sav: s1 | poz: 10 | allapot: MOZGASKEPTELEN | blokkolt_ido: 1
+[STAT] BUSZ b1 | sav: s1 | poz: 0 | allapot: MOZGASKEPTELEN | blokkolt_ido: 5
+[STAT] BUSZ b1 | sav: s1 | poz: 0 | allapot: MOZGASKEPTELEN | blokkolt_ido: 1
 [OK] Sav parameterei beallitva (s1)
 [ESEMENY] b1 | UJRA_INDULT | buntetes lejart
-[ESEMENY] b1 | MOZGOTT | s1 savban (uj pozicio: 25)
-[STAT] BUSZ b1 | sav: s1 | poz: 25 | allapot: HALAD | cel: v2
+[ESEMENY] b1 | MOZGOTT | s1 savban (uj pozicio: 10)
+[ESEMENY] b1 | MOZGOTT | s1 savban (uj pozicio: 20)
+[STAT] BUSZ b1 | sav: s1 | poz: 20 | allapot: HALAD | cel: v2
 [OK] Kilepes

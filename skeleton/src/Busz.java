@@ -35,7 +35,7 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
         this.pozicioASavon = pozicioSavban;
         this.setStartSav(startSav);
         this.vegAllomas = celAllomas; 
-        this.sebesseg = 15;
+        this.sebesseg = 10;
     }
 
     /**
@@ -53,7 +53,7 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     @Override
     public void balesetezik() {
-        setAllapot(JarmuAllapot.MOZGÁSKÉPTELEN);
+        setAllapot(JarmuAllapot.MOZGASKEPTELEN);
         setBlokk(5);
         System.out.println("[ESEMENY] " + this.id + " | MEGCSUSZOTT | " + aktualisSav.getId() + " savban");
     }
@@ -65,20 +65,17 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
     @Override
     public void frissitAllapot() {
         if (aktualisSav != null && aktualisSav.getAllapot() == SavAllapot.BLOKKOLT) {
-            setAllapot(JarmuAllapot.MOZGÁSKÉPTELEN);
+            setAllapot(JarmuAllapot.MOZGASKEPTELEN);
             System.out.println("[ESEMENY] " + this.id + " | ELAKADT | " + aktualisSav.getId() + " savban");
             return;
         }
 
-        if(blokkoltSzamlalo == 0){
-            if(allapot == JarmuAllapot.MOZGÁSKÉPTELEN){
-                System.out.println("[ESEMENY] "+ this.id+" | UJRA_INDULT | buntetes lejart");
-            }
-            setAllapot(JarmuAllapot.HALAD);
-        }
-
         if(blokkoltSzamlalo > 0){
             blokkoltSzamlalo--;
+            if (blokkoltSzamlalo == 0) {
+                System.out.println("[ESEMENY] "+ this.id+" | UJRA_INDULT | buntetes lejart");
+                setAllapot(JarmuAllapot.HALAD);
+            }
         }
     }
 
@@ -88,7 +85,7 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     public void setBlokk(int b) {
         blokkoltSzamlalo = b;
-        setAllapot(JarmuAllapot.MOZGÁSKÉPTELEN);
+        setAllapot(JarmuAllapot.MOZGASKEPTELEN);
         System.out.println("[ESEMENY] "+ this.id +" | MOZGASKEPTELEN | 5 tick buntetes");
     }
 
@@ -152,11 +149,12 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
         String celStr = (vegAllomas != null) ? vegAllomas.getId() : "nincs";
         String allapotStr = (aktualisSav != null && aktualisSav.getAllapot() == SavAllapot.BLOKKOLT) ? "ELAKADT" : allapot.toString();
 
-        if(allapot == JarmuAllapot.MOZGÁSKÉPTELEN){
-            System.out.println("[ESEMENY] "+ this.id +" | MOZGASKEPTELEN | blokkolt_ido: "+blokkoltSzamlalo);
-            return;
-        }
-        System.out.println("[STAT] BUSZ "+ this.id + " | sav: " + aktualisSav.getId() + " | poz: " + pozicioASavon
+        if(allapot == JarmuAllapot.MOZGASKEPTELEN){
+             System.out.println("[STAT] BUSZ "+ this.id + " | sav: " + aktualisSav.getId() + " | poz: " + pozicioASavon
+                +" | allapot: "+ allapotStr + " | blokkolt_ido: " + blokkoltSzamlalo);
+        } else {
+             System.out.println("[STAT] BUSZ "+ this.id + " | sav: " + aktualisSav.getId() + " | poz: " + pozicioASavon
                 +" | allapot: "+ allapotStr + " | cel: " + celStr);
+        }
     }
 }
