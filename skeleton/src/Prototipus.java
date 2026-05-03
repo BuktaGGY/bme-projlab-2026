@@ -236,41 +236,56 @@ public class Prototipus {
                 String jarmuId = parts[1];
                 String utvonal = line.substring(line.indexOf(parts[1]) + parts[1].length()).trim();
                 String[] csomopontokIDs = utvonal.split(",\\s*|\\s+");
-                if (buszok.containsKey(jarmuId)){
-                    Busz bus = buszok.get(jarmuId);
-                    boolean ervenyes = true;
+    
+                boolean isBusz = buszok.containsKey(jarmuId);
+                boolean isHokotro = hokotrok.containsKey(jarmuId);
+    
+                if (isBusz || isHokotro) {
                     Csomopont[] kijeloltUt = new Csomopont[csomopontokIDs.length];
-                    for (int i = 0; i < csomopontokIDs.length; i++){
-                        if (!csomopontok.containsKey(csomopontokIDs[i])){
+                    boolean ervenyes = true;
+        
+                    for (int i = 0; i < csomopontokIDs.length; i++) {
+                        if (!csomopontok.containsKey(csomopontokIDs[i])) {
                             ervenyes = false;
                             break;
                         }
-                        kijeloltUt[i] = csomopontok.get(csomopontokIDs[i]);
+                     kijeloltUt[i] = csomopontok.get(csomopontokIDs[i]);
                     }
-                    if (ervenyes){
-                        for (int i = 0; i < kijeloltUt.length - 1; i++){
+        
+                    Utszakasz[] ujUt = null;
+        
+                    if (ervenyes) {
+                        ujUt = new Utszakasz[kijeloltUt.length - 1];
+                        for (int i = 0; i < kijeloltUt.length - 1; i++) {
                             Csomopont akt = kijeloltUt[i];
                             Csomopont kov = kijeloltUt[i + 1];
                             boolean vanKozosUt = false;
-                            for (Utszakasz u : akt.getUtszakaszok()){
-                                if (kov.getUtszakaszok().contains(u)){
+                
+                            for (Utszakasz u : akt.getUtszakaszok()) {
+                                if (kov.getUtszakaszok().contains(u)) {
+                                    ujUt[i] = u;
                                     vanKozosUt = true;
                                     break;
                                 }
                             }
-                            if (!vanKozosUt){
+                            if (!vanKozosUt) {
                                 ervenyes = false;
                                 break;
                             }
                         }
                     }
-                    if (!ervenyes){
+        
+                    if (!ervenyes) {
                         System.out.println("[HIBA] Ervenytelen utvonal megadva");
                     } else {
-                        System.out.println("[OK] Utvonal sikeresen beallitva (" + jarmuId + ")");
+                        if (isBusz) {
+                            buszok.get(jarmuId).UtvonalatKijelol(ujUt);
+                            System.out.println("[OK] Utvonal sikeresen beallitva (" + jarmuId + ")");
+                        } else {
+                            hokotrok.get(jarmuId).UtvonalatKijelol(ujUt);
+                            System.out.println("[OK] Utvonal beallitva (" + jarmuId + ")");
+                        }
                     }
-                } else if (hokotrok.containsKey(jarmuId)){
-                    System.out.println("[OK] Utvonal beallitva (" + jarmuId + ")");
                 }
                 break;
 

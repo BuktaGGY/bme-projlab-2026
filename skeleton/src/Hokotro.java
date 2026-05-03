@@ -22,8 +22,9 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
     /** A hókotró rendelkezésre álló zúzalék készlete. */
     private int zuzalek = 0;
 
-    //ismeri cd alapjan
     private ForgalomIranyito fi;
+
+    private Sav utoljaraTakaritottSav = null;
 
     public void setForgalomIranyito(ForgalomIranyito fi) {
         this.fi = fi;
@@ -45,24 +46,33 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
      * Frissíti a hókotró állapotát.
      */
     @Override
-    public void frissitAllapot() {
-        roncsotTakarit = false;
+public void frissitAllapot() {
+    roncsotTakarit = false;
 
-        if(fi != null){
-            roncsotTakarit = fi.roncsEltakarit(this);
-        }
+    if(fi != null){
+        roncsotTakarit = fi.roncsEltakarit(this);
+    }
+    if (befejezte) return;
 
-        if (befejezte) return; // Ha célba ért, már nem dolgozik!
-
-        if ( !roncsotTakarit && aktualisKotrofej != null && aktualisSav != null) {
+    if ( !roncsotTakarit && aktualisKotrofej != null && aktualisSav != null) {
+        if (aktualisSav != utoljaraTakaritottSav) {
             aktualisKotrofej.takarit(aktualisSav, this);
 
             String tipus = aktualisKotrofej.getFejTipus();
             if (!tipus.equals("soszoro") && !tipus.equals("sarkany")) {
-                System.out.println("[ESEMENY] " + this.id + " | TAKARITOTT | " + aktualisSav.getId() + " sav");
+                String extra;
+                if (aktualisSav.getAllapot() == SavAllapot.JEGPANCEL) {
+                    extra = " (zuzalek eltavolitva, jegpancel maradt)";
+                } else {
+                    extra = " (maradek ho: " + aktualisSav.getHoVastagsag() + "cm)";
+                }
+                System.out.println("[ESEMENY] " + this.id + " | TAKARITOTT | " + aktualisSav.getId() + " sav" + extra);
             }
+            
+            utoljaraTakaritottSav = aktualisSav;
         }
     }
+}
 
     @Override
     public void mozog(Object utszakasz) {
