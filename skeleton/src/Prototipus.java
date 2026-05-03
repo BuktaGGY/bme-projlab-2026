@@ -390,7 +390,6 @@ public class Prototipus {
 	 
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Bemenet:");
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
