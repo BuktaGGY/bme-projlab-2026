@@ -10,7 +10,6 @@
 [ESEMENY] a1 | ELAKADT | s1 savban (ho: 45cm)
 [STAT] AUTO a1 | sav: s1 | poz: 10 | allapot: ELAKADT | cel: p1
 [OK] Sav parameterei beallitva (s2)
-[ESEMENY] a1 | ELAKADT | s1 savban (ho: 45cm)
 [ESEMENY] a1 | SAVOT_VALTOTT | s1 -> s2 savra
 [ESEMENY] a1 | MOZGOTT | s2 savban (uj pozicio: 20)
 [STAT] AUTO a1 | sav: s2 | poz: 20 | allapot: HALAD | cel: p1
