@@ -136,6 +136,14 @@ public abstract class Jarmu {
     public void statKiir(){
     }
 
+    public boolean isRoncs(){
+        return this.allapot == JarmuAllapot.RONCS;
+    }
+
+    public  boolean isHokotro(){
+        return false;
+    }
+    // instanceof elkerulese erdekeben
     public void megcsuszik() {}
     public void balesetezik() {}
     public void megsemmisites() {}

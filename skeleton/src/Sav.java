@@ -93,9 +93,12 @@ public class Sav {
      * @return A hó vastagsága kinullázás előtt
      */
     public int hoEltuntet(){
-        savAllapot = SavAllapot.TISZTA;
         int temp = hoVastagsag;
         hoVastagsag = 0;
+
+        if(savAllapot == SavAllapot.HAVAS){
+            savAllapot = SavAllapot.TISZTA;
+        }
         return temp;
     }
 

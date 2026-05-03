@@ -7,6 +7,8 @@
 public class Hokotro extends Jarmu implements IranyitottJarmu {
     
 
+    private boolean roncsotTakarit = false;
+
     private boolean befejezte = false;
     /** A hókotróra jelenleg felszerelt kotrófej (Strategy minta). */
     private KotroFej aktualisKotrofej;
@@ -44,11 +46,17 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
      */
     @Override
     public void frissitAllapot() {
-        if (befejezte) return;
+        roncsotTakarit = false;
 
-        if (aktualisKotrofej != null && aktualisSav != null) {
+        if(fi != null){
+            roncsotTakarit = fi.roncsEltakarit(this);
+        }
+
+        if (befejezte) return; // Ha célba ért, már nem dolgozik!
+
+        if ( !roncsotTakarit && aktualisKotrofej != null && aktualisSav != null) {
             aktualisKotrofej.takarit(aktualisSav, this);
-            
+
             String tipus = aktualisKotrofej.getFejTipus();
             if (!tipus.equals("soszoro") && !tipus.equals("sarkany")) {
                 System.out.println("[ESEMENY] " + this.id + " | TAKARITOTT | " + aktualisSav.getId() + " sav");
@@ -58,8 +66,17 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
 
     @Override
     public void mozog(Object utszakasz) {
+        if(roncsotTakarit){
+            return;
+        }
         super.mozog(utszakasz);
     }
+
+    @Override
+    public boolean isHokotro() {
+        return true;
+    }
+
 
     @Override
     protected void celbaErt() {
@@ -78,9 +95,9 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
     /**
      * Eltakarítja a balesetet szenvedett (roncs) autókat az aktuális sávról.
      */
-    public void roncsotTakarit(Jarmu jarmu) {
+    public void roncsotTakarit(Jarmu roncs) {
         if (fi != null) {
-            fi.roncsEltakarit(jarmu);
+            fi.roncsEltakarit(this);
         }
     }
 

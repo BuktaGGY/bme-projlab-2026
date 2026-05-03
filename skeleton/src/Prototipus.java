@@ -186,6 +186,7 @@ public class Prototipus {
                     case "sarkany":  hk = new Hokotro(hokotroId,new SarkanyFej(),savok.get(hokotroSavId),hokotroPozicio); break;
                     case "zuzalekszoro": hk = new Hokotro(hokotroId,new zuzalekSzoro(),savok.get(hokotroSavId),hokotroPozicio); break;
                 }
+                hk.setForgalomIranyito(jk.getForgalomIranyito());
                 hokotrok.put(hokotroId, hk);
                 jk.getForgalomIranyito().addJarmu(hk);
                 System.out.println("[OK] Hokotro lerakva (" + hokotroId + ")");
