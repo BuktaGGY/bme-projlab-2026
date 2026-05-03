@@ -32,7 +32,7 @@ public class Auto extends SerulekenyJarmu {
     }
 
     @Override
-    public void mozog(Object utszakasz) {
+    public void mozog() {
         if (this.allapot == JarmuAllapot.ELAKADT) {
             // Kiszabadulás logika
             Sav s = this.aktualisSav;
@@ -53,7 +53,7 @@ public class Auto extends SerulekenyJarmu {
             megcsuszik();
         } else if (allapot == JarmuAllapot.HALAD) {
             aktualisSav.letapos(this);
-            super.mozog(utszakasz);
+            super.mozog();
         }
     }
 

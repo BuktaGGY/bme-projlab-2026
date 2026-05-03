@@ -43,7 +43,7 @@ public class ForgalomIranyito {
             jarmu.frissitAllapot();
 
             if (jarmu.allapot == JarmuAllapot.HALAD || jarmu.allapot == JarmuAllapot.ELAKADT || jarmu.allapot == JarmuAllapot.MEGCSUSZOTT) {
-                jarmu.mozog(jarmu.Utvonal[0]);
+                jarmu.mozog();
             }
             this.utkozesVizsgalat();
         }

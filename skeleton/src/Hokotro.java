@@ -75,11 +75,11 @@ public void frissitAllapot() {
 }
 
     @Override
-    public void mozog(Object utszakasz) {
+    public void mozog() {
         if(roncsotTakarit){
             return;
         }
-        super.mozog(utszakasz);
+        super.mozog();
     }
 
     @Override

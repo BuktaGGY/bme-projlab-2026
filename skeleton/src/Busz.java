@@ -119,13 +119,12 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
     /**
      * A jármű mozgatása (a Jármű ősosztályból felülírva). 
      * A szkeleton tesztben ez szimulálja a végállomásra való érkezést és az érintést.
-     * @param Utszakasz Az aktuális útszakasz, amin halad (az ősosztály paraméterezése miatt).
      */
     @Override
-    public void mozog(Object utszakasz) {
+    public void mozog() {
         if (allapot == JarmuAllapot.HALAD) {
             aktualisSav.letapos(this);
-            super.mozog(utszakasz);
+            super.mozog();
         }
     }
 

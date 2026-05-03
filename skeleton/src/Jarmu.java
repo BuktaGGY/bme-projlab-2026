@@ -53,9 +53,8 @@ public abstract class Jarmu {
     /**
      * Lépteti a járművet a megadott útszakaszon. Ha eléri a sáv végét,
      * automatikusan átlép a következő útszakaszra.
-     * @param utszakasz Ezt a paramétert az ősosztályból megörököltük, de a belső logikát használjuk.
      */
-    public void mozog(Object utszakasz) {
+    public void mozog() {
         if (allapot != JarmuAllapot.HALAD) return;
 
         pozicioASavon += sebesseg; // Itt a sebesség adja meg a lépésközt
