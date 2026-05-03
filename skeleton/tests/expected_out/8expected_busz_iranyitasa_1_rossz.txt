@@ -6,5 +6,5 @@
 [OK] Point Of Interest letrehozva (v1)
 [OK] Busz lerakva (b1)
 [HIBA] Ervenytelen utvonal megadva
-[STAT] BUSZ b1 | sav: s1 | poz: 0 | allapot: HALAD | cel: v1 | utvonal: ures
+[STAT] BUSZ b1 | sav: s1 | poz: 0 | allapot: HALAD | cel: v1
 [OK] Kilepes

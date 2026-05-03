@@ -23,6 +23,7 @@ allit_sav d 0 igen 0 nem
 allit_sav e 0 igen 0 igen
 allit_sav f 20 nem 0 igen
 lerak_hokotro hk1 a 0 hanyo
-utvonal hk1 n1, n2, n3, n4
-lep 40
+utvonal hk1 n0, n1, n2, n3, n4
+lep 600
 stat_minden
+kilep

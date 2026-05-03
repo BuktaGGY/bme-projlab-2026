@@ -165,7 +165,6 @@ public class Sav {
             setSavAllapot(SavAllapot.JEGPANCEL);
         }
 
-        // JAVÍTÁS: A jármű csak akkor csúszik meg, ha jégpáncél van ÉS NINCS zúzalék!
         if (savAllapot == SavAllapot.JEGPANCEL && !isZuzalekos) {
             a.megcsuszik();
         }

@@ -123,7 +123,6 @@ public class UtvonalTervezo {
      */
     public void utKijelol(Busz b, Csomopont[] csomopontok) {
         if (!utEllenorzes(csomopontok)) {
-            // Nem folytonos az út
             return; 
         }
 

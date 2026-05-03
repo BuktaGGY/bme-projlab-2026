@@ -12,10 +12,9 @@ public class Soszoro extends KotroFej {
      */
     @Override
     public void takarit(Sav sav, Hokotro hk) {
-        // A hókotró 50 egységet halad, így 50 sót kell elszórnia
         if (hk.getSo() >= 50) {
-            hk.setSo(hk.getSo() - 50); // Só csökkentése 50-nel
-            sav.sotSzor(); // Ez beállítja a so_ido-t 5-re a sávon
+            hk.setSo(hk.getSo() - 50);
+            sav.sotSzor();
         }
     }
 

@@ -12,8 +12,8 @@
 [OK] Point Of Interest letrehozva (v2)
 [OK] Busz lerakva (b1)
 [OK] Utvonal sikeresen beallitva (b1)
-[STAT] BUSZ b1 | sav: s1 | poz: 0 | allapot: HALAD | cel: v2 | utvonal: c1->c4
+[STAT] BUSZ b1 | sav: s1 | poz: 0 | allapot: HALAD | cel: v2
 [ESEMENY] b1 | KORT_TELJESITETT | vegallomas: v2 (Pontszam novelve)
-[STAT] BUSZ b1 | sav: s3 | poz: 0 | allapot: HALAD | cel: v1 | utvonal: c4->c1
-[STAT] KASSZA | egyenleg: 0 | pontszam: 1
+[STAT] BUSZ b1 | sav: s3 | poz: 0 | allapot: HALAD | cel: v1
+[STAT] KASSZA | egyenleg: 1000 | pontszam: 1
 [OK] Kilepes

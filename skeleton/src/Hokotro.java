@@ -36,7 +36,7 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
         aktualisKotrofej = fej;
         aktualisSav = kezdoSav;
         this.pozicioASavon = pozSavon;
-        this.sebesseg = 50; // JAVÍTVA: A hókotró sebessége 50!
+        this.sebesseg = 50;
     }
 
     /**
@@ -44,12 +44,11 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
      */
     @Override
     public void frissitAllapot() {
-        if (befejezte) return; // Ha célba ért, már nem dolgozik!
+        if (befejezte) return;
 
         if (aktualisKotrofej != null && aktualisSav != null) {
             aktualisKotrofej.takarit(aktualisSav, this);
             
-            // Csak akkor írjuk ki az alap takarítás logot, ha NEM sószóró vagy sárkány (mert ők megoldják maguknak)
             String tipus = aktualisKotrofej.getFejTipus();
             if (!tipus.equals("soszoro") && !tipus.equals("sarkany")) {
                 System.out.println("[ESEMENY] " + this.id + " | TAKARITOTT | " + aktualisSav.getId() + " sav");
@@ -64,7 +63,7 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
 
     @Override
     protected void celbaErt() {
-        this.befejezte = true; // Jelezzük, hogy végzett!
+        this.befejezte = true;
     }
 
     /**

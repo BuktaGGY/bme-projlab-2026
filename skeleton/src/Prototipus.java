@@ -51,18 +51,16 @@ public class Prototipus {
                     while (fileScanner.hasNextLine()) {
                         String fileLine = fileScanner.nextLine().trim();
                         if (!fileLine.isEmpty()) {
-                            // Rekurzív hívás
+
                             boolean fajlFolytat = egyParancsFeldolgozasa(fileLine, fileScanner); 
                             
-                            // Ha a fájlban 'kilep' volt, azonnal továbbadjuk a 'false' jelet
                             if (!fajlFolytat) {
                                 fileScanner.close();
-                                return false; // Megállítja a fájl feldolgozását ÉS kilépteti a főprogramot
+                                return false;
                             }
                         }
                     }
                     fileScanner.close();
-                    // Csak akkor írjuk ki, ha végigértünk a fájlon hiba/kilépés nélkül
                     System.out.println("[OK] Fajl beolvasasa sikeres: " + fajlNev);
                 } catch (java.io.FileNotFoundException e) {
                     System.out.println("[HIBA] Fajl nem talalhato: " + fajlNev);

@@ -78,7 +78,7 @@ public abstract class Jarmu {
                 celbaErt();
             }
         } else {
-            mozgasLog(); // JAVÍTÁS: A kiíratás egy Hook metódusba került!
+            mozgasLog();
         }
     }
 
@@ -136,7 +136,6 @@ public abstract class Jarmu {
     public void statKiir(){
     }
 
-    // instanceof elkerulese erdekeben
     public void megcsuszik() {}
     public void balesetezik() {}
     public void megsemmisites() {}
