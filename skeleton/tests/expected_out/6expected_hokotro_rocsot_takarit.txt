@@ -8,6 +8,7 @@
 [OK] Auto lerakva (a2)
 [ESEMENY] a1 | MEGCSUSZOTT | s1 savban
 [ESEMENY] a1, a2 | BALESET | s1 sav allapota BLOKKOLT lett
+[ESEMENY] UTVONALTERVEZO | UTZAR_DETEKTALVA | s1 sav blokkolt
 [STAT] KASSZA | egyenleg: 1000 | pontszam: 0
 [OK] Hokotro lerakva (hk1)
 [OK] Utvonal beallitva (hk1)
