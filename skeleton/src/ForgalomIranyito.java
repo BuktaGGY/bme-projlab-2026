@@ -1,4 +1,3 @@
-import java.net.JarURLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,9 +20,6 @@ public class ForgalomIranyito {
     private GazdasagKezelo gazdasagKezelo;
 
 
-    /**
-     * Konstruktor a Szkeleton teszteléshez.
-     */
     public ForgalomIranyito() {
         jarmuvek = new HashMap<>();
     }

@@ -49,6 +49,7 @@ public class GazdasagKezelo {
     public boolean fizetes(int osszeg){
         if(vasarlasValidacio(osszeg)){
             kozosKassza -= osszeg;
+            System.out.println("[ESEMENY] KOLTSEGVETES | VASARLAS | egyenleg: " + kozosKassza);
             return true;
         }
         else{
