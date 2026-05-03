@@ -47,17 +47,6 @@ public class ForgalomIranyito {
             }
             this.utkozesVizsgalat();
         }
-
-        /*for (Map.Entry<String, Jarmu> entry : jarmuvek.entrySet()) {
-            String id = entry.getKey();
-            Jarmu jarmu = entry.getValue();
-            jarmu.frissitAllapot();
-
-            if (jarmu.allapot == JarmuAllapot.HALAD || jarmu.allapot == JarmuAllapot.ELAKADT || jarmu.allapot == JarmuAllapot.MEGCSUSZOTT) {
-                jarmu.mozog(jarmu.Utvonal[0]);
-            }
-            this.utkozesVizsgalat();
-        }*/
     }
     /**
      * ELtakarítja a roncsot a pályáról, a takarításért járó összeg jováíródik a közös számlán.
