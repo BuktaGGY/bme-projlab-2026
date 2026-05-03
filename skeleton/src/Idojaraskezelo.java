@@ -41,13 +41,23 @@ public class Idojaraskezelo {
      */
     public void olvasztasKezeles(){
         for (Sav s : osszesSav){
-            if (s.getSozottIdo() > 0){
+            
+            // Csak akkor csinálunk valamit, ha a sáv le van sózva
+            if (s.getSozottIdo() > 0) {
+                
+                // 1. Hó azonnali olvadása
+                if (s.getHoVastagsag() > 0) {
+                    s.hoEltuntet(); // Ez a Sav-ban kinullázza a havat és TISZTA-ra állítja az állapotot
+                    System.out.println("[ESEMENY] IDOJARAS | OLVADAS | " + s.getId() + " savrol elolvadt a ho");
+                }
+                // 2. Jég azonnali olvadása (ha nincs hó, de jégpáncél van)
+                else if (s.getAllapot() == SavAllapot.JEGPANCEL) {
+                    s.setSavAllapot(SavAllapot.TISZTA);
+                    System.out.println("[ESEMENY] IDOJARAS | OLVADAS | " + s.getId() + " savrol elolvadt a jeg");
+                }
+
+                // Körönként csökkentjük a só hatóidejét
                 s.setSozottIdo(s.getSozottIdo() - 1);
-            }
-            if (s.getAllapot() == SavAllapot.SOZOTT && s.getSozottIdo() == 0){
-                String miOlvadt = (s.getHoVastagsag() > 0) ? "ho" : "jeg";
-                s.hoEltuntet();
-                System.out.println("[ESEMENY] IDOJARAS | OLVADAS | " + s.getId() + " savrol elolvadt a " + miOlvadt);
             }
         }
     }

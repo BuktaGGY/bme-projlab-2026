@@ -286,6 +286,8 @@ public class Sav {
         }
     }
 
+
+    
     public void setSzuloUtszakasz(Utszakasz ut) {
         this.szuloUtszakasz = ut;
     }

@@ -190,9 +190,8 @@ public class Prototipus {
                 }
                 hokotrok.put(hokotroId, hk);
                 jk.getForgalomIranyito().addJarmu(hk);
-                System.out.println("[OK] Hokotro lerakva sávon: "+hokotroId+" Fej: "+fejTipus);
+                System.out.println("[OK] Hokotro lerakva (" + hokotroId + ")");
                 break;
-
             case "vasarol_hokotro":
                 String ujHkId = parts[1];
                 String garazsId = parts[2];
@@ -277,7 +276,7 @@ public class Prototipus {
                 String savAzon = parts[1];
                 int hoMennyiseg = Integer.parseInt(parts[2]);
                 savok.get(savAzon).hoNovel(hoMennyiseg);
-                System.out.println("[OK] "+ hoMennyiseg + " cm ho elhelyezve savon: " + savAzon);
+                System.out.println("[ESEMENY] IDOJARAS | HAVAZAS | +"+ hoMennyiseg + "cm " + savAzon + " savra");
                 break;
 
             case "havaz_globalis":
@@ -285,7 +284,7 @@ public class Prototipus {
                 for(Map.Entry<String, Sav> entry: savok.entrySet()) {
                     savok.get(entry.getKey()).hoNovel(hoMennyiseg2);
                 }
-                System.out.println("[OK] " + hoMennyiseg2 + " cm hó elhelyezve minden sávon");
+                System.out.println("[ESEMENY] IDOJARAS | HAVAZAS | +" + hoMennyiseg2 + "cm minden tiszta savra");
                 break;
 
             case "tankol":
@@ -302,15 +301,15 @@ public class Prototipus {
                     if (fizetendo > 0 && jk.gazdasagKezelo != null && jk.gazdasagKezelo.fizetes(fizetendo)){
                         if (anyag.equals("so")){
                             tankol_kotro.setSo(100);
-                            System.out.println("[OK] " + tankol_jarmuId + " tankolas sikeres (uj so: 100)");
+                            System.out.println("[OK] " + tankol_jarmuId + " tankolt (uj so: 100)");
                         } else if (anyag.equals("biokerozin")){
                             tankol_kotro.setBiokerozin(100);
-                            System.out.println("[OK] " + tankol_jarmuId + " tankolas sikeres (uj biokerozin: 100)");
+                            System.out.println("[OK] " + tankol_jarmuId + " tankolt (uj biokerozin: 100)");
                         } else if (anyag.equals("zuzalek")){
                             tankol_kotro.setZuzalek(100);
-                            System.out.println("[OK] " + tankol_jarmuId + " tankolas sikeres (uj zuzalek: 100)");
+                            System.out.println("[OK] " + tankol_jarmuId + " tankolt (uj zuzalek: 100)");
                         }
-                        System.out.println("[ESEMENY] KOLTSEGVETES | VASARLAS | egyenleg: " + jk.gazdasagKezelo.getKozosKassza());
+                        //System.out.println("[ESEMENY] KOLTSEGVETES | VASARLAS | egyenleg: " + jk.gazdasagKezelo.getKozosKassza());
                     } else {
                         System.out.println("[HIBA] Sikertelen tankolas (nincs eleg penz vagy ismeretlen anyag)");
                     }

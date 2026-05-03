@@ -34,6 +34,7 @@ public abstract class Jarmu {
     public Jarmu(String id) {
         this.id = id;
         Utvonal = new Utszakasz[1];
+        this.allapot = JarmuAllapot.HALAD; // JAVÍTÁS: Alapértelmezett állapot beállítása!
     }
 
     /**
@@ -57,7 +58,7 @@ public abstract class Jarmu {
     public void mozog(Object utszakasz) {
         if (allapot != JarmuAllapot.HALAD) return;
 
-        pozicioASavon += sebesseg;
+        pozicioASavon += sebesseg; // Itt a sebesség adja meg a lépésközt
         int aktualisHossz = aktualisSav.getHossz();
 
         if (pozicioASavon >= aktualisHossz) {
@@ -71,16 +72,35 @@ public abstract class Jarmu {
                 aktualisSav = kovetkezoUt.getSavok().get(0);
                 pozicioASavon = maradek;
 
-                System.out.println("[ESEMENY] " + id + " | UJ SZAKASZRA LEPETT | " + regiSav.getId() + " -> " + aktualisSav.getId() + " savra (uj poz: " + pozicioASavon + ")");
+                ujSzakaszLog(regiSav);
             } else {
                 pozicioASavon = aktualisHossz;
                 celbaErt();
             }
         } else {
-            System.out.println("[ESEMENY] " + id + " | MOZGOTT | " + aktualisSav.getId() + " savban (uj pozicio: " + pozicioASavon + ")");
+            mozgasLog(); // JAVÍTÁS: A kiíratás egy Hook metódusba került!
         }
     }
 
+    /**
+     * Hook metódus a mozgás naplózására.
+     * Leszármazottak felülírhatják (override), ha el akarják némítani, 
+     * vagy máshogy szeretnék kiírni a mozgást.
+     */
+    protected void mozgasLog() {
+        System.out.println("[ESEMENY] " + id + " | MOZGOTT | " + aktualisSav.getId() + " savban (uj pozicio: " + pozicioASavon + ")");
+    }
+
+    public String getId() {
+        return this.id;
+    }
+    
+    /**
+     * Szintén Hook metódus a sávváltás logolására.
+     */
+    protected void ujSzakaszLog(Sav regiSav) {
+        System.out.println("[ESEMENY] " + id + " | UJ SZAKASZRA LEPETT | " + regiSav.getId() + " -> " + aktualisSav.getId() + " savra (uj poz: " + pozicioASavon + ")");
+    }
 
     /**
      * Hook metódus, amit a leszármazottak felülírhatnak, hogy egyedi 
@@ -94,7 +114,6 @@ public abstract class Jarmu {
      * @param szomszedosSav Szomszéd sáv
      */
     public void savValtas(Sav szomszedosSav) {
-
         aktualisSav = szomszedosSav;
     }
 
@@ -114,9 +133,7 @@ public abstract class Jarmu {
         aktualisSav = sav;
     }
 
-
     public void statKiir(){
-
     }
 
     // instanceof elkerulese erdekeben

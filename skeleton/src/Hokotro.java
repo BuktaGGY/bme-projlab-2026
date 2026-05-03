@@ -6,20 +6,22 @@
  */
 public class Hokotro extends Jarmu implements IranyitottJarmu {
     
+
+    private boolean befejezte = false;
     /** A hókotróra jelenleg felszerelt kotrófej (Strategy minta). */
     private KotroFej aktualisKotrofej;
     
     /** A hókotró rendelkezésre álló sókészlete. */
-    private int so = 50;
+    private int so = 0;
     
     /** A hókotró rendelkezésre álló biokerozin készlete. */
-    private int biokerozin = 100;
+    private int biokerozin = 0;
 
     /** A hókotró rendelkezésre álló zúzalék készlete. */
-    private int zuzalek = 50;
+    private int zuzalek = 0;
 
-	//ismeri cd alapjan
-	private ForgalomIranyito fi;
+    //ismeri cd alapjan
+    private ForgalomIranyito fi;
 
     public void setForgalomIranyito(ForgalomIranyito fi) {
         this.fi = fi;
@@ -34,17 +36,24 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
         aktualisKotrofej = fej;
         aktualisSav = kezdoSav;
         this.pozicioASavon = pozSavon;
-        this.sebesseg = 10;
+        this.sebesseg = 50; // JAVÍTVA: A hókotró sebessége 50!
     }
 
     /**
      * Frissíti a hókotró állapotát.
      */
-	@Override
+    @Override
     public void frissitAllapot() {
+        if (befejezte) return; // Ha célba ért, már nem dolgozik!
+
         if (aktualisKotrofej != null && aktualisSav != null) {
             aktualisKotrofej.takarit(aktualisSav, this);
-            System.out.println("[ESEMENY] " + this.id + " | TAKARITOTT | " + aktualisSav.getId() + " sav");
+            
+            // Csak akkor írjuk ki az alap takarítás logot, ha NEM sószóró vagy sárkány (mert ők megoldják maguknak)
+            String tipus = aktualisKotrofej.getFejTipus();
+            if (!tipus.equals("soszoro") && !tipus.equals("sarkany")) {
+                System.out.println("[ESEMENY] " + this.id + " | TAKARITOTT | " + aktualisSav.getId() + " sav");
+            }
         }
     }
 
@@ -55,7 +64,7 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
 
     @Override
     protected void celbaErt() {
-        System.out.println("[ESEMENY] " + this.id + " | CELBA_ERT | Befejezte a kijelolt utvonalat");
+        this.befejezte = true; // Jelezzük, hogy végzett!
     }
 
     /**

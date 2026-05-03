@@ -47,11 +47,15 @@ public class JatekKezelo {
         if (!isRunning){
             return;
         }
+        // 1. ELŐSZÖR az időjárás (hogy az épp lerakott só csak a KÖVETKEZŐ körben olvasszon)
+        if (idojaraskezelo != null) {
+            idojaraskezelo.olvasztasKezeles();
+        }
+        
+        // 2. UTÁNA mozognak és takarítanak a járművek
         forgalomIranyito.mozgatJarmuvek();
-        //idojaraskezelo.Havaz();
-        idojaraskezelo.olvasztasKezeles();
+        
         aktualisTick++;
-
     }
 
     /**

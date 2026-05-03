@@ -8,7 +8,7 @@ public class GazdasagKezelo {
     /**
      * A játék során összegyűjtött pénz nyilvántartása
      */
-    private int kozosKassza = 10000;
+    private int kozosKassza = 1000;
 
     /**
      * A különböző fejtípusok név-ár párjait tartalmazó gyűjtemény
@@ -49,7 +49,6 @@ public class GazdasagKezelo {
     public boolean fizetes(int osszeg){
         if(vasarlasValidacio(osszeg)){
             kozosKassza -= osszeg;
-            System.out.println("[ESEMENY] KOLTSEGVETES | VASARLAS | egyenleg: " + kozosKassza);
             return true;
         }
         else{

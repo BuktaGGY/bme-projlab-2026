@@ -1,7 +1,7 @@
 public class HanyoFej extends KotroFej {
 
     public HanyoFej() {
-        super(200); 
+        super(500); 
     }
 
 	/**
