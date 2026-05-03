@@ -12,7 +12,7 @@
 [STAT] BUSZ b1 | sav: s1 | poz: 0 | allapot: MOZGASKEPTELEN | blokkolt_ido: 1
 [OK] Sav parameterei beallitva (s1)
 [ESEMENY] b1 | UJRA_INDULT | buntetes lejart
-[ESEMENY] b1 | MOZGOTT | s1 savban (uj pozicio: 10)
-[ESEMENY] b1 | MOZGOTT | s1 savban (uj pozicio: 20)
-[STAT] BUSZ b1 | sav: s1 | poz: 20 | allapot: HALAD | cel: v2
+[ESEMENY] b1 | MOZGOTT | s1 savban (uj pozicio: 15)
+[ESEMENY] b1 | MOZGOTT | s1 savban (uj pozicio: 30)
+[STAT] BUSZ b1 | sav: s1 | poz: 30 | allapot: HALAD | cel: v2
 [OK] Kilepes
