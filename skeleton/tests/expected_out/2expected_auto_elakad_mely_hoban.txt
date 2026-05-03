@@ -8,3 +8,4 @@
 [STAT] AUTO a1 | sav: s1 | poz: 0 | allapot: HALAD | cel: p1
 [ESEMENY] a1 | ELAKADT | s1 savban (ho: 45cm)
 [STAT] AUTO a1 | sav: s1 | poz: 0 | allapot: ELAKADT | cel: p1
+[OK] Kilepes

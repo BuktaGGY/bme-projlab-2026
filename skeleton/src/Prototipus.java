@@ -139,7 +139,7 @@ public class Prototipus {
                     case "garazs":  poik.put(poiId,new Garazs(poiId, null)); break;
                 }
                 poik.get(poiId).setCsomopont(csomopontok.get(cspId));
-                System.out.println("[OK] Point of Interest letrehozva (" + poiId + ")");
+                System.out.println("[OK] Point Of Interest letrehozva (" + poiId + ")");
                 break;
 
             case "lerak_auto":
