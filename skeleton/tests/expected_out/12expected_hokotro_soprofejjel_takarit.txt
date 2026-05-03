@@ -9,7 +9,7 @@
 [STAT] SAV s2 | ho: 5 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
 [OK] Hokotro lerakva (hk1)
 [OK] Utvonal beallitva (hk1)
-[ESEMENY] hk1 | TAKARITOTT | s1 sav (maradek ho: 0cm)
+[ESEMENY] hk1 | TAKARITOTT | s1 sav
 [STAT] SAV s1 | ho: 0 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
 [STAT] SAV s2 | ho: 10 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: nem
 [OK] Kilepes

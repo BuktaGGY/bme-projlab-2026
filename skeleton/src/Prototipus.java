@@ -166,6 +166,20 @@ public class Prototipus {
                 
                 Busz b = new Busz(buszId, buszPozicio, kezdoSav, (Vegallomas) celPoi);
 
+                b.setJatekKezelo(jk); 
+
+                Vegallomas kezdoVegallomas = null;
+                for (java.util.Map.Entry<String, PointOfInterest> entry : poik.entrySet()) {
+                    if (entry.getValue() instanceof Vegallomas && !entry.getKey().equals(buszVegallomasPoiId)) {
+                        kezdoVegallomas = (Vegallomas) entry.getValue();
+                        break;
+                    }
+                }
+                
+                if (kezdoVegallomas != null) {
+                    b.setAllomasok(kezdoVegallomas, (Vegallomas) celPoi);
+                }
+
                 buszok.put(buszId, b);
                 jk.getForgalomIranyito().addJarmu(b);
                 System.out.println("[OK] Busz lerakva ("+ buszId +")");

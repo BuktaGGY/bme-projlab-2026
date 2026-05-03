@@ -5,7 +5,16 @@
  */
 public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
 
+	private JatekKezelo jk;
+
+	// Egy új metódus a beállításhoz:
+	public void setJatekKezelo(JatekKezelo jk) {
+    this.jk = jk;
+}
+
+
     /**
+
      *A busz által bejárt útvonal indulási állomása.
      */
     private Vegallomas kezdoAllomas;
@@ -120,17 +129,32 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
         }
     }
 
+	@Override
+    protected void mozgasLog() {
+        // Némán halad (ez nálad is jó volt)
+    }
+
+    @Override
+    protected void ujSzakaszLog(Sav regiSav) {
+        // Némán lép új szakaszra
+    }
+	
     @Override
     protected void celbaErt() {
-        System.out.println("[ESEMENY] " + this.id + " | CELBA_ERT | " + vegAllomas.getId());
         megfordul();
         if (vegAllomas != null) {
             vegAllomas.addErintes();
         }
 
+        if (jk != null) {
+            jk.buszPontszamNovel();
+        }
+
         utvonalIndex = 0;
         pozicioASavon = 0;
-        System.out.println("[ESEMENY] " + this.id + " | KORT_TELJESITETT | vegallomas: " + kezdoAllomas.getId() + " (Pontszam novelve)");
+        
+        String celNev = (kezdoAllomas != null) ? kezdoAllomas.getId() : "ismeretlen";
+        System.out.println("[ESEMENY] " + this.id + " | KORT_TELJESITETT | vegallomas: " + celNev + " (Pontszam novelve)");
     }
 
     /**
