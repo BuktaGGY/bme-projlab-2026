@@ -23,6 +23,6 @@
 [ESEMENY] UTVONALTERVEZO | UTZAR_DETEKTALVA | s1 sav blokkolt
 [ESEMENY] a1 | UJRATERVEZES | uj utvonal beallitva (kerulo)
 [ESEMENY] a1 | MOZGOTT | s0 savban (uj pozicio: 10)
-[STAT] SAV s1 | ho: 0 | jeg: igen | so_ido: 0 | zuzalek: nem | blokkolt: igen
+[STAT] SAV s1 | ho: 0 | jeg: nem | so_ido: 0 | zuzalek: nem | blokkolt: igen
 [STAT] AUTO a1 | sav: s0 | poz: 10 | allapot: HALAD | cel: p1
 [OK] Kilepes

@@ -113,7 +113,7 @@ public class Auto extends SerulekenyJarmu {
     public void ujraTervezes(UtvonalTervezo ut) {
         if (aktualisSav == null || aktualisSav.getSzuloUtszakasz() == null) return;
 
-        Csomopont honnan = aktualisSav.getSzuloUtszakasz().getMasikVeg(null);
+        Csomopont honnan = null;
         if (aktualisSav.getSzuloUtszakasz().eleje != null) {
             honnan = aktualisSav.getSzuloUtszakasz().vege; 
         }

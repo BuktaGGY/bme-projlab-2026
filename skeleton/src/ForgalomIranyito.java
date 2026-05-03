@@ -18,7 +18,7 @@ public class ForgalomIranyito {
 
 
     public ForgalomIranyito() {
-        jarmuvek = new HashMap<>();
+        jarmuvek = new LinkedHashMap<>();
     }
 
     public void setUtvonalTervezo(UtvonalTervezo ut) {

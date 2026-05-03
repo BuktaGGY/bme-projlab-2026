@@ -384,6 +384,7 @@ public class Prototipus {
         }
     } catch (Exception e) {
         System.out.println("[HIBA] Rossz parameterezes a parancsnak: " + line);
+        e.printStackTrace();
     }
     return true;
 }
