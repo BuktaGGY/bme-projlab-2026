@@ -36,14 +36,6 @@ public class Idojaraskezelo {
         }
     }
 
-    public void havazMennyiseggel(int mennyiseg){
-        for(Sav sav : osszesSav){
-            if (sav.getAllapot() != SavAllapot.SOZOTT && sav.getAllapot() != SavAllapot.BLOKKOLT){
-                sav.hoNovel(mennyiseg);
-            }
-        }
-    }
-
     /**
      * Kezeli a sávokon az olvadási folyamatokat.
      */

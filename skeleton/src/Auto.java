@@ -4,11 +4,6 @@
  */
 public class Auto extends SerulekenyJarmu {
     private PointOfInterest cel;
-    private PointOfInterest egyikPoi;
-    private PointOfInterest masikPoi;
-    private Csomopont aktualisCsomopont;
-    private UtvonalTervezo utvonalTervezo;
-    private int varakozasTick;
 
     public Auto(String id,  int pozicioSavban, Sav startSav, PointOfInterest cel) {
         super(id);
@@ -16,8 +11,7 @@ public class Auto extends SerulekenyJarmu {
         this.pozicioASavon = pozicioSavban;
         this.setStartSav(startSav);
         this.cel = cel;
-        this.sebesseg = SzimulacioBeallitasok.finomitottSzimulacio ? 2 : 10;
-        this.varakozasTick = 0;
+        this.sebesseg = 10;
     }
 
     /**
@@ -26,19 +20,6 @@ public class Auto extends SerulekenyJarmu {
     @Override
     public void frissitAllapot() {
         if (allapot == JarmuAllapot.RONCS){
-            return;
-        }
-        if (varakozasTick > 0) {
-            varakozasTick--;
-            if (varakozasTick == 0) {
-                utvonalTervezesAktualisCsomopontbol();
-            }
-            return;
-        }
-        if ((Utvonal == null || Utvonal.length == 0 || aktualisSav == null) && aktualisCsomopont != null) {
-            utvonalTervezesAktualisCsomopontbol();
-        }
-        if (aktualisSav == null) {
             return;
         }
         if (aktualisSav.getAllapot() == SavAllapot.BLOKKOLT){
@@ -52,17 +33,14 @@ public class Auto extends SerulekenyJarmu {
 
     @Override
     public void mozog() {
-        if (varakozasTick > 0 || aktualisSav == null || Utvonal == null || Utvonal.length == 0) {
-            return;
-        }
         if (this.allapot == JarmuAllapot.ELAKADT) {
             // Kiszabadulás logika
             Sav s = this.aktualisSav;
-            if (szomszedosSavJarhato(s.getJobbSav())) {
+            if (s.getJobbSavAllapot() != SavAllapot.BLOKKOLT) {
                 savValtas(s.getJobbSav());
                 setAllapot(JarmuAllapot.HALAD);
                 System.out.println("[ESEMENY] " + this.id + " | SAVOT_VALTOTT | " + s.getId() + " -> " + aktualisSav.getId() + " savra");
-            } else if (szomszedosSavJarhato(s.getBalSav())) {
+            } else if (s.getBalSavAllapot() != SavAllapot.BLOKKOLT) {
                 savValtas(s.getBalSav());
                 setAllapot(JarmuAllapot.HALAD);
                 System.out.println("[ESEMENY] " + this.id + " | SAVOT_VALTOTT | " + s.getId() + " -> " + aktualisSav.getId() + " savra");
@@ -73,8 +51,7 @@ public class Auto extends SerulekenyJarmu {
 
         if (aktualisSav.getAllapot() == SavAllapot.JEGPANCEL && !aktualisSav.isZuzalekos()) {
             megcsuszik();
-        }
-        if (allapot == JarmuAllapot.HALAD) {
+        } else if (allapot == JarmuAllapot.HALAD) {
             aktualisSav.letapos(this);
             super.mozog();
         }
@@ -83,13 +60,7 @@ public class Auto extends SerulekenyJarmu {
     @Override
     protected void celbaErt() {
         System.out.println("[ESEMENY] " + id + " | CELBA_ERT | " + cel.getId());
-        aktualisCsomopont = cel.getCsomopont();
-        aktualisSav = null;
-        Utvonal = new Utszakasz[0];
-        utvonalIndex = 0;
-        pozicioASavon = 0;
-        cel = kovetkezoCel();
-        varakozasTick = 3;
+        megsemmisites();
     }
 
     public void haladasSavban(int tav){
@@ -131,9 +102,6 @@ public class Auto extends SerulekenyJarmu {
 
     @Override
     public void megcsuszik() {
-        if (allapot == JarmuAllapot.MEGCSUSZOTT || !SzimulacioBeallitasok.esely(SzimulacioBeallitasok.autoMegcsuszasEsely)) {
-            return;
-        }
         setAllapot(JarmuAllapot.MEGCSUSZOTT);
         System.out.println("[ESEMENY] " + this.id + " | MEGCSUSZOTT | " + aktualisSav.getId() + " savban");
     }
@@ -159,58 +127,6 @@ public class Auto extends SerulekenyJarmu {
         }
     }
 
-    private boolean szomszedosSavJarhato(Sav sav) {
-        if (sav == null || sav.getAllapot() == SavAllapot.BLOKKOLT) {
-            return false;
-        }
-        if (!SzimulacioBeallitasok.finomitottSzimulacio) {
-            return true;
-        }
-        return sav.getHoVastagsag() == 0
-                && (sav.getAllapot() == SavAllapot.TISZTA || sav.getAllapot() == SavAllapot.SOZOTT);
-    }
-
-    public void setIngazoPoi(PointOfInterest egyikPoi, PointOfInterest masikPoi) {
-        this.egyikPoi = egyikPoi;
-        this.masikPoi = masikPoi;
-        if (this.cel == null) {
-            this.cel = masikPoi;
-        }
-    }
-
-    public void setAktualisCsomopont(Csomopont aktualisCsomopont) {
-        this.aktualisCsomopont = aktualisCsomopont;
-    }
-
-    public void setUtvonalTervezo(UtvonalTervezo utvonalTervezo) {
-        this.utvonalTervezo = utvonalTervezo;
-    }
-
-    private PointOfInterest kovetkezoCel() {
-        if (egyikPoi == null || masikPoi == null || aktualisCsomopont == null) {
-            return cel;
-        }
-        if (aktualisCsomopont == egyikPoi.getCsomopont()) {
-            return masikPoi;
-        }
-        return egyikPoi;
-    }
-
-    private void utvonalTervezesAktualisCsomopontbol() {
-        if (utvonalTervezo == null || aktualisCsomopont == null || cel == null || cel.getCsomopont() == null) {
-            return;
-        }
-        Utszakasz[] ujUtvonal = utvonalTervezo.utvonalKeres(aktualisCsomopont, cel.getCsomopont());
-        if (ujUtvonal != null && ujUtvonal.length > 0) {
-            Utvonal = ujUtvonal;
-            utvonalIndex = 0;
-            aktualisSav = ujUtvonal[0].getSavok().get(0);
-            pozicioASavon = 0;
-            aktualisCsomopont = null;
-            System.out.println("[ESEMENY] " + id + " | UTVONAL_TERVEZVE | cel: " + cel.getId());
-        }
-    }
-
     /**
      * A roncs eltakarítása után törli az autó objektumot.
      */
@@ -227,11 +143,8 @@ public class Auto extends SerulekenyJarmu {
     }
 
     public void statKiir(){
-        String savId = aktualisSav != null ? aktualisSav.getId() : "nincs";
-        String celId = cel != null ? cel.getId() : "nincs";
-        String allapotStr = varakozasTick > 0 ? "VARAKOZIK" : allapot.toString();
-        System.out.println("[STAT] AUTO "+ this.id + " | sav: " + savId + " | poz: " + pozicioASavon
-        +" | allapot: "+ allapotStr + " | cel: " + celId);
+        System.out.println("[STAT] AUTO "+ this.id + " | sav: " + aktualisSav.getId() + " | poz: " + pozicioASavon
+        +" | allapot: "+ allapot + " | cel: " + cel.getId());
     }
 
 }

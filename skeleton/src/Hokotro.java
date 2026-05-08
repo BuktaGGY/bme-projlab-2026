@@ -39,7 +39,7 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
         aktualisKotrofej = fej;
         aktualisSav = kezdoSav;
         this.pozicioASavon = pozSavon;
-        this.sebesseg = SzimulacioBeallitasok.finomitottSzimulacio ? 10 : 50;
+        this.sebesseg = 50;
     }
 
     /**

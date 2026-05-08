@@ -164,8 +164,7 @@ public class Sav {
      */
     public void letapos(Jarmu a){
         letaposottDb++;
-        int kuszob = SzimulacioBeallitasok.finomitottSzimulacio ? SzimulacioBeallitasok.jegpancelLetaposasiKuszob : 5;
-        if(letaposottDb >= kuszob && savAllapot != SavAllapot.BLOKKOLT){
+        if(letaposottDb >= 5 && savAllapot != SavAllapot.BLOKKOLT){
             setSavAllapot(SavAllapot.JEGPANCEL);
         }
 
@@ -304,10 +303,5 @@ public class Sav {
             return szuloUtszakasz.getHossz();
         }
         return 100;
-    }
-
-    @Override
-    public String toString() {
-        return id;
     }
 }
