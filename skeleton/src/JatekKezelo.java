@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * Nyilvántartja a játék állapotát (fut-e), a tickeket (idő múlását), 
  * és a játékos által megszerzett pontokat.
  */
-public class JatekKezelo {
+public class JatekKezelo extends MegfigyelhetoModell {
     Idojaraskezelo idojaraskezelo;
     UtvonalTervezo utvonalTervezo;
     ForgalomIranyito forgalomIranyito;
@@ -49,10 +49,17 @@ public class JatekKezelo {
         }
         if (idojaraskezelo != null) {
             idojaraskezelo.olvasztasKezeles();
+            if (SzimulacioBeallitasok.finomitottSzimulacio
+                    && aktualisTick > 0
+                    && aktualisTick % SzimulacioBeallitasok.havazasPeriodus == 0) {
+                idojaraskezelo.havazMennyiseggel(SzimulacioBeallitasok.havazasMennyiseg);
+                System.out.println("[ESEMENY] IDOJARAS | GYENGE_HAVAZAS | +" + SzimulacioBeallitasok.havazasMennyiseg + "cm");
+            }
         }
         forgalomIranyito.mozgatJarmuvek();
         
         aktualisTick++;
+        ertesitMegfigyeloket();
     }
 
     /**
@@ -65,5 +72,21 @@ public class JatekKezelo {
 
     public ForgalomIranyito getForgalomIranyito() {
         return forgalomIranyito;
+    }
+
+    public GazdasagKezelo getGazdasagKezelo() {
+        return gazdasagKezelo;
+    }
+
+    public int getAktualisTick() {
+        return aktualisTick;
+    }
+
+    public int getBuszPontszamok() {
+        return buszPontszamok;
+    }
+
+    public void palyaValtozott() {
+        ertesitMegfigyeloket();
     }
 }

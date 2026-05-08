@@ -29,6 +29,7 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      * ennek nyilvántartására használatos számláló.
      */
     private int blokkoltSzamlalo;
+    private int varakozasTick;
 
     /**
      * Konstruktor
@@ -44,7 +45,8 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
         this.pozicioASavon = pozicioSavban;
         this.setStartSav(startSav);
         this.vegAllomas = celAllomas; 
-        this.sebesseg = 15;
+        this.sebesseg = SzimulacioBeallitasok.finomitottSzimulacio ? 5 : 15;
+        this.varakozasTick = 0;
     }
 
     /**
@@ -60,6 +62,9 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
 
     @Override
     public void megcsuszik() {
+        if (!SzimulacioBeallitasok.esely(SzimulacioBeallitasok.buszMegcsuszasEsely)) {
+            return;
+        }
         if (allapot != JarmuAllapot.MOZGASKEPTELEN) {
             setAllapot(JarmuAllapot.MOZGASKEPTELEN);
             setBlokk(5);
@@ -84,6 +89,14 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     @Override
     public void frissitAllapot() {
+        if (varakozasTick > 0) {
+            varakozasTick--;
+            if (varakozasTick == 0) {
+                setAllapot(JarmuAllapot.HALAD);
+                System.out.println("[ESEMENY] " + this.id + " | UJRA_INDULT | vegallomasi varakozas lejart");
+            }
+            return;
+        }
         if (aktualisSav != null && aktualisSav.getAllapot() == SavAllapot.BLOKKOLT) {
             setAllapot(JarmuAllapot.MOZGASKEPTELEN);
             System.out.println("[ESEMENY] " + this.id + " | ELAKADT | " + aktualisSav.getId() + " savban");
@@ -135,7 +148,16 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     @Override
     public void mozog() {
+        if (varakozasTick > 0) {
+            return;
+        }
         if (allapot == JarmuAllapot.HALAD) {
+            if (aktualisSav.getAllapot() == SavAllapot.JEGPANCEL && !aktualisSav.isZuzalekos()) {
+                megcsuszik();
+                if (allapot != JarmuAllapot.HALAD) {
+                    return;
+                }
+            }
             aktualisSav.letapos(this);
             super.mozog();
         }
@@ -151,9 +173,10 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
 	
     @Override
     protected void celbaErt() {
+        Vegallomas erkezesiAllomas = vegAllomas;
         megfordul();
-        if (vegAllomas != null) {
-            vegAllomas.addErintes();
+        if (erkezesiAllomas != null) {
+            erkezesiAllomas.addErintes();
         }
 
         if (jk != null) {
@@ -162,9 +185,25 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
 
         utvonalIndex = 0;
         pozicioASavon = 0;
+        Utvonal = forditottUtvonal(Utvonal);
+        if (Utvonal != null && Utvonal.length > 0 && Utvonal[0] != null && !Utvonal[0].getSavok().isEmpty()) {
+            aktualisSav = Utvonal[0].getSavok().get(0);
+        }
+        varakozasTick = 3;
         
-        String celNev = (kezdoAllomas != null) ? kezdoAllomas.getId() : "ismeretlen";
-        System.out.println("[ESEMENY] " + this.id + " | KORT_TELJESITETT | vegallomas: " + celNev + " (Pontszam novelve)");
+        String celNev = (erkezesiAllomas != null) ? erkezesiAllomas.getId() : "ismeretlen";
+        System.out.println("[ESEMENY] " + this.id + " | KORT_TELJESITETT | vegallomas: " + celNev + " (Pontszam novelve, 3 tick varakozas)");
+    }
+
+    private Utszakasz[] forditottUtvonal(Utszakasz[] eredeti) {
+        if (eredeti == null) {
+            return new Utszakasz[0];
+        }
+        Utszakasz[] forditott = new Utszakasz[eredeti.length];
+        for (int i = 0; i < eredeti.length; i++) {
+            forditott[i] = eredeti[eredeti.length - 1 - i];
+        }
+        return forditott;
     }
 
     /**
@@ -174,7 +213,10 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
     public void statKiir(){
         String allapotStr = (aktualisSav != null && aktualisSav.getAllapot() == SavAllapot.BLOKKOLT) ? "ELAKADT" : allapot.toString();
     
-        if (allapot == JarmuAllapot.MOZGASKEPTELEN) {
+        if (varakozasTick > 0) {
+            System.out.println("[STAT] BUSZ "+ this.id + " | sav: " + aktualisSav.getId() + " | poz: " + pozicioASavon
+                +" | allapot: VARAKOZIK | varakozas: " + varakozasTick);
+        } else if (allapot == JarmuAllapot.MOZGASKEPTELEN) {
             System.out.println("[STAT] BUSZ "+ this.id + " | sav: " + aktualisSav.getId() + " | poz: " + pozicioASavon
                 +" | allapot: "+ allapotStr + " | blokkolt_ido: " + blokkoltSzamlalo);
         } else {

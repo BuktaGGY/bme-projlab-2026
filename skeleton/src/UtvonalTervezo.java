@@ -33,6 +33,10 @@ public class UtvonalTervezo {
         return utak.get(id);
     }
 
+    public Map<String, Utszakasz> getUtak() {
+        return java.util.Collections.unmodifiableMap(utak);
+    }
+
     private boolean isUtszakaszJarhato(Utszakasz u) {
         if (u.getSavok() == null || u.getSavok().isEmpty()) return false;
         for (Sav s : u.getSavok()) {

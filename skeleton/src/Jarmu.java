@@ -93,6 +93,22 @@ public abstract class Jarmu {
     public String getId() {
         return this.id;
     }
+
+    public int getPozicioASavon() {
+        return pozicioASavon;
+    }
+
+    public int getSebesseg() {
+        return sebesseg;
+    }
+
+    public Sav getAktualisSav() {
+        return aktualisSav;
+    }
+
+    public JarmuAllapot getAllapot() {
+        return allapot;
+    }
     
     /**
      * Szintén Hook metódus a sávváltás logolására.
@@ -141,6 +157,11 @@ public abstract class Jarmu {
 
     public  boolean isHokotro(){
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return id;
     }
     // instanceof elkerulese erdekeben
     public void megcsuszik() {}

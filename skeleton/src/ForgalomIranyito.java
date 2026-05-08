@@ -101,10 +101,17 @@ public class ForgalomIranyito {
      * @param j A hozzáadandó jármű.
      */
     public void addJarmu(Jarmu j) {
+        if (j instanceof Auto) {
+            ((Auto) j).setUtvonalTervezo(utvonalTervezo);
+        }
         jarmuvek.put(j.id, j);
     }
 
     public void deleteJarmu(Jarmu j) {jarmuvek.remove(j.id);}
+
+    public Collection<Jarmu> getJarmuvek() {
+        return Collections.unmodifiableCollection(jarmuvek.values());
+    }
 
     public Jarmu getJarmu(String id) {
         return  jarmuvek.get(id);

@@ -53,4 +53,12 @@ public abstract class Utszakasz {
     }
     
     public String getId() { return id; }
+
+    public Csomopont getEleje() {
+        return eleje;
+    }
+
+    public Csomopont getVege() {
+        return vege;
+    }
 }
