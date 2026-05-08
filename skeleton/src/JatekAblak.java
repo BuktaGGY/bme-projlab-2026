@@ -389,11 +389,13 @@ public class JatekAblak extends JFrame {
      * @param jarmu A felhasznalo altal kivalasztott jarmu.
      */
     private void jarmuKivalasztva(Jarmu jarmu) {
-        if (jarmu instanceof Busz) {
-            buszCombo.setSelectedItem(jarmu);
+        Busz busz = jarmu.asBusz();
+        Hokotro hokotro = jarmu.asHokotro();
+        if (busz != null) {
+            buszCombo.setSelectedItem(busz);
             naplo("Busz kivalasztva: " + jarmu.getId());
-        } else if (jarmu instanceof Hokotro) {
-            hokotroCombo.setSelectedItem(jarmu);
+        } else if (hokotro != null) {
+            hokotroCombo.setSelectedItem(hokotro);
             naplo("Hokotro kivalasztva: " + jarmu.getId());
         } else {
             naplo("Jarmu kivalasztva: " + jarmu.getId());
@@ -459,15 +461,15 @@ public class JatekAblak extends JFrame {
      * Frissiti a listakat, a statuszsort es a terkepet.
      */
     private void frissit() {
-        Object valasztottBusz = buszCombo.getSelectedItem();
-        Object valasztottHokotro = hokotroCombo.getSelectedItem();
-        Object valasztottSav = savCombo.getSelectedItem();
+        Busz valasztottBusz = (Busz) buszCombo.getSelectedItem();
+        Hokotro valasztottHokotro = (Hokotro) hokotroCombo.getSelectedItem();
+        Sav valasztottSav = (Sav) savCombo.getSelectedItem();
 
         buszCombo.removeAllItems();
         for (Busz busz : vezerlo.getBuszok()) {
             buszCombo.addItem(busz);
         }
-        if (valasztottBusz instanceof Busz && vezerlo.getBuszok().contains(valasztottBusz)) {
+        if (vezerlo.getBuszok().contains(valasztottBusz)) {
             buszCombo.setSelectedItem(valasztottBusz);
         }
 
@@ -475,7 +477,7 @@ public class JatekAblak extends JFrame {
         for (Hokotro hokotro : vezerlo.getHokotrok()) {
             hokotroCombo.addItem(hokotro);
         }
-        if (valasztottHokotro instanceof Hokotro && vezerlo.getHokotrok().contains(valasztottHokotro)) {
+        if (vezerlo.getHokotrok().contains(valasztottHokotro)) {
             hokotroCombo.setSelectedItem(valasztottHokotro);
         }
 
@@ -483,7 +485,7 @@ public class JatekAblak extends JFrame {
         for (Sav sav : vezerlo.getSavok()) {
             savCombo.addItem(sav);
         }
-        if (valasztottSav instanceof Sav && vezerlo.getSavok().contains(valasztottSav)) {
+        if (vezerlo.getSavok().contains(valasztottSav)) {
             savCombo.setSelectedItem(valasztottSav);
         }
 

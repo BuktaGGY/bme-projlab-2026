@@ -87,6 +87,16 @@ public void frissitAllapot() {
         return true;
     }
 
+    @Override
+    public Hokotro asHokotro() {
+        return this;
+    }
+
+    @Override
+    public String getTerkepJel() {
+        return "H";
+    }
+
 
     @Override
     protected void celbaErt() {

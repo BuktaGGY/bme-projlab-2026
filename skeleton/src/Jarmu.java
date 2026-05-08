@@ -159,11 +159,30 @@ public abstract class Jarmu {
         return false;
     }
 
+    public boolean isBusz() {
+        return false;
+    }
+
+    public Auto asAuto() {
+        return null;
+    }
+
+    public Busz asBusz() {
+        return null;
+    }
+
+    public Hokotro asHokotro() {
+        return null;
+    }
+
+    public String getTerkepJel() {
+        return "A";
+    }
+
     @Override
     public String toString() {
         return id;
     }
-    // instanceof elkerulese erdekeben
     public void megcsuszik() {}
     public void balesetezik() {}
     public void megsemmisites() {}

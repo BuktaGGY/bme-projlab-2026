@@ -13,6 +13,11 @@ public class Lakas extends PointOfInterest {
         this.par = par;
     }
 
+    @Override
+    public String getTerkepJel() {
+        return "L";
+    }
+
     /**
      * Beállítja a par referenciáját a teszteléshez.
      * @param p A munkahely példány.

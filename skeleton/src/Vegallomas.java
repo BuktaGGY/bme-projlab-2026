@@ -22,6 +22,16 @@ public class Vegallomas extends PointOfInterest {
         this.erintesekSzama = 0;
     }
 
+    @Override
+    public Vegallomas asVegallomas() {
+        return this;
+    }
+
+    @Override
+    public String getTerkepJel() {
+        return "V";
+    }
+
     /**
      * Beállítja a JátékKezelő referenciáját a teszteléshez.
      * @param jk A JátékKezelő példány.

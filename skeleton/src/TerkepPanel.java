@@ -251,8 +251,8 @@ public class TerkepPanel extends JPanel implements ModellMegfigyelo {
      * @return A jarmu szine.
      */
     private Color jarmuSzin(Jarmu jarmu) {
-        if (jarmu instanceof Hokotro) return new Color(220, 130, 30);
-        if (jarmu instanceof Busz) return new Color(50, 110, 190);
+        if (jarmu.isHokotro()) return new Color(220, 130, 30);
+        if (jarmu.isBusz()) return new Color(50, 110, 190);
         if (jarmu.getAllapot() == JarmuAllapot.RONCS) return new Color(120, 30, 30);
         return new Color(190, 50, 55);
     }
@@ -263,9 +263,7 @@ public class TerkepPanel extends JPanel implements ModellMegfigyelo {
      * @return A jarmu rovid jele.
      */
     private String jarmuJel(Jarmu jarmu) {
-        if (jarmu instanceof Hokotro) return "H";
-        if (jarmu instanceof Busz) return "B";
-        return "A";
+        return jarmu.getTerkepJel();
     }
 
     /**
@@ -274,11 +272,7 @@ public class TerkepPanel extends JPanel implements ModellMegfigyelo {
      * @return A POI rovid jele.
      */
     private String poiJel(PointOfInterest poi) {
-        if (poi instanceof Garazs) return "G";
-        if (poi instanceof Vegallomas) return "V";
-        if (poi instanceof Munkahely) return "M";
-        if (poi instanceof Lakas) return "L";
-        return "P";
+        return poi.getTerkepJel();
     }
 
     /**

@@ -170,8 +170,9 @@ public class Prototipus {
 
                 Vegallomas kezdoVegallomas = null;
                 for (java.util.Map.Entry<String, PointOfInterest> entry : poik.entrySet()) {
-                    if (entry.getValue() instanceof Vegallomas && !entry.getKey().equals(buszVegallomasPoiId)) {
-                        kezdoVegallomas = (Vegallomas) entry.getValue();
+                    Vegallomas vegallomas = entry.getValue().asVegallomas();
+                    if (vegallomas != null && !entry.getKey().equals(buszVegallomasPoiId)) {
+                        kezdoVegallomas = vegallomas;
                         break;
                     }
                 }
@@ -209,8 +210,8 @@ public class Prototipus {
                 String ujHkId = parts[1];
                 String garazsId = parts[2];
                 
-                if (poik.containsKey(garazsId) && poik.get(garazsId).getClass().getSimpleName().equals("Garazs")) {
-                    Garazs g = (Garazs) poik.get(garazsId);
+                Garazs g = poik.containsKey(garazsId) ? poik.get(garazsId).asGarazs() : null;
+                if (g != null) {
                     
                     if (jk.gazdasagKezelo != null && jk.gazdasagKezelo.fizetes(1000)) {
                         Csomopont garazsCsp = g.getCsomopont();

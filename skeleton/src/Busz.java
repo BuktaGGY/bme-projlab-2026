@@ -49,6 +49,21 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
         this.varakozasTick = 0;
     }
 
+    @Override
+    public boolean isBusz() {
+        return true;
+    }
+
+    @Override
+    public Busz asBusz() {
+        return this;
+    }
+
+    @Override
+    public String getTerkepJel() {
+        return "B";
+    }
+
     /**
      * Beállítja a busz kezdő- és végállomását a szimulációban.
      * @param kezdo A kiindulási állomás.

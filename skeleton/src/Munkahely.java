@@ -9,6 +9,11 @@ public class Munkahely extends PointOfInterest {
         this.dolgozok = new ArrayList<>();
     }
 
+    @Override
+    public String getTerkepJel() {
+        return "M";
+    }
+
     /**
      * Hozzáad egy dolgozót a munkahelyhez.
      * @param a     Az Auto példány, amely dolgozóként kerül hozzáadásra.

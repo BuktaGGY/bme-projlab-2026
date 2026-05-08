@@ -101,8 +101,9 @@ public class ForgalomIranyito {
      * @param j A hozzáadandó jármű.
      */
     public void addJarmu(Jarmu j) {
-        if (j instanceof Auto) {
-            ((Auto) j).setUtvonalTervezo(utvonalTervezo);
+        Auto auto = j.asAuto();
+        if (auto != null) {
+            auto.setUtvonalTervezo(utvonalTervezo);
         }
         jarmuvek.put(j.id, j);
     }

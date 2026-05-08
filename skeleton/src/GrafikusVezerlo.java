@@ -624,8 +624,9 @@ public class GrafikusVezerlo {
     public List<Hokotro> getHokotrok() {
         List<Hokotro> hokotrok = new ArrayList<>();
         for (Jarmu jarmu : getJarmuvek()) {
-            if (jarmu instanceof Hokotro) {
-                hokotrok.add((Hokotro) jarmu);
+            Hokotro hokotro = jarmu.asHokotro();
+            if (hokotro != null) {
+                hokotrok.add(hokotro);
             }
         }
         return hokotrok;
@@ -638,8 +639,9 @@ public class GrafikusVezerlo {
     public List<Busz> getBuszok() {
         List<Busz> buszok = new ArrayList<>();
         for (Jarmu jarmu : getJarmuvek()) {
-            if (jarmu instanceof Busz) {
-                buszok.add((Busz) jarmu);
+            Busz busz = jarmu.asBusz();
+            if (busz != null) {
+                buszok.add(busz);
             }
         }
         return buszok;
@@ -652,8 +654,9 @@ public class GrafikusVezerlo {
     public List<Vegallomas> getVegallomasok() {
         List<Vegallomas> vegallomasok = new ArrayList<>();
         for (PointOfInterest poi : poik) {
-            if (poi instanceof Vegallomas) {
-                vegallomasok.add((Vegallomas) poi);
+            Vegallomas vegallomas = poi.asVegallomas();
+            if (vegallomas != null) {
+                vegallomasok.add(vegallomas);
             }
         }
         return vegallomasok;

@@ -24,7 +24,19 @@ public abstract class PointOfInterest {
         return id;
     }
 	
-	public Csomopont getCsomopont() {
+    public Csomopont getCsomopont() {
         return this.hely;
+    }
+
+    public Garazs asGarazs() {
+        return null;
+    }
+
+    public Vegallomas asVegallomas() {
+        return null;
+    }
+
+    public String getTerkepJel() {
+        return "P";
     }
 }

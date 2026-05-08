@@ -20,6 +20,11 @@ public class Auto extends SerulekenyJarmu {
         this.varakozasTick = 0;
     }
 
+    @Override
+    public Auto asAuto() {
+        return this;
+    }
+
     /**
      * Frissíti az autó állapotát, ha az útszakasz amin halad nem járható.
      */

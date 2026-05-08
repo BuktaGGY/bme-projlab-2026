@@ -8,6 +8,16 @@ public class Garazs extends PointOfInterest {
         super(id, hely);
         this.isOccupied = false;
     }
+
+    @Override
+    public Garazs asGarazs() {
+        return this;
+    }
+
+    @Override
+    public String getTerkepJel() {
+        return "G";
+    }
     
     /**
      * A fejcsere metodus lecsereli az eppen hasznalt kotrofejet egy masik kotrofejre. 
