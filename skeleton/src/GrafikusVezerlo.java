@@ -33,6 +33,8 @@ public class GrafikusVezerlo {
     private int hokotroSorszam = 2;
     /** Az automatikus leptetest vegzo Swing timer. */
     private Timer timer;
+    /** A terkep panel, amelyen a View objektumok regisztralva vannak. */
+    private TerkepPanel terkepPanel;
 
     /**
      * Letrehozza a grafikus vezerlot es bekapcsolja a grafikus jatekhoz
@@ -174,6 +176,7 @@ public class GrafikusVezerlo {
         jatekKezelo.getForgalomIranyito().addJarmu(hokotro);
         jatekKezelo.getForgalomIranyito().addJarmu(hokotro2);
         jatekKezelo.palyaValtozott();
+        inicializalViewk();
     }
 
     /**
@@ -243,7 +246,47 @@ public class GrafikusVezerlo {
         if (utvonal != null && utvonal.length > 0) {
             busz.UtvonalatKijelol(utvonal);
             busz.setStartSav(utvonal[0].getSavok().get(0));
+            busz.beallitKezdoIrany(honnan.getCsomopont());
         }
+    }
+
+    /**
+     * Beallitja a terkep panelt es inicializalja a View objektumokat.
+     * @param panel A terkep panel.
+     */
+    public void setTerkepPanel(TerkepPanel panel) {
+        this.terkepPanel = panel;
+        inicializalViewk();
+    }
+
+    /**
+     * Letrehozza az utszakasz, csomopont es jarmu View objektumokat es regisztralja oket a terkep panelnel.
+     */
+    private void inicializalViewk() {
+        if (terkepPanel == null) return;
+        List<IRajzolhato> utakViewk = new ArrayList<>();
+        for (Utszakasz ut : getUtak()) {
+            utakViewk.add(new UtszakaszView(ut));
+        }
+        for (Csomopont cs : csomopontok) {
+            utakViewk.add(new CsomopontView(cs));
+        }
+        terkepPanel.setUtszakaszViewk(utakViewk);
+        terkepPanel.clearJarmuViewk();
+        for (Jarmu j : getJarmuvek()) {
+            terkepPanel.addJarmuView(createJarmuView(j));
+        }
+    }
+
+    /**
+     * Letrehozza a jarmuhoz tartozo View peldanyt a jarmutipus alapjan.
+     * @param jarmu A megjelennitendo jarmu.
+     * @return A jarmuhoz tartozo IRajzolhato View.
+     */
+    private IRajzolhato createJarmuView(Jarmu jarmu) {
+        if (jarmu.asHokotro() != null) return new HokotroView(jarmu);
+        if (jarmu.asBusz() != null) return new BuszView(jarmu);
+        return new AutoView(jarmu);
     }
 
     /**
@@ -375,6 +418,9 @@ public class GrafikusVezerlo {
         }
         busz.setJatekKezelo(jatekKezelo);
         jatekKezelo.getForgalomIranyito().addJarmu(busz);
+        if (terkepPanel != null) {
+            terkepPanel.addJarmuView(new BuszView(busz));
+        }
         jatekKezelo.palyaValtozott();
         return true;
     }
@@ -394,6 +440,9 @@ public class GrafikusVezerlo {
         Hokotro hokotro = new Hokotro("H" + hokotroSorszam++, new HanyoFej(), sav, 0);
         hokotro.setForgalomIranyito(jatekKezelo.getForgalomIranyito());
         jatekKezelo.getForgalomIranyito().addJarmu(hokotro);
+        if (terkepPanel != null) {
+            terkepPanel.addJarmuView(new HokotroView(hokotro));
+        }
         jatekKezelo.palyaValtozott();
         return true;
     }
@@ -439,7 +488,8 @@ public class GrafikusVezerlo {
         if (busz == null || utak == null) {
             return false;
         }
-        busz.UtvonalatKijelol(utak);
+        Csomopont elsoKezdo = kijeloltUtvonal.get(0);
+        busz.UtvonalatKijelol(elokeszitUtvonal(busz, utak, elsoKezdo));
         kijeloltUtvonal.clear();
         jatekKezelo.palyaValtozott();
         return true;
@@ -455,10 +505,61 @@ public class GrafikusVezerlo {
         if (hokotro == null || utak == null) {
             return false;
         }
-        hokotro.UtvonalatKijelol(utak);
+        Csomopont elsoKezdo = kijeloltUtvonal.get(0);
+        hokotro.UtvonalatKijelol(elokeszitUtvonal(hokotro, utak, elsoKezdo));
         kijeloltUtvonal.clear();
         jatekKezelo.palyaValtozott();
         return true;
+    }
+
+    /**
+     * Ha a jarmu jelenleg egy mas utszakaszon halad, mint amin az uj utvonal kezdodik,
+     * megvizsgalja, hogy az aktualis szakasz kilepo csomopontja csatlakozik-e az uj utvonal
+     * elso szakaszahoz. Ha igen, az aktualis szakaszt a lista ele fuzi (a jarmu befejezi
+     * az aktualis szakaszt, majd termeszetesen athalad az ujra). Ha nem csatlakozik, a jarmu
+     * teleportal az uj utvonal elejere, elkerulve a helytelen irany-flag miatti vizualis ugrust.
+     *
+     * @param ujKezdoCsomopont Az uj utvonal elso csomopontja (a jatekos elso klikkje) —
+     *                         meghatározza a haladasi iranyt az elso uj utszakaszon.
+     */
+    private Utszakasz[] elokeszitUtvonal(Jarmu jarmu, Utszakasz[] utak, Csomopont ujKezdoCsomopont) {
+        if (utak == null || utak.length == 0) return utak;
+        Sav sav = jarmu.getAktualisSav();
+        if (sav == null) return utak;
+        Utszakasz aktualis = sav.getSzuloUtszakasz();
+        if (aktualis == null) return utak;
+
+        if (aktualis == utak[0]) {
+            // A jarmu mar ezen az uton van: az iranyt a klikk-sorrendbol allitjuk be.
+            // Ha az irany fordul, a poziciót is tükrozzük, hogy ne ugorjon vizualisan.
+            // FONTOS: setAktualisIranyForditott-ot hasznalunk, nem beallitKezdoIrany-t,
+            // mert az UtvonalatKijelol meg nem futott le, es beallitKezdoIrany meg a
+            // REGI Utvonal[0]-t hasznalja referenciakent.
+            boolean ujIrany = (ujKezdoCsomopont == utak[0].getVege());
+            if (ujIrany != jarmu.isAktualisIranyForditott()) {
+                jarmu.setPozicioASavon(sav.getHossz() - jarmu.getPozicioASavon());
+                jarmu.setAktualisIranyForditott(ujIrany);
+            }
+            return utak;
+        }
+
+        Csomopont kilepes = jarmu.isAktualisIranyForditott()
+                ? aktualis.getEleje() : aktualis.getVege();
+        if (kilepes == utak[0].getEleje() || kilepes == utak[0].getVege()) {
+            Utszakasz[] teljes = new Utszakasz[utak.length + 1];
+            teljes[0] = aktualis;
+            System.arraycopy(utak, 0, teljes, 1, utak.length);
+            return teljes;
+        }
+
+        // Nem csatlakozik: a jarmu az uj utvonal elejere kerul.
+        // setAktualisIranyForditott-ot hasznalunk kozvetlenul, mert
+        // beallitKezdoIrany meg a REGI Utvonal[0]-t hasznalja (UtvonalatKijelol
+        // csak ezutan fut).
+        jarmu.setStartSav(utak[0].getSavok().get(0));
+        jarmu.setPozicioASavon(0);
+        jarmu.setAktualisIranyForditott(ujKezdoCsomopont == utak[0].getVege());
+        return utak;
     }
 
     /**
@@ -522,6 +623,9 @@ public class GrafikusVezerlo {
         int savIndex = ut.getSavok().indexOf(sav);
         int savDb = Math.max(1, ut.getSavok().size());
         double arany = Math.max(0.0, Math.min(1.0, jarmu.getPozicioASavon() / (double) sav.getHossz()));
+        if (jarmu.isAktualisIranyForditott()) {
+            arany = 1.0 - arany;
+        }
         return savPont(p1, p2, savIndex, savDb, arany);
     }
 

@@ -155,6 +155,7 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
     @Override
     public void UtvonalatKijelol(Utszakasz[] ujUtvonal) {
         this.Utvonal = ujUtvonal;
+        this.utvonalIndex = 0;
     }
 
     /**
@@ -203,6 +204,10 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
         Utvonal = forditottUtvonal(Utvonal);
         if (Utvonal != null && Utvonal.length > 0 && Utvonal[0] != null && !Utvonal[0].getSavok().isEmpty()) {
             aktualisSav = Utvonal[0].getSavok().get(0);
+        }
+        // Az érkezési csomopont az oda-vissza út fordítójánál az új útvonal kezdőpontja
+        if (erkezesiAllomas != null) {
+            beallitKezdoIrany(erkezesiAllomas.getCsomopont());
         }
         varakozasTick = 3;
         

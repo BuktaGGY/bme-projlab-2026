@@ -47,6 +47,7 @@ public class JatekAblak extends JFrame {
     public JatekAblak(GrafikusVezerlo vezerlo) {
         this.vezerlo = vezerlo;
         this.terkepPanel = new TerkepPanel(vezerlo);
+        vezerlo.setTerkepPanel(terkepPanel);
         setTitle("Zuzmaravaros - buszvezetok es takaritok");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());

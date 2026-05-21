@@ -110,6 +110,8 @@ public void frissitAllapot() {
     @Override
     public void UtvonalatKijelol(Utszakasz[] ujUtvonal) {
         this.Utvonal = ujUtvonal;
+        this.utvonalIndex = 0;
+        this.befejezte = false;
     }
 
     /**

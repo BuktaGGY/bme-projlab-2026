@@ -205,12 +205,14 @@ public class Auto extends SerulekenyJarmu {
         if (utvonalTervezo == null || aktualisCsomopont == null || cel == null || cel.getCsomopont() == null) {
             return;
         }
+        Csomopont startNode = aktualisCsomopont;
         Utszakasz[] ujUtvonal = utvonalTervezo.utvonalKeres(aktualisCsomopont, cel.getCsomopont());
         if (ujUtvonal != null && ujUtvonal.length > 0) {
             Utvonal = ujUtvonal;
             utvonalIndex = 0;
             aktualisSav = ujUtvonal[0].getSavok().get(0);
             pozicioASavon = 0;
+            beallitKezdoIrany(startNode);
             aktualisCsomopont = null;
             System.out.println("[ESEMENY] " + id + " | UTVONAL_TERVEZVE | cel: " + cel.getId());
         }

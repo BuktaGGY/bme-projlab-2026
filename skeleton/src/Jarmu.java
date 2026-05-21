@@ -28,6 +28,12 @@ public abstract class Jarmu {
     protected int utvonalIndex = 0;
 
     /**
+     * Jelzi, hogy az aktuális útszakaszon fordított irányban (vege→eleje) halad-e a jármű.
+     * Ha false: eleje→vege irány (normál). Ha true: vege→eleje irány (fordított).
+     */
+    protected boolean aktualisIranyForditott = false;
+
+    /**
      * Alapértelmezett konstruktor.
      * (A regisztrációt a Skeletonban a leszármazottak végzik el).
      */
@@ -57,19 +63,33 @@ public abstract class Jarmu {
     public void mozog() {
         if (allapot != JarmuAllapot.HALAD) return;
 
-        pozicioASavon += sebesseg; // Itt a sebesség adja meg a lépésközt
+        pozicioASavon += sebesseg;
         int aktualisHossz = aktualisSav.getHossz();
 
         if (pozicioASavon >= aktualisHossz) {
             int maradek = pozicioASavon - aktualisHossz;
 
             if (Utvonal != null && utvonalIndex + 1 < Utvonal.length && Utvonal[utvonalIndex + 1] != null) {
+                // Meghatarozza, melyik csomopontra ert a jarmu (az aktualis ut vegpontja)
+                Utszakasz regiUt = aktualisSav.getSzuloUtszakasz();
+                Csomopont erkezesiCsomopont = null;
+                if (regiUt != null) {
+                    erkezesiCsomopont = aktualisIranyForditott
+                            ? regiUt.getEleje()
+                            : regiUt.getVege();
+                }
+
                 utvonalIndex++;
                 Utszakasz kovetkezoUt = Utvonal[utvonalIndex];
                 Sav regiSav = aktualisSav;
 
                 aktualisSav = kovetkezoUt.getSavok().get(0);
                 pozicioASavon = maradek;
+
+                // Az uj ut iranyt az erkezesi csomopont hatarozza meg
+                if (erkezesiCsomopont != null) {
+                    aktualisIranyForditott = (erkezesiCsomopont == kovetkezoUt.getVege());
+                }
 
                 ujSzakaszLog(regiSav);
             } else {
@@ -109,6 +129,24 @@ public abstract class Jarmu {
     public JarmuAllapot getAllapot() {
         return allapot;
     }
+
+    /**
+     * Visszaadja, hogy a jarmu fordított irányban halad-e az aktuális útszakaszon.
+     */
+    public boolean isAktualisIranyForditott() {
+        return aktualisIranyForditott;
+    }
+
+    /**
+     * Beállítja az aktuális útszakasz kezdeti haladási irányát a startCsomopont alapján.
+     * Akkor kell hívni, miután az Utvonal[] tömb be van állítva és utvonalIndex == 0.
+     * @param startCsomopont Az a csomópont, ahonnan a jármű az Utvonal[0] útszakaszon indul.
+     */
+    public void beallitKezdoIrany(Csomopont startCsomopont) {
+        if (Utvonal != null && Utvonal.length > 0 && Utvonal[0] != null && startCsomopont != null) {
+            aktualisIranyForditott = (startCsomopont == Utvonal[0].getVege());
+        }
+    }
     
     /**
      * Szintén Hook metódus a sávváltás logolására.
@@ -146,6 +184,14 @@ public abstract class Jarmu {
      */
     public void setStartSav(Sav sav) {
         aktualisSav = sav;
+    }
+
+    public void setPozicioASavon(int pozicio) {
+        this.pozicioASavon = pozicio;
+    }
+
+    public void setAktualisIranyForditott(boolean forditott) {
+        this.aktualisIranyForditott = forditott;
     }
 
     public void statKiir(){
