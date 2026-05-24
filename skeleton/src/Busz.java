@@ -104,27 +104,30 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     @Override
     public void frissitAllapot() {
+        // A blokkolt számlálót mindig léptesse, a végállomási várakozástól függetlenül
+        if (blokkoltSzamlalo > 0) {
+            blokkoltSzamlalo--;
+        }
+
         if (varakozasTick > 0) {
             varakozasTick--;
-            if (varakozasTick == 0) {
+            if (varakozasTick == 0 && blokkoltSzamlalo == 0) {
                 setAllapot(JarmuAllapot.HALAD);
                 System.out.println("[ESEMENY] " + this.id + " | UJRA_INDULT | vegallomasi varakozas lejart");
             }
             return;
         }
+
         if (aktualisSav != null && aktualisSav.getAllapot() == SavAllapot.BLOKKOLT) {
             setAllapot(JarmuAllapot.MOZGASKEPTELEN);
             System.out.println("[ESEMENY] " + this.id + " | ELAKADT | " + aktualisSav.getId() + " savban");
             return;
         }
 
-        if (blokkoltSzamlalo > 0) {
-            blokkoltSzamlalo--;
-            if (blokkoltSzamlalo == 0 && allapot == JarmuAllapot.MOZGASKEPTELEN) {
-                setAllapot(JarmuAllapot.HALAD);
-                System.out.println("[ESEMENY] " + this.id + " | UJRA_INDULT | buntetes lejart");
-            }
-        } else {
+        if (blokkoltSzamlalo == 0 && allapot == JarmuAllapot.MOZGASKEPTELEN) {
+            setAllapot(JarmuAllapot.HALAD);
+            System.out.println("[ESEMENY] " + this.id + " | UJRA_INDULT | buntetes lejart");
+        } else if (blokkoltSzamlalo == 0) {
             setAllapot(JarmuAllapot.HALAD);
         }
     }
@@ -168,13 +171,10 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
             return;
         }
         if (allapot == JarmuAllapot.HALAD) {
-            if (aktualisSav.getAllapot() == SavAllapot.JEGPANCEL && !aktualisSav.isZuzalekos()) {
-                megcsuszik();
-                if (allapot != JarmuAllapot.HALAD) {
-                    return;
-                }
-            }
             aktualisSav.letapos(this);
+            if (allapot != JarmuAllapot.HALAD) {
+                return;
+            }
             super.mozog();
         }
     }

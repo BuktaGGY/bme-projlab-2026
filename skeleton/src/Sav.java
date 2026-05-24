@@ -95,6 +95,7 @@ public class Sav {
     public int hoEltuntet(){
         int temp = hoVastagsag;
         hoVastagsag = 0;
+        letaposottDb = 0;
 
         if(savAllapot == SavAllapot.HAVAS){
             savAllapot = SavAllapot.TISZTA;
@@ -154,6 +155,7 @@ public class Sav {
         if (savAllapot == SavAllapot.JEGPANCEL){
             savAllapot = SavAllapot.HAVAS;
             hoVastagsag += 5;
+            letaposottDb = 0;
         }
     }
 

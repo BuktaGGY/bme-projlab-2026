@@ -552,10 +552,19 @@ public class GrafikusVezerlo {
             return teljes;
         }
 
-        // Nem csatlakozik: a jarmu az uj utvonal elejere kerul.
-        // setAktualisIranyForditott-ot hasznalunk kozvetlenul, mert
-        // beallitKezdoIrany meg a REGI Utvonal[0]-t hasznalja (UtvonalatKijelol
-        // csak ezutan fut).
+        // Nem csatlakozik kozvetlenul: utvonalat keresunk a kilepo csomoponttol
+        // az uj utvonal kezdopontjaig, hogy a jarmu odamenjen elobb.
+        Utszakasz[] odaUt = jatekKezelo.getUtvonalTervezo().utvonalKeres(kilepes, ujKezdoCsomopont);
+        if (odaUt != null && odaUt.length > 0) {
+            // Teljes ut: [aktualis szakasz] + [oda vezeto ut] + [uj utvonal]
+            Utszakasz[] teljes = new Utszakasz[1 + odaUt.length + utak.length];
+            teljes[0] = aktualis;
+            System.arraycopy(odaUt, 0, teljes, 1, odaUt.length);
+            System.arraycopy(utak, 0, teljes, 1 + odaUt.length, utak.length);
+            return teljes;
+        }
+
+        // Ha nincs ut (elzart palya), vegso tartalek: teleport a kezdoponthoz
         jarmu.setStartSav(utak[0].getSavok().get(0));
         jarmu.setPozicioASavon(0);
         jarmu.setAktualisIranyForditott(ujKezdoCsomopont == utak[0].getVege());
