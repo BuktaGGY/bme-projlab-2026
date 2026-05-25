@@ -147,6 +147,10 @@ public class GrafikusVezerlo {
         ingazoAutoBeallit(auto4, lakas2, munkahely1);
         ingazoAutoBeallit(auto5, lakas1, munkahely2);
         ingazoAutoBeallit(auto6, lakas3, munkahely3);
+        // Az azonos csomopontból induló autó-párok eltolása, hogy ne ütközzenek az első savon
+        auto4.setSpawnOffset(35);   // A2 és A4 mindkettő lakas2(I)-ből indul
+        auto5.setSpawnOffset(35);   // A1 és A5 mindkettő lakas1(A)-ból indul
+        auto6.setSpawnOffset(35);   // A3 és A6 mindkettő lakas3(H)-ból indul
         Busz busz = new Busz("B1", 30, s9, v2);
         busz.setAllomasok(v1, v2);
         busz.setJatekKezelo(jatekKezelo);
@@ -305,7 +309,7 @@ public class GrafikusVezerlo {
         if (timer != null && timer.isRunning()) {
             return;
         }
-        timer = new Timer(1400, e -> {
+        timer = new Timer(700, e -> {
             lep();
             afterTick.run();
         });
@@ -356,12 +360,18 @@ public class GrafikusVezerlo {
     }
 
     /**
-     * Lecsereli egy hokotro felszerelt fejet, ha a kasszaban van eleg penz.
+     * Lecsereli egy hokotro felszerelt fejet, ha a kasszaban van eleg penz
+     * ES a hokotro garazs kozeleben van.
      * @param hokotro A modositando hokotro.
      * @param fejTipus Az uj fej tipusa.
      */
     public void cserelFej(Hokotro hokotro, String fejTipus) {
         if (hokotro == null) {
+            return;
+        }
+        if (!isGarazsKozeleben(hokotro)) {
+            System.out.println("[HIBA] " + hokotro.getId() + " | FEJCSERE_SIKERTELEN | nem garazs kozeleben (G csomopont: A, J vagy H)");
+            jatekKezelo.palyaValtozott();
             return;
         }
         KotroFej fej = null;
@@ -378,12 +388,18 @@ public class GrafikusVezerlo {
     }
 
     /**
-     * Feltolti a hokotro egyik fogyaszthato anyagat, ha van eleg penz.
+     * Feltolti a hokotro egyik fogyaszthato anyagat, ha van eleg penz
+     * ES a hokotro garazs kozeleben van.
      * @param hokotro A feltoltendo hokotro.
      * @param anyag A feltoltendo anyag neve.
      */
     public void tankol(Hokotro hokotro, String anyag) {
         if (hokotro == null) {
+            return;
+        }
+        if (!isGarazsKozeleben(hokotro)) {
+            System.out.println("[HIBA] " + hokotro.getId() + " | TANKOLAS_SIKERTELEN | nem garazs kozeleben (G csomopont: A, J vagy H)");
+            jatekKezelo.palyaValtozott();
             return;
         }
         int ar = 0;
@@ -396,6 +412,39 @@ public class GrafikusVezerlo {
             if ("zuzalek".equals(anyag)) hokotro.setZuzalek(100);
             jatekKezelo.palyaValtozott();
         }
+    }
+
+    /**
+     * Nyilvanos segédmetódus a JatekAblak szamara: ellenorzi, hogy a hokotro garazs kozeleben van-e.
+     * @param hokotro Az ellenorzendo hokotro.
+     * @return Igaz, ha a hokotro garazs kozeleben van.
+     */
+    public boolean hokotroGarazsban(Hokotro hokotro) {
+        return isGarazsKozeleben(hokotro);
+    }
+
+    /**
+     * Ellenorzi, hogy a hokotro egy garazzsal szomszedos uton tartózkodik-e.
+     * A fejcserehez es tankolashoz szukseges, hogy a hokotro garazs kozeleben legyen.
+     * @param hokotro Az ellenorzendo hokotro.
+     * @return Igaz, ha a hokotro aktualis utszakaszanak valamelyik vegpontjan garazs talalhato.
+     */
+    private boolean isGarazsKozeleben(Hokotro hokotro) {
+        if (hokotro == null) return false;
+        Sav sav = hokotro.getAktualisSav();
+        if (sav == null) return false;
+        Utszakasz ut = sav.getSzuloUtszakasz();
+        if (ut == null) return false;
+        Csomopont eleje = ut.getEleje();
+        Csomopont vege = ut.getVege();
+        for (PointOfInterest poi : poik) {
+            if (poi.asGarazs() == null) continue;
+            Csomopont garazzsCsomopont = poi.getCsomopont();
+            if (garazzsCsomopont == eleje || garazzsCsomopont == vege) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

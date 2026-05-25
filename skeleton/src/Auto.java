@@ -9,6 +9,8 @@ public class Auto extends SerulekenyJarmu {
     private Csomopont aktualisCsomopont;
     private UtvonalTervezo utvonalTervezo;
     private int varakozasTick;
+    /** Kezdo pozicio eltolass, hogy a paros autok ne ugyanarrol a pontrol induljanak. */
+    private int spawnOffset = 0;
 
     public Auto(String id,  int pozicioSavban, Sav startSav, PointOfInterest cel) {
         super(id);
@@ -16,8 +18,12 @@ public class Auto extends SerulekenyJarmu {
         this.pozicioASavon = pozicioSavban;
         this.setStartSav(startSav);
         this.cel = cel;
-        this.sebesseg = SzimulacioBeallitasok.finomitottSzimulacio ? 2 : 10;
+        this.sebesseg = SzimulacioBeallitasok.finomitottSzimulacio ? 5 : 10;
         this.varakozasTick = 0;
+    }
+
+    public void setSpawnOffset(int offset) {
+        this.spawnOffset = offset;
     }
 
     @Override
@@ -76,11 +82,12 @@ public class Auto extends SerulekenyJarmu {
             }
         }
 
-        if (aktualisSav.getAllapot() == SavAllapot.JEGPANCEL && !aktualisSav.isZuzalekos()) {
-            megcsuszik();
-        }
         if (allapot == JarmuAllapot.HALAD) {
+            // letapos() maga hivja meg megcsuszik()-ot, ha JEGPANCEL van — nem kell dupla ellenorzes
             aktualisSav.letapos(this);
+            if (allapot != JarmuAllapot.HALAD) {
+                return;
+            }
             super.mozog();
         }
     }
@@ -211,7 +218,10 @@ public class Auto extends SerulekenyJarmu {
             Utvonal = ujUtvonal;
             utvonalIndex = 0;
             aktualisSav = ujUtvonal[0].getSavok().get(0);
-            pozicioASavon = 0;
+            // spawnOffset eltolással indulunk, hogy a párban induló autók ne legyenek
+            // ugyanazon a ponton, elkerülve a determinisztikus ütközést
+            int maxOffset = Math.max(0, aktualisSav.getHossz() / 3);
+            pozicioASavon = Math.min(spawnOffset, maxOffset);
             beallitKezdoIrany(startNode);
             aktualisCsomopont = null;
             System.out.println("[ESEMENY] " + id + " | UTVONAL_TERVEZVE | cel: " + cel.getId());
@@ -220,13 +230,10 @@ public class Auto extends SerulekenyJarmu {
 
     /**
      * A roncs eltakarítása után törli az autó objektumot.
+     * Az aktualisSav null-ra állítása megakadályozza, hogy a View továbra is kirajzolja.
      */
     public void megsemmisites() {
-        
-        if (aktualisSav != null) {
-            aktualisSav.setSavAllapot(SavAllapot.TISZTA); 
-        }
-        
+        aktualisSav = null;
     }
 
     public void setCel(PointOfInterest cel) {

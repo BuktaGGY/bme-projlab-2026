@@ -76,6 +76,7 @@ public class ForgalomIranyito {
         }
 
         for (Jarmu r : roncsok) {
+            r.megsemmisites();   // aktualisSav = null → View nem rajzolja ki tovabb
             this.deleteJarmu(r);
             if (gazdasagKezelo != null) {
                 gazdasagKezelo.bevetelHozzaad(100);

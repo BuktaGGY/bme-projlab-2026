@@ -228,8 +228,13 @@ public class JatekAblak extends JFrame {
 
         JButton fejcsere = gomb("Fejcsere garazsban");
         fejcsere.addActionListener(e -> {
-            vezerlo.cserelFej((Hokotro) hokotroCombo.getSelectedItem(), (String) fejCombo.getSelectedItem());
-            naplo("Fejcsere kerelmezve: " + fejCombo.getSelectedItem());
+            Hokotro hk = (Hokotro) hokotroCombo.getSelectedItem();
+            if (!vezerlo.hokotroGarazsban(hk)) {
+                naplo("Fejcsere sikertelen: hokotro nincs garazs kozeleben! (A, J vagy H csomopont)");
+            } else {
+                vezerlo.cserelFej(hk, (String) fejCombo.getSelectedItem());
+                naplo("Fejcsere elvegezve: " + fejCombo.getSelectedItem());
+            }
             frissit();
         });
 
@@ -441,12 +446,17 @@ public class JatekAblak extends JFrame {
     }
 
     /**
-     * Feltoltesi vasarlast indit a kivalasztott hokotrohöz.
+     * Feltoltesi vasarlast indit a kivalasztott hokotrohöz — csak garazsban ervenyes.
      * @param anyag A vasarolando anyag neve.
      */
     private void tankol(String anyag) {
-        vezerlo.tankol((Hokotro) hokotroCombo.getSelectedItem(), anyag);
-        naplo("Vasarlas: " + anyag);
+        Hokotro hk = (Hokotro) hokotroCombo.getSelectedItem();
+        if (!vezerlo.hokotroGarazsban(hk)) {
+            naplo("Tankolas sikertelen: hokotro nincs garazs kozeleben! (A, J vagy H csomopont)");
+        } else {
+            vezerlo.tankol(hk, anyag);
+            naplo("Tankolas elvegezve: " + anyag);
+        }
         frissit();
     }
 

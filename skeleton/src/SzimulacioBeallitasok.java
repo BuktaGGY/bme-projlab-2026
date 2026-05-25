@@ -9,7 +9,7 @@ public class SzimulacioBeallitasok {
     /** Jelzi, hogy a finomitott grafikus szabalyok aktivak-e. */
     public static boolean finomitottSzimulacio = false;
     /** Ennyi letaposas utan alakul ki jegpancel finomitott modban. */
-    public static int jegpancelLetaposasiKuszob = 12;
+    public static int jegpancelLetaposasiKuszob = 40;
     /** Az auto megcsuszasainak valoszinusege jegpancelon. */
     public static double autoMegcsuszasEsely = 0.25;
     /** A busz megcsuszasainak valoszinusege jegpancelon. */
