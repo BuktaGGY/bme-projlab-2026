@@ -34,7 +34,7 @@ public class GazdasagKezelo {
      * @return "Igaz" értékkel tér vissza ha van elég fedezet, különben "hamis"
      */
     public boolean vasarlasValidacio(int osszeg){
-        if(osszeg >= kozosKassza){
+        if(osszeg > kozosKassza){
             return false;
         }
         return true;

@@ -34,6 +34,14 @@ public abstract class Jarmu {
     protected boolean aktualisIranyForditott = false;
 
     /**
+     * Vizuális megjelenítéshez használt tartalék sáv és pozíció.
+     * Akkor töltjük ki, ha aktualisSav null-ra kerül (pl. célba ért autó vár),
+     * hogy a View ne tüntesse el a járművet a várakozás alatt.
+     */
+    protected Sav displaySav = null;
+    protected int displayPozicio = 0;
+
+    /**
      * Alapértelmezett konstruktor.
      * (A regisztrációt a Skeletonban a leszármazottak végzik el).
      */
@@ -124,6 +132,14 @@ public abstract class Jarmu {
 
     public Sav getAktualisSav() {
         return aktualisSav;
+    }
+
+    public Sav getDisplaySav() {
+        return displaySav;
+    }
+
+    public int getDisplayPozicio() {
+        return displayPozicio;
     }
 
     public JarmuAllapot getAllapot() {

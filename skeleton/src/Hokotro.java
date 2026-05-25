@@ -24,7 +24,6 @@ public class Hokotro extends Jarmu implements IranyitottJarmu {
 
     private ForgalomIranyito fi;
 
-    private Sav utoljaraTakaritottSav = null;
 
     public void setForgalomIranyito(ForgalomIranyito fi) {
         this.fi = fi;
@@ -54,8 +53,9 @@ public void frissitAllapot() {
     }
     if (befejezte) return;
 
-    if ( !roncsotTakarit && aktualisKotrofej != null && aktualisSav != null) {
-        if (aktualisSav != utoljaraTakaritottSav) {
+    if (!roncsotTakarit && aktualisKotrofej != null && aktualisSav != null) {
+        // Takarítunk, ha a sáv nem teljesen tiszta (nem kell azonossági ellenőrzés)
+        if (aktualisSav.getAllapot() != SavAllapot.TISZTA) {
             aktualisKotrofej.takarit(aktualisSav, this);
 
             String tipus = aktualisKotrofej.getFejTipus();
@@ -68,8 +68,6 @@ public void frissitAllapot() {
                 }
                 System.out.println("[ESEMENY] " + this.id + " | TAKARITOTT | " + aktualisSav.getId() + " sav" + extra);
             }
-            
-            utoljaraTakaritottSav = aktualisSav;
         }
     }
 }

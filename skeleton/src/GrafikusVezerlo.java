@@ -82,8 +82,8 @@ public class GrafikusVezerlo {
         SimaUt u13 = ujUt("U13", g, k, 125);
         SimaUt u14 = ujUt("U14", i, j, 120);
         SimaUt u15 = ujUt("U15", j, k, 130);
-        SimaUt u16 = ujUt("U16", b, g, 160);
-        SimaUt u17 = ujUt("U17", e, j, 150);
+        Alagut u16 = ujAlagut("U16", b, g, 160);
+        Hid    u17 = ujHid("U17", e, j, 150);
         SimaUt u18 = ujUt("U18", c, f, 145);
 
         Sav s1 = ujSav(u1, "S1");
@@ -207,6 +207,22 @@ public class GrafikusVezerlo {
      */
     private SimaUt ujUt(String id, Csomopont eleje, Csomopont vege, int hossz) {
         SimaUt ut = new SimaUt(id, eleje, vege, hossz);
+        jatekKezelo.getUtvonalTervezo().addUt(id, ut);
+        eleje.addUtszakasz(ut);
+        vege.addUtszakasz(ut);
+        return ut;
+    }
+
+    private Hid ujHid(String id, Csomopont eleje, Csomopont vege, int hossz) {
+        Hid ut = new Hid(id, eleje, vege, hossz);
+        jatekKezelo.getUtvonalTervezo().addUt(id, ut);
+        eleje.addUtszakasz(ut);
+        vege.addUtszakasz(ut);
+        return ut;
+    }
+
+    private Alagut ujAlagut(String id, Csomopont eleje, Csomopont vege, int hossz) {
+        Alagut ut = new Alagut(id, eleje, vege, hossz);
         jatekKezelo.getUtvonalTervezo().addUt(id, ut);
         eleje.addUtszakasz(ut);
         vege.addUtszakasz(ut);

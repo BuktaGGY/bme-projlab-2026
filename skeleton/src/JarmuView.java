@@ -19,6 +19,12 @@ public abstract class JarmuView implements IRajzolhato {
     @Override
     public void rajzol(Graphics g, GrafikusElrendezes elrendezes) {
         Sav sav = modell.getAktualisSav();
+        int poz = modell.getPozicioASavon();
+        // Ha nincs aktuális sáv (pl. célba ért és vár), használjuk a tartalék displaySav-ot
+        if (sav == null) {
+            sav = modell.getDisplaySav();
+            poz = modell.getDisplayPozicio();
+        }
         if (sav == null || sav.getSzuloUtszakasz() == null) return;
         Utszakasz ut = sav.getSzuloUtszakasz();
         CsomopontPozicio p1 = elrendezes.getPozicio(ut.getEleje());
@@ -26,7 +32,7 @@ public abstract class JarmuView implements IRajzolhato {
         if (p1 == null || p2 == null) return;
         int savIndex = ut.getSavok().indexOf(sav);
         int savDb = Math.max(1, ut.getSavok().size());
-        double arany = Math.max(0.0, Math.min(1.0, modell.getPozicioASavon() / (double) sav.getHossz()));
+        double arany = Math.max(0.0, Math.min(1.0, poz / (double) sav.getHossz()));
         if (modell.isAktualisIranyForditott()) {
             arany = 1.0 - arany;
         }

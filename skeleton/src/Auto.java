@@ -95,6 +95,11 @@ public class Auto extends SerulekenyJarmu {
     @Override
     protected void celbaErt() {
         System.out.println("[ESEMENY] " + id + " | CELBA_ERT | " + cel.getId());
+        // Megőrizzük az utolsó pozíciót, hogy a View ne villogjon célba éréskor
+        if (aktualisSav != null) {
+            displaySav = aktualisSav;
+            displayPozicio = aktualisSav.getHossz();
+        }
         aktualisCsomopont = cel.getCsomopont();
         aktualisSav = null;
         Utvonal = new Utszakasz[0];
@@ -218,6 +223,7 @@ public class Auto extends SerulekenyJarmu {
             Utvonal = ujUtvonal;
             utvonalIndex = 0;
             aktualisSav = ujUtvonal[0].getSavok().get(0);
+            displaySav = null; // Töröljük a tartalék pozíciót, most már van valódi sávunk
             // spawnOffset eltolással indulunk, hogy a párban induló autók ne legyenek
             // ugyanazon a ponton, elkerülve a determinisztikus ütközést
             int maxOffset = Math.max(0, aktualisSav.getHossz() / 3);

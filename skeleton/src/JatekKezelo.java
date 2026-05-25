@@ -63,11 +63,14 @@ public class JatekKezelo extends MegfigyelhetoModell {
     }
 
     /**
-     * Növeli a játékos által megszerzett pontok számát,
-     * amikor egy busz sikeresen teljesít egy kört (érinti a végállomást).
+     * Növeli a játékos által megszerzett pontok számát és jóváír 50 Ft bevételt
+     * a kasszába, amikor egy busz sikeresen érinti a végállomást.
      */
     public void buszPontszamNovel() {
         buszPontszamok++;
+        if (gazdasagKezelo != null) {
+            gazdasagKezelo.bevetelHozzaad(50);
+        }
     }
 
     public ForgalomIranyito getForgalomIranyito() {
