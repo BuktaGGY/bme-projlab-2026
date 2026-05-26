@@ -53,6 +53,12 @@ public class Sav {
     private boolean isZuzalekos;
 
     /**
+     * Az utoljára letapodott jármű referenciája.
+     * Segítségével minden jármű csak egyszer számít belépéskor (nem minden tickben).
+     */
+    private Jarmu utolsoLetaposoJarmu = null;
+
+    /**
      * Eltárolja hogy a sáv melyik útszakaszon tartózkodik.
      */
     private Utszakasz szuloUtszakasz;
@@ -96,8 +102,9 @@ public class Sav {
         int temp = hoVastagsag;
         hoVastagsag = 0;
         letaposottDb = 0;
+        utolsoLetaposoJarmu = null;
 
-        if(savAllapot == SavAllapot.HAVAS){
+        if(savAllapot == SavAllapot.HAVAS || savAllapot == SavAllapot.BLOKKOLT){
             savAllapot = SavAllapot.TISZTA;
         }
         return temp;
@@ -134,6 +141,7 @@ public class Sav {
         isZuzalekos = false;
         hoVastagsag = 0;
         letaposottDb = 0;
+        utolsoLetaposoJarmu = null;
     }
 
     /**
@@ -156,21 +164,33 @@ public class Sav {
             savAllapot = SavAllapot.HAVAS;
             hoVastagsag += 5;
             letaposottDb = 0;
+            utolsoLetaposoJarmu = null;
         }
     }
 
     /**
-     * Növeli a letaposottDb változót eggyel, ha elérte a határt a letaposások száma,
-     * akkor jégpánéllá válik az sáv állapota. A jármű megcsúszását is itt ellenőrizzük.
-     * @param a A sávon áthaladó jármű
+     * Egy jármű belépését regisztrálja a sávra. Minden jármű csak EGYSZER számít
+     * (belépéskor), nem minden tickben — így az „5 jármű után jégpáncél" szabály
+     * helyesen működik függetlenül a sebességtől.
+     * @param a A sávra lépő jármű
      */
-    public void letapos(Jarmu a){
-        letaposottDb++;
-        int kuszob = SzimulacioBeallitasok.finomitottSzimulacio ? SzimulacioBeallitasok.jegpancelLetaposasiKuszob : 5;
-        if(letaposottDb >= kuszob && savAllapot != SavAllapot.BLOKKOLT){
-            setSavAllapot(SavAllapot.JEGPANCEL);
+    public void letapos(Jarmu a) {
+        // Ha ugyanaz a jármű már bent van, nem csinálunk semmit újra
+        if (a == utolsoLetaposoJarmu) {
+            return;
+        }
+        utolsoLetaposoJarmu = a;
+
+        // Csak havas sávon tömörödik a hó jéggé (spec: „havas sávon 5 jármű")
+        if (savAllapot == SavAllapot.HAVAS) {
+            letaposottDb++;
+            int kuszob = SzimulacioBeallitasok.jegpancelLetaposasiKuszob;
+            if (letaposottDb >= kuszob) {
+                setSavAllapot(SavAllapot.JEGPANCEL);
+            }
         }
 
+        // Megcsúszás esélye egyszer vizsgálódik, belépéskor — nem 20x végig a sávon
         if (savAllapot == SavAllapot.JEGPANCEL && !isZuzalekos) {
             a.megcsuszik();
         }

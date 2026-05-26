@@ -8,8 +8,8 @@ import java.util.Random;
 public class SzimulacioBeallitasok {
     /** Jelzi, hogy a finomitott grafikus szabalyok aktivak-e. */
     public static boolean finomitottSzimulacio = false;
-    /** Ennyi letaposas utan alakul ki jegpancel finomitott modban. */
-    public static int jegpancelLetaposasiKuszob = 40;
+    /** Ennyi (egyedi) jarmu athaladas utan alakul ki jegpancel havas savon (spec: 5). */
+    public static int jegpancelLetaposasiKuszob = 5;
     /** Az auto megcsuszasainak valoszinusege jegpancelon. */
     public static double autoMegcsuszasEsely = 0.25;
     /** A busz megcsuszasainak valoszinusege jegpancelon. */

@@ -45,7 +45,7 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
         this.pozicioASavon = pozicioSavban;
         this.setStartSav(startSav);
         this.vegAllomas = celAllomas; 
-        this.sebesseg = SzimulacioBeallitasok.finomitottSzimulacio ? 5 : 15;
+        this.sebesseg = SzimulacioBeallitasok.finomitottSzimulacio ? 10 : 15;
         this.varakozasTick = 0;
     }
 
