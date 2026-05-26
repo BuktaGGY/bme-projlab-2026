@@ -9,7 +9,6 @@ public class Auto extends SerulekenyJarmu {
     private Csomopont aktualisCsomopont;
     private UtvonalTervezo utvonalTervezo;
     private int varakozasTick;
-    /** Kezdo pozicio eltolass, hogy a paros autok ne ugyanarrol a pontrol induljanak. */
     private int spawnOffset = 0;
 
     public Auto(String id,  int pozicioSavban, Sav startSav, PointOfInterest cel) {
@@ -67,7 +66,6 @@ public class Auto extends SerulekenyJarmu {
             return;
         }
         if (this.allapot == JarmuAllapot.ELAKADT) {
-            // Kiszabadulás logika
             Sav s = this.aktualisSav;
             if (szomszedosSavJarhato(s.getJobbSav())) {
                 savValtas(s.getJobbSav());
@@ -83,7 +81,6 @@ public class Auto extends SerulekenyJarmu {
         }
 
         if (allapot == JarmuAllapot.HALAD) {
-            // letapos() maga hivja meg megcsuszik()-ot, ha JEGPANCEL van — nem kell dupla ellenorzes
             aktualisSav.letapos(this);
             if (allapot != JarmuAllapot.HALAD) {
                 return;
@@ -95,7 +92,6 @@ public class Auto extends SerulekenyJarmu {
     @Override
     protected void celbaErt() {
         System.out.println("[ESEMENY] " + id + " | CELBA_ERT | " + cel.getId());
-        // Megőrizzük az utolsó pozíciót, hogy a View ne villogjon célba éréskor
         if (aktualisSav != null) {
             displaySav = aktualisSav;
             displayPozicio = aktualisSav.getHossz();
@@ -134,7 +130,6 @@ public class Auto extends SerulekenyJarmu {
         }
 
         this.Utvonal = ujUtvonal;
-        //aktualisSav = Utvonal.savok[0]; //TODO Savkezeles
     }
 
     /**
@@ -223,9 +218,7 @@ public class Auto extends SerulekenyJarmu {
             Utvonal = ujUtvonal;
             utvonalIndex = 0;
             aktualisSav = ujUtvonal[0].getSavok().get(0);
-            displaySav = null; // Töröljük a tartalék pozíciót, most már van valódi sávunk
-            // spawnOffset eltolással indulunk, hogy a párban induló autók ne legyenek
-            // ugyanazon a ponton, elkerülve a determinisztikus ütközést
+            displaySav = null;
             int maxOffset = Math.max(0, aktualisSav.getHossz() / 3);
             pozicioASavon = Math.min(spawnOffset, maxOffset);
             beallitKezdoIrany(startNode);

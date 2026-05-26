@@ -20,7 +20,6 @@ public abstract class JarmuView implements IRajzolhato {
     public void rajzol(Graphics g, GrafikusElrendezes elrendezes) {
         Sav sav = modell.getAktualisSav();
         int poz = modell.getPozicioASavon();
-        // Ha nincs aktuális sáv (pl. célba ért és vár), használjuk a tartalék displaySav-ot
         if (sav == null) {
             sav = modell.getDisplaySav();
             poz = modell.getDisplayPozicio();

@@ -147,10 +147,9 @@ public class GrafikusVezerlo {
         ingazoAutoBeallit(auto4, lakas2, munkahely1);
         ingazoAutoBeallit(auto5, lakas1, munkahely2);
         ingazoAutoBeallit(auto6, lakas3, munkahely3);
-        // Az azonos csomopontból induló autó-párok eltolása, hogy ne ütközzenek az első savon
-        auto4.setSpawnOffset(35);   // A2 és A4 mindkettő lakas2(I)-ből indul
-        auto5.setSpawnOffset(35);   // A1 és A5 mindkettő lakas1(A)-ból indul
-        auto6.setSpawnOffset(35);   // A3 és A6 mindkettő lakas3(H)-ból indul
+        auto4.setSpawnOffset(35);
+        auto5.setSpawnOffset(35);
+        auto6.setSpawnOffset(35);
         Busz busz = new Busz("B1", 30, s9, v2);
         busz.setAllomasok(v1, v2);
         busz.setJatekKezelo(jatekKezelo);
@@ -595,11 +594,6 @@ public class GrafikusVezerlo {
         if (aktualis == null) return utak;
 
         if (aktualis == utak[0]) {
-            // A jarmu mar ezen az uton van: az iranyt a klikk-sorrendbol allitjuk be.
-            // Ha az irany fordul, a poziciót is tükrozzük, hogy ne ugorjon vizualisan.
-            // FONTOS: setAktualisIranyForditott-ot hasznalunk, nem beallitKezdoIrany-t,
-            // mert az UtvonalatKijelol meg nem futott le, es beallitKezdoIrany meg a
-            // REGI Utvonal[0]-t hasznalja referenciakent.
             boolean ujIrany = (ujKezdoCsomopont == utak[0].getVege());
             if (ujIrany != jarmu.isAktualisIranyForditott()) {
                 jarmu.setPozicioASavon(sav.getHossz() - jarmu.getPozicioASavon());
@@ -617,8 +611,6 @@ public class GrafikusVezerlo {
             return teljes;
         }
 
-        // Nem csatlakozik kozvetlenul: utvonalat keresunk a kilepo csomoponttol
-        // az uj utvonal kezdopontjaig, hogy a jarmu odamenjen elobb.
         Utszakasz[] odaUt = jatekKezelo.getUtvonalTervezo().utvonalKeres(kilepes, ujKezdoCsomopont);
         if (odaUt != null && odaUt.length > 0) {
             // Teljes ut: [aktualis szakasz] + [oda vezeto ut] + [uj utvonal]

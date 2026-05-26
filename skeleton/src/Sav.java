@@ -175,13 +175,11 @@ public class Sav {
      * @param a A sávra lépő jármű
      */
     public void letapos(Jarmu a) {
-        // Ha ugyanaz a jármű már bent van, nem csinálunk semmit újra
         if (a == utolsoLetaposoJarmu) {
             return;
         }
         utolsoLetaposoJarmu = a;
 
-        // Csak havas sávon tömörödik a hó jéggé (spec: „havas sávon 5 jármű")
         if (savAllapot == SavAllapot.HAVAS) {
             letaposottDb++;
             int kuszob = SzimulacioBeallitasok.jegpancelLetaposasiKuszob;
@@ -190,7 +188,6 @@ public class Sav {
             }
         }
 
-        // Megcsúszás esélye egyszer vizsgálódik, belépéskor — nem 20x végig a sávon
         if (savAllapot == SavAllapot.JEGPANCEL && !isZuzalekos) {
             a.megcsuszik();
         }
@@ -284,7 +281,6 @@ public class Sav {
 
     /**
      * Sozott ido beallitasara szukseges segedfuggveny
-     * Teszteleshez kell
      */
     public void setSozottIdo(int mennyiseg){
         sozottIdo = mennyiseg;

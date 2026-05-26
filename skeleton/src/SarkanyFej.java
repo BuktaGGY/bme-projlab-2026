@@ -1,7 +1,7 @@
 public class SarkanyFej extends KotroFej {
 
     public SarkanyFej() {
-        super(150); // Ide a te beállított árad kerüljön!
+        super(1000);
     }
 
     @Override

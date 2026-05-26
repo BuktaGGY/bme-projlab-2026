@@ -1,7 +1,7 @@
 public class JegToro extends KotroFej {
 
     public JegToro() {
-        super(300);
+        super(700);
     }
 
 

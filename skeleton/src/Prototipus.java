@@ -26,14 +26,6 @@ public class Prototipus {
         this.jk = new JatekKezelo();
     }
 
-
-    /**
-     * Elindítja a beolvasási ciklust. A program addig olvas a standard bemenetről, 
-     * amíg a 'kilep' parancsot meg nem kapja, vagy el nem fogy a bemenet (EOF).
-     */
-	
-	
-	
 	/**
      * Egyetlen sornyi parancsot dolgoz fel és hajt végre.
      */
@@ -338,7 +330,6 @@ public class Prototipus {
                             tankol_kotro.setZuzalek(100);
                             System.out.println("[OK] " + tankol_jarmuId + " tankolt (uj zuzalek: 100)");
                         }
-                        //System.out.println("[ESEMENY] KOLTSEGVETES | VASARLAS | egyenleg: " + jk.gazdasagKezelo.getKozosKassza());
                     } else {
                         System.out.println("[HIBA] Sikertelen tankolas (nincs eleg penz vagy ismeretlen anyag)");
                     }

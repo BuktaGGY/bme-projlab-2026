@@ -1,7 +1,7 @@
 public class SoproFej extends KotroFej {
     
     public SoproFej() {
-        super(100); 
+        super(500); 
     }
 
 

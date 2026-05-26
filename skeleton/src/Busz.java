@@ -104,7 +104,6 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
      */
     @Override
     public void frissitAllapot() {
-        // A blokkolt számlálót mindig léptesse, a végállomási várakozástól függetlenül
         if (blokkoltSzamlalo > 0) {
             blokkoltSzamlalo--;
         }
@@ -178,14 +177,6 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
             super.mozog();
         }
     }
-
-    /* 
-	@Override
-    protected void mozgasLog() {}
-
-    @Override
-    protected void ujSzakaszLog(Sav regiSav) {}
-    */
 	
     @Override
     protected void celbaErt() {
@@ -205,7 +196,6 @@ public class Busz extends SerulekenyJarmu implements IranyitottJarmu {
         if (Utvonal != null && Utvonal.length > 0 && Utvonal[0] != null && !Utvonal[0].getSavok().isEmpty()) {
             aktualisSav = Utvonal[0].getSavok().get(0);
         }
-        // Az érkezési csomopont az oda-vissza út fordítójánál az új útvonal kezdőpontja
         if (erkezesiAllomas != null) {
             beallitKezdoIrany(erkezesiAllomas.getCsomopont());
         }

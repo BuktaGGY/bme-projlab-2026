@@ -1,7 +1,7 @@
 public class Soszoro extends KotroFej {
 
     public Soszoro() {
-        super(150);
+        super(800);
     }
 
     /**

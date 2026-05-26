@@ -48,7 +48,7 @@ public abstract class Jarmu {
     public Jarmu(String id) {
         this.id = id;
         Utvonal = new Utszakasz[1];
-        this.allapot = JarmuAllapot.HALAD; // JAVÍTÁS: Alapértelmezett állapot beállítása!
+        this.allapot = JarmuAllapot.HALAD;
     }
 
     /**
@@ -78,7 +78,6 @@ public abstract class Jarmu {
             int maradek = pozicioASavon - aktualisHossz;
 
             if (Utvonal != null && utvonalIndex + 1 < Utvonal.length && Utvonal[utvonalIndex + 1] != null) {
-                // Meghatarozza, melyik csomopontra ert a jarmu (az aktualis ut vegpontja)
                 Utszakasz regiUt = aktualisSav.getSzuloUtszakasz();
                 Csomopont erkezesiCsomopont = null;
                 if (regiUt != null) {
@@ -94,7 +93,6 @@ public abstract class Jarmu {
                 aktualisSav = kovetkezoUt.getSavok().get(0);
                 pozicioASavon = maradek;
 
-                // Az uj ut iranyt az erkezesi csomopont hatarozza meg
                 if (erkezesiCsomopont != null) {
                     aktualisIranyForditott = (erkezesiCsomopont == kovetkezoUt.getVege());
                 }
