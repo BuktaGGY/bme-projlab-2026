@@ -5,9 +5,19 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+/**
+ * Absztrakt ősosztály a járművek grafikus megjelenítéséhez.
+ * Kezeli a jármű pontos képernyő-koordinátájának kiszámítását a sávon elfoglalt
+ * pozíciója alapján, valamint egységesen rajzolja ki a jármű dobozát, betűjelét.
+ */
 public abstract class JarmuView implements IRajzolhato {
+    /** A kirajzolandó jármű modell objektuma. */
     protected Jarmu modell;
 
+    /**
+     * Létrehozza a jármű nézetét.
+     * @param modell A nézethez tartozó logikai Jarmu objektum.
+     */
     public JarmuView(Jarmu modell) {
         this.modell = modell;
     }
@@ -16,6 +26,13 @@ public abstract class JarmuView implements IRajzolhato {
 
     public abstract String getJarmuJel();
 
+    /**
+     * Kirajzolja a járművet a térképre. Kiszámítja a pozícióját a sávon, megrajzolja
+     * a dobozt és a betűt, valamint kezeli a megcsúszott állapot vizuális jelzését.
+     *
+     * @param g A rajzoláshoz használt grafikus kontextus.
+     * @param elrendezes A logikai csomópontokat képernyő-koordinátákra fordító objektum.
+     */
     @Override
     public void rajzol(Graphics g, GrafikusElrendezes elrendezes) {
         Sav sav = modell.getAktualisSav();
@@ -59,6 +76,17 @@ public abstract class JarmuView implements IRajzolhato {
         }
     }
 
+    /**
+     * Kiszámítja a jármű pontos pixelkoordinátáját a sáv és az arány alapján.
+     * Geometriai eltolást alkalmaz a sáv indexe alapján.
+     *
+     * @param p1 A sávhoz tartozó kezdő csomópont pozíciója.
+     * @param p2 A sávhoz tartozó vég csomópont pozíciója.
+     * @param savIndex A sáv sorszáma az útszakaszon belül.
+     * @param savDb Az útszakaszon lévő sávok összes száma.
+     * @param arany A jármű elhelyezkedése a sáv hosszához viszonyítva
+     * @return A jármű középpontjának képernyő-koordinátája.
+     */
     private Point savPont(CsomopontPozicio p1, CsomopontPozicio p2, int savIndex, int savDb, double arany) {
         double x1 = p1.getX(), y1 = p1.getY();
         double x2 = p2.getX(), y2 = p2.getY();
