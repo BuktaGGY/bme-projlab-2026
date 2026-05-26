@@ -4,8 +4,8 @@
 Fordítás és futtatás automatikusan:
 1. Lépjen be a skeleton nevű mappába.
 2. Windows rendszeren kattintson duplán run_gui nevű bat fájlra.
-Mac OS / Linux rendszeren nyisson egy terminált a mappában, és futtassa a ./run_gui.sh paranccsal
-3. Ezt követően a program fordítása és futtatása megtörténik, a kívánt teszt sorszámának megadásával a teszt lefutása megtörténik.
+   Mac OS / Linux rendszeren nyisson egy terminált a mappában, és futtassa a ./run_gui.sh paranccsal
+3. Ezt követően a program fordítása és futtatása megtörténik.
 
 Fordítás manuálisan:
 1. Lépjen be a skeleton nevű mappába.
@@ -15,5 +15,5 @@ Fordítás manuálisan:
 
 Futtatás manuálisan:
 1. Ha a fordítást követően nem zárta be a parancssort, akkor az használható a futtatáshoz is. Amennyiben bezárta a fordításban leírt módon nyisson egy újat a skeleton nevű mappában.
-2. A parancssorba írja be, hogy java -cp bin Main
-3. Ezt követően a program elindul, a kívánt teszt sorszámának megadásával a teszt lefutása megtörténik.
+2. A parancssorba írja be, hogy java -cp bin GrafikusMain
+3. Ezt követően a program elindul.
