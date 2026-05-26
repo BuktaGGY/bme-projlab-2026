@@ -3,8 +3,8 @@
 
 Fordítás és futtatás automatikusan:
 1. Lépjen be a skeleton nevű mappába.
-2. Windows rendszeren kattintson duplán run nevű bat fájlra.
-Mac OS / Linux rendszeren nyisson egy terminált a mappában, és futtassa a ./run.sh paranccsal
+2. Windows rendszeren kattintson duplán run_gui nevű bat fájlra.
+Mac OS / Linux rendszeren nyisson egy terminált a mappában, és futtassa a ./run_gui.sh paranccsal
 3. Ezt követően a program fordítása és futtatása megtörténik, a kívánt teszt sorszámának megadásával a teszt lefutása megtörténik.
 
 Fordítás manuálisan:
